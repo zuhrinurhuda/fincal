@@ -1,121 +1,121 @@
-import type { CalculatorConfig } from "@/types/calculator";
-import { formatIDR } from "@/utils/formatCurrency";
-import { loanAmortization } from "@/utils/financialFormulas";
+import type { CalculatorConfig } from '@/types/calculator';
+import { formatIDR } from '@/utils/formatCurrency';
+import { loanAmortization } from '@/utils/financialFormulas';
 
 export const kpr: CalculatorConfig = {
-  slug: "kpr",
-  title: "Kalkulator KPR",
+  slug: 'kpr',
+  title: 'Kalkulator KPR',
   description:
-    "Hitung simulasi cicilan KPR dengan suku bunga fixed dan floating, biaya provisi, dan estimasi biaya akad.",
+    'Hitung simulasi cicilan KPR dengan suku bunga fixed dan floating, biaya provisi, dan estimasi biaya akad.',
   metaDescription:
-    "Kalkulator KPR online — simulasi cicilan rumah dengan bunga fixed & floating, biaya provisi, estimasi biaya akad. Gratis & akurat.",
+    'Kalkulator KPR online — simulasi cicilan rumah dengan bunga fixed & floating, biaya provisi, estimasi biaya akad. Gratis & akurat.',
   keywords: [
-    "kalkulator kpr",
-    "simulasi kpr",
-    "cicilan rumah",
-    "kredit rumah",
-    "kpr bank",
-    "simulasi kredit rumah",
+    'kalkulator kpr',
+    'simulasi kpr',
+    'cicilan rumah',
+    'kredit rumah',
+    'kpr bank',
+    'simulasi kredit rumah',
   ],
 
   inputs: [
     {
-      name: "hargaProperti",
-      label: "Harga Properti",
-      type: "amount",
-      prefix: "Rp",
+      name: 'hargaProperti',
+      label: 'Harga Properti',
+      type: 'amount',
+      prefix: 'Rp',
       defaultValue: 500_000_000,
       min: 50_000_000,
       max: 50_000_000_000,
-      helpText: "Harga jual properti yang ingin dibeli",
+      helpText: 'Harga jual properti yang ingin dibeli',
     },
     {
-      name: "dpPersen",
-      label: "Uang Muka (DP)",
-      type: "percentage",
-      suffix: "%",
-      inputMode: "decimal",
+      name: 'dpPersen',
+      label: 'Uang Muka (DP)',
+      type: 'percentage',
+      suffix: '%',
+      inputMode: 'decimal',
       defaultValue: 20,
       min: 0,
       max: 100,
-      helpText: "Minimal 10–20% dari harga properti",
+      helpText: 'Minimal 10–20% dari harga properti',
     },
     {
-      name: "tenor",
-      label: "Tenor",
-      type: "select",
-      suffix: "tahun",
+      name: 'tenor',
+      label: 'Tenor',
+      type: 'select',
+      suffix: 'tahun',
       defaultValue: 20,
       options: [
-        { label: "5 tahun", value: 5 },
-        { label: "10 tahun", value: 10 },
-        { label: "15 tahun", value: 15 },
-        { label: "20 tahun", value: 20 },
-        { label: "25 tahun", value: 25 },
-        { label: "30 tahun", value: 30 },
+        { label: '5 tahun', value: 5 },
+        { label: '10 tahun', value: 10 },
+        { label: '15 tahun', value: 15 },
+        { label: '20 tahun', value: 20 },
+        { label: '25 tahun', value: 25 },
+        { label: '30 tahun', value: 30 },
       ],
     },
     {
-      name: "bungaFixed",
-      label: "Suku Bunga Fixed",
-      type: "percentage",
-      suffix: "%",
-      inputMode: "decimal",
+      name: 'bungaFixed',
+      label: 'Suku Bunga Fixed',
+      type: 'percentage',
+      suffix: '%',
+      inputMode: 'decimal',
       defaultValue: 7,
       min: 0,
       max: 30,
     },
     {
-      name: "masaBungaFixed",
-      label: "Masa Bunga Fixed",
-      type: "select",
-      suffix: "tahun",
+      name: 'masaBungaFixed',
+      label: 'Masa Bunga Fixed',
+      type: 'select',
+      suffix: 'tahun',
       defaultValue: 3,
       options: [
-        { label: "1 tahun", value: 1 },
-        { label: "2 tahun", value: 2 },
-        { label: "3 tahun", value: 3 },
-        { label: "5 tahun", value: 5 },
+        { label: '1 tahun', value: 1 },
+        { label: '2 tahun', value: 2 },
+        { label: '3 tahun', value: 3 },
+        { label: '5 tahun', value: 5 },
       ],
     },
     {
-      name: "bungaFloating",
-      label: "Suku Bunga Floating",
-      type: "percentage",
-      suffix: "%",
-      inputMode: "decimal",
+      name: 'bungaFloating',
+      label: 'Suku Bunga Floating',
+      type: 'percentage',
+      suffix: '%',
+      inputMode: 'decimal',
       defaultValue: 10,
       min: 0,
       max: 30,
-      helpText: "Bunga setelah masa fixed berakhir",
+      helpText: 'Bunga setelah masa fixed berakhir',
     },
     {
-      name: "biayaProvisi",
-      label: "Biaya Provisi",
-      type: "percentage",
-      suffix: "%",
-      inputMode: "decimal",
+      name: 'biayaProvisi',
+      label: 'Biaya Provisi',
+      type: 'percentage',
+      suffix: '%',
+      inputMode: 'decimal',
       defaultValue: 1,
       min: 0,
       max: 5,
     },
     {
-      name: "biayaAdmin",
-      label: "Biaya Admin",
-      type: "amount",
-      prefix: "Rp",
+      name: 'biayaAdmin',
+      label: 'Biaya Admin',
+      type: 'amount',
+      prefix: 'Rp',
       defaultValue: 0,
       min: 0,
-      helpText: "Biaya administrasi bank (opsional)",
+      helpText: 'Biaya administrasi bank (opsional)',
     },
     {
-      name: "asuransi",
-      label: "Termasuk Asuransi?",
-      type: "select",
+      name: 'asuransi',
+      label: 'Termasuk Asuransi?',
+      type: 'select',
       defaultValue: 1,
       options: [
-        { label: "Ya", value: 1 },
-        { label: "Tidak", value: 0 },
+        { label: 'Ya', value: 1 },
+        { label: 'Tidak', value: 0 },
       ],
     },
   ],
@@ -131,7 +131,7 @@ export const kpr: CalculatorConfig = {
     const adminFee = Number(values.biayaAdmin) || 0;
     const withInsurance = Number(values.asuransi) === 1;
 
-    const dp = Math.round(harga * dpPersen / 100);
+    const dp = Math.round((harga * dpPersen) / 100);
     const pokokKredit = harga - dp;
     const tenorBulan = tenor * 12;
     const masaFixedBulan = Math.min(masaFixed * 12, tenorBulan);
@@ -157,7 +157,7 @@ export const kpr: CalculatorConfig = {
     const totalBungaFloating = floatingSchedule.reduce((s, r) => s + r.interest, 0);
     const totalBunga = totalBungaFixed + totalBungaFloating;
 
-    const biayaProvisi = Math.round(pokokKredit * provisiPersen / 100);
+    const biayaProvisi = Math.round((pokokKredit * provisiPersen) / 100);
     const biayaAsuransi = withInsurance ? Math.round(pokokKredit * 0.005 * tenor) : 0;
     const biayaAkad = Math.round(pokokKredit * 0.05);
     const totalBiaya = Math.round(totalBunga + biayaProvisi + adminFee + biayaAsuransi);
@@ -181,47 +181,47 @@ export const kpr: CalculatorConfig = {
 
   formatResult: (r) => ({
     primary: {
-      label: "Cicilan Masa Fixed",
+      label: 'Cicilan Masa Fixed',
       value: `${formatIDR(Number(r.cicilanFixed))}/bulan`,
     },
     breakdown: [
-      { label: "Pokok Kredit", value: formatIDR(Number(r.pokokKredit)) },
-      { label: "Uang Muka (DP)", value: formatIDR(Number(r.dp)) },
-      { label: "Cicilan Masa Fixed", value: `${formatIDR(Number(r.cicilanFixed))}/bulan` },
-      { label: "Cicilan Masa Floating", value: `${formatIDR(Number(r.cicilanFloating))}/bulan` },
-      { label: "Total Bunga", value: formatIDR(Number(r.totalBunga)) },
-      { label: "Biaya Provisi", value: formatIDR(Number(r.biayaProvisi)) },
-      { label: "Biaya Asuransi", value: formatIDR(Number(r.biayaAsuransi)) },
-      { label: "Estimasi Biaya Akad", value: formatIDR(Number(r.biayaAkad)) },
-      { label: "Total Biaya Kredit", value: formatIDR(Number(r.totalBiaya)) },
+      { label: 'Pokok Kredit', value: formatIDR(Number(r.pokokKredit)) },
+      { label: 'Uang Muka (DP)', value: formatIDR(Number(r.dp)) },
+      { label: 'Cicilan Masa Fixed', value: `${formatIDR(Number(r.cicilanFixed))}/bulan` },
+      { label: 'Cicilan Masa Floating', value: `${formatIDR(Number(r.cicilanFloating))}/bulan` },
+      { label: 'Total Bunga', value: formatIDR(Number(r.totalBunga)) },
+      { label: 'Biaya Provisi', value: formatIDR(Number(r.biayaProvisi)) },
+      { label: 'Biaya Asuransi', value: formatIDR(Number(r.biayaAsuransi)) },
+      { label: 'Estimasi Biaya Akad', value: formatIDR(Number(r.biayaAkad)) },
+      { label: 'Total Biaya Kredit', value: formatIDR(Number(r.totalBiaya)) },
     ],
   }),
 
   faqs: [
     {
-      question: "Berapa minimal DP untuk KPR?",
+      question: 'Berapa minimal DP untuk KPR?',
       answer:
-        "Berdasarkan aturan Bank Indonesia, minimal DP untuk KPR rumah pertama berkisar 0–10% tergantung tipe properti dan program bank. Untuk rumah tapak di atas Rp 500 juta, DP minimal biasanya 10–20%. Beberapa program subsidi pemerintah seperti FLPP memungkinkan DP mulai 1%.",
+        'Berdasarkan aturan Bank Indonesia, minimal DP untuk KPR rumah pertama berkisar 0–10% tergantung tipe properti dan program bank. Untuk rumah tapak di atas Rp 500 juta, DP minimal biasanya 10–20%. Beberapa program subsidi pemerintah seperti FLPP memungkinkan DP mulai 1%.',
     },
     {
-      question: "Apa bedanya bunga fixed dan floating pada KPR?",
+      question: 'Apa bedanya bunga fixed dan floating pada KPR?',
       answer:
-        "Bunga fixed adalah suku bunga tetap selama periode tertentu (biasanya 1–5 tahun pertama). Setelah masa fixed berakhir, bunga berubah menjadi floating (mengambang) yang mengikuti suku bunga pasar. Bunga floating umumnya lebih tinggi daripada fixed.",
+        'Bunga fixed adalah suku bunga tetap selama periode tertentu (biasanya 1–5 tahun pertama). Setelah masa fixed berakhir, bunga berubah menjadi floating (mengambang) yang mengikuti suku bunga pasar. Bunga floating umumnya lebih tinggi daripada fixed.',
     },
     {
-      question: "Apa saja biaya yang harus disiapkan saat mengambil KPR?",
+      question: 'Apa saja biaya yang harus disiapkan saat mengambil KPR?',
       answer:
-        "Selain DP, Anda perlu menyiapkan: biaya provisi (0,5–1% dari plafon), biaya administrasi, biaya appraisal, biaya notaris/PPAT, asuransi jiwa dan kebakaran, serta pajak (BPHTB). Total biaya akad bisa mencapai 5–10% dari nilai pinjaman.",
+        'Selain DP, Anda perlu menyiapkan: biaya provisi (0,5–1% dari plafon), biaya administrasi, biaya appraisal, biaya notaris/PPAT, asuransi jiwa dan kebakaran, serta pajak (BPHTB). Total biaya akad bisa mencapai 5–10% dari nilai pinjaman.',
     },
     {
-      question: "Bagaimana cara menghitung cicilan KPR per bulan?",
+      question: 'Bagaimana cara menghitung cicilan KPR per bulan?',
       answer:
-        "Cicilan KPR dihitung dengan metode anuitas, di mana cicilan per bulan tetap selama masa bunga fixed. Rumusnya: Cicilan = P × r × (1+r)^n / ((1+r)^n − 1), di mana P = pokok pinjaman, r = suku bunga per bulan, n = jumlah bulan tenor.",
+        'Cicilan KPR dihitung dengan metode anuitas, di mana cicilan per bulan tetap selama masa bunga fixed. Rumusnya: Cicilan = P × r × (1+r)^n / ((1+r)^n − 1), di mana P = pokok pinjaman, r = suku bunga per bulan, n = jumlah bulan tenor.',
     },
     {
-      question: "Apakah saya bisa melunasi KPR lebih awal?",
+      question: 'Apakah saya bisa melunasi KPR lebih awal?',
       answer:
-        "Ya, Anda bisa melunasi KPR lebih awal (prepayment). Sebagian bank mengenakan penalti pelunasan dini 1–3% dari sisa pokok. Pelunasan dini bisa menghemat biaya bunga secara signifikan, terutama jika dilakukan di tahun-tahun awal masa kredit.",
+        'Ya, Anda bisa melunasi KPR lebih awal (prepayment). Sebagian bank mengenakan penalti pelunasan dini 1–3% dari sisa pokok. Pelunasan dini bisa menghemat biaya bunga secara signifikan, terutama jika dilakukan di tahun-tahun awal masa kredit.',
     },
   ],
 
@@ -296,22 +296,21 @@ export const kpr: CalculatorConfig = {
 
   methodSection: [
     {
-      label: "Dasar Regulasi KPR",
+      label: 'Dasar Regulasi KPR',
       source:
-        "POJK No. 42/POJK.03/2017 tentang Kewajiban Penyusunan dan Pelaksanaan Kebijakan Perkreditan Bank",
-      url: "https://www.ojk.go.id/id/regulasi/otoritas-jasa-keuangan/peraturan-ojk/Pages/POJK-Nomor-42-POJK.03-2017.aspx",
+        'POJK No. 42/POJK.03/2017 tentang Kewajiban Penyusunan dan Pelaksanaan Kebijakan Perkreditan Bank',
+      url: 'https://www.ojk.go.id/id/regulasi/otoritas-jasa-keuangan/peraturan-ojk/Pages/POJK-Nomor-42-POJK.03-2017.aspx',
     },
     {
-      label: "Ketentuan LTV KPR",
-      source:
-        "PBI No. 21/13/PBI/2019 tentang Rasio Loan to Value untuk Kredit Properti",
-      url: "https://www.bi.go.id/id/publikasi/peraturan/Pages/PBI-211319.aspx",
+      label: 'Ketentuan LTV KPR',
+      source: 'PBI No. 21/13/PBI/2019 tentang Rasio Loan to Value untuk Kredit Properti',
+      url: 'https://www.bi.go.id/id/publikasi/peraturan/Pages/PBI-211319.aspx',
     },
   ],
 
-  relatedCalculators: ["pelunasan-kpr", "kredit-mobil"],
+  relatedCalculators: ['pelunasan-kpr', 'kredit-mobil'],
 
-  partnerLink: "#",
-  ctaLabel: "Ajukan KPR Sekarang",
-  ctaDisclaimer: "* Produk dari mitra terpilih",
+  partnerLink: '#',
+  ctaLabel: 'Ajukan KPR Sekarang',
+  ctaDisclaimer: '* Produk dari mitra terpilih',
 };

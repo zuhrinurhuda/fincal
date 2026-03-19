@@ -1,67 +1,67 @@
-import type { CalculatorConfig } from "@/types/calculator";
-import { formatIDR } from "@/utils/formatCurrency";
-import { loanAmortization } from "@/utils/financialFormulas";
+import type { CalculatorConfig } from '@/types/calculator';
+import { formatIDR } from '@/utils/formatCurrency';
+import { loanAmortization } from '@/utils/financialFormulas';
 
 const KUR_RATE = 6; // subsidized annual effective rate
 
 const KUR_TYPES: Record<number, { label: string; maxAmount: number }> = {
-  1: { label: "KUR Mikro", maxAmount: 50_000_000 },
-  2: { label: "KUR Kecil", maxAmount: 500_000_000 },
-  3: { label: "KUR TKI", maxAmount: 25_000_000 },
+  1: { label: 'KUR Mikro', maxAmount: 50_000_000 },
+  2: { label: 'KUR Kecil', maxAmount: 500_000_000 },
+  3: { label: 'KUR TKI', maxAmount: 25_000_000 },
 };
 
 export const kur: CalculatorConfig = {
-  slug: "kur",
-  title: "Kalkulator KUR (Kredit Usaha Rakyat)",
+  slug: 'kur',
+  title: 'Kalkulator KUR (Kredit Usaha Rakyat)',
   description:
-    "Simulasi cicilan KUR Mikro, Kecil, dan TKI dengan suku bunga subsidi pemerintah 6% per tahun.",
+    'Simulasi cicilan KUR Mikro, Kecil, dan TKI dengan suku bunga subsidi pemerintah 6% per tahun.',
   metaDescription:
-    "Kalkulator KUR online — simulasi cicilan Kredit Usaha Rakyat dengan bunga subsidi 6%. Hitung cicilan KUR Mikro, Kecil & TKI. Gratis.",
+    'Kalkulator KUR online — simulasi cicilan Kredit Usaha Rakyat dengan bunga subsidi 6%. Hitung cicilan KUR Mikro, Kecil & TKI. Gratis.',
   keywords: [
-    "kalkulator kur",
-    "kredit usaha rakyat",
-    "simulasi kur",
-    "kur mikro",
-    "kur kecil",
-    "bunga kur",
-    "pinjaman kur",
+    'kalkulator kur',
+    'kredit usaha rakyat',
+    'simulasi kur',
+    'kur mikro',
+    'kur kecil',
+    'bunga kur',
+    'pinjaman kur',
   ],
 
   inputs: [
     {
-      name: "jenisKur",
-      label: "Jenis KUR",
-      type: "select",
+      name: 'jenisKur',
+      label: 'Jenis KUR',
+      type: 'select',
       defaultValue: 1,
       options: [
-        { label: "KUR Mikro (maks Rp 50 juta)", value: 1 },
-        { label: "KUR Kecil (maks Rp 500 juta)", value: 2 },
-        { label: "KUR TKI (maks Rp 25 juta)", value: 3 },
+        { label: 'KUR Mikro (maks Rp 50 juta)', value: 1 },
+        { label: 'KUR Kecil (maks Rp 500 juta)', value: 2 },
+        { label: 'KUR TKI (maks Rp 25 juta)', value: 3 },
       ],
-      helpText: "Pilih jenis KUR sesuai kebutuhan usaha",
+      helpText: 'Pilih jenis KUR sesuai kebutuhan usaha',
     },
     {
-      name: "jumlahPinjaman",
-      label: "Jumlah Pinjaman",
-      type: "amount",
-      prefix: "Rp",
+      name: 'jumlahPinjaman',
+      label: 'Jumlah Pinjaman',
+      type: 'amount',
+      prefix: 'Rp',
       defaultValue: 25_000_000,
       min: 1_000_000,
       max: 500_000_000,
-      helpText: "Jumlah pokok pinjaman yang diajukan",
+      helpText: 'Jumlah pokok pinjaman yang diajukan',
     },
     {
-      name: "tenor",
-      label: "Tenor",
-      type: "select",
-      suffix: "bulan",
+      name: 'tenor',
+      label: 'Tenor',
+      type: 'select',
+      suffix: 'bulan',
       defaultValue: 36,
       options: [
-        { label: "12 bulan (1 tahun)", value: 12 },
-        { label: "24 bulan (2 tahun)", value: 24 },
-        { label: "36 bulan (3 tahun)", value: 36 },
-        { label: "48 bulan (4 tahun)", value: 48 },
-        { label: "60 bulan (5 tahun)", value: 60 },
+        { label: '12 bulan (1 tahun)', value: 12 },
+        { label: '24 bulan (2 tahun)', value: 24 },
+        { label: '36 bulan (3 tahun)', value: 36 },
+        { label: '48 bulan (4 tahun)', value: 48 },
+        { label: '60 bulan (5 tahun)', value: 60 },
       ],
     },
   ],
@@ -88,50 +88,50 @@ export const kur: CalculatorConfig = {
       tenor,
       jenisKur: kurType.label,
       maxAmount: kurType.maxAmount,
-      melebihiBatas: melebihiBatas ? "Ya" : "Tidak",
+      melebihiBatas: melebihiBatas ? 'Ya' : 'Tidak',
     };
   },
 
   formatResult: (r) => ({
     primary: {
-      label: "Cicilan per Bulan",
+      label: 'Cicilan per Bulan',
       value: `${formatIDR(Number(r.cicilanPerBulan))}/bulan`,
     },
     breakdown: [
-      { label: "Jenis KUR", value: String(r.jenisKur) },
-      { label: "Jumlah Pinjaman", value: formatIDR(Number(r.jumlahPinjaman)) },
-      { label: "Plafon Maksimum", value: formatIDR(Number(r.maxAmount)) },
-      { label: "Suku Bunga", value: `${r.bungaTahunan}% / tahun (subsidi)` },
-      { label: "Tenor", value: `${r.tenor} bulan` },
-      { label: "Cicilan per Bulan", value: formatIDR(Number(r.cicilanPerBulan)) },
-      { label: "Total Bunga", value: formatIDR(Number(r.totalBunga)) },
-      { label: "Total Pembayaran", value: formatIDR(Number(r.totalBayar)) },
-      ...(r.melebihiBatas === "Ya"
-        ? [{ label: "⚠️ Peringatan", value: "Jumlah pinjaman melebihi plafon maksimum" }]
+      { label: 'Jenis KUR', value: String(r.jenisKur) },
+      { label: 'Jumlah Pinjaman', value: formatIDR(Number(r.jumlahPinjaman)) },
+      { label: 'Plafon Maksimum', value: formatIDR(Number(r.maxAmount)) },
+      { label: 'Suku Bunga', value: `${r.bungaTahunan}% / tahun (subsidi)` },
+      { label: 'Tenor', value: `${r.tenor} bulan` },
+      { label: 'Cicilan per Bulan', value: formatIDR(Number(r.cicilanPerBulan)) },
+      { label: 'Total Bunga', value: formatIDR(Number(r.totalBunga)) },
+      { label: 'Total Pembayaran', value: formatIDR(Number(r.totalBayar)) },
+      ...(r.melebihiBatas === 'Ya'
+        ? [{ label: '⚠️ Peringatan', value: 'Jumlah pinjaman melebihi plafon maksimum' }]
         : []),
     ],
   }),
 
   faqs: [
     {
-      question: "Apa itu KUR dan siapa yang bisa mengajukan?",
+      question: 'Apa itu KUR dan siapa yang bisa mengajukan?',
       answer:
-        "KUR (Kredit Usaha Rakyat) adalah program pinjaman bersubsidi dari pemerintah untuk UMKM. Syarat utama: usaha sudah berjalan minimal 6 bulan, belum pernah dapat kredit perbankan (kecuali KUR), dan memiliki usaha produktif. KUR bisa diajukan oleh individu atau kelompok usaha.",
+        'KUR (Kredit Usaha Rakyat) adalah program pinjaman bersubsidi dari pemerintah untuk UMKM. Syarat utama: usaha sudah berjalan minimal 6 bulan, belum pernah dapat kredit perbankan (kecuali KUR), dan memiliki usaha produktif. KUR bisa diajukan oleh individu atau kelompok usaha.',
     },
     {
-      question: "Berapa bunga KUR saat ini?",
+      question: 'Berapa bunga KUR saat ini?',
       answer:
-        "Bunga KUR tahun 2024 adalah 6% per tahun efektif, disubsidi oleh pemerintah. Ini jauh lebih rendah dibanding pinjaman komersial yang bisa mencapai 12–24% per tahun. Subsidi bunga ditanggung oleh anggaran pemerintah.",
+        'Bunga KUR tahun 2024 adalah 6% per tahun efektif, disubsidi oleh pemerintah. Ini jauh lebih rendah dibanding pinjaman komersial yang bisa mencapai 12–24% per tahun. Subsidi bunga ditanggung oleh anggaran pemerintah.',
     },
     {
-      question: "Apa bedanya KUR Mikro, KUR Kecil, dan KUR TKI?",
+      question: 'Apa bedanya KUR Mikro, KUR Kecil, dan KUR TKI?',
       answer:
-        "KUR Mikro untuk pinjaman hingga Rp 50 juta tanpa agunan tambahan, cocok untuk UMKM kecil. KUR Kecil untuk pinjaman Rp 50–500 juta, biasanya memerlukan agunan. KUR TKI untuk pembiayaan penempatan Tenaga Kerja Indonesia, maksimal Rp 25 juta.",
+        'KUR Mikro untuk pinjaman hingga Rp 50 juta tanpa agunan tambahan, cocok untuk UMKM kecil. KUR Kecil untuk pinjaman Rp 50–500 juta, biasanya memerlukan agunan. KUR TKI untuk pembiayaan penempatan Tenaga Kerja Indonesia, maksimal Rp 25 juta.',
     },
     {
-      question: "Bank apa saja yang menyalurkan KUR?",
+      question: 'Bank apa saja yang menyalurkan KUR?',
       answer:
-        "KUR disalurkan oleh bank BUMN (BRI, BNI, Mandiri, BTN), bank swasta nasional, bank daerah (BPD), dan beberapa lembaga keuangan non-bank. BRI merupakan penyalur KUR terbesar di Indonesia.",
+        'KUR disalurkan oleh bank BUMN (BRI, BNI, Mandiri, BTN), bank swasta nasional, bank daerah (BPD), dan beberapa lembaga keuangan non-bank. BRI merupakan penyalur KUR terbesar di Indonesia.',
     },
   ],
 
@@ -188,16 +188,14 @@ export const kur: CalculatorConfig = {
 
   methodSection: [
     {
-      label: "Dasar Kebijakan KUR",
-      source:
-        "Permenko No. 1 Tahun 2023 tentang Kebijakan Pembiayaan Kredit Usaha Rakyat",
+      label: 'Dasar Kebijakan KUR',
+      source: 'Permenko No. 1 Tahun 2023 tentang Kebijakan Pembiayaan Kredit Usaha Rakyat',
     },
     {
-      label: "Pedoman Pelaksanaan KUR",
-      source:
-        "Kepmenko No. 12 Tahun 2023 tentang Pedoman Pelaksanaan KUR",
+      label: 'Pedoman Pelaksanaan KUR',
+      source: 'Kepmenko No. 12 Tahun 2023 tentang Pedoman Pelaksanaan KUR',
     },
   ],
 
-  relatedCalculators: ["pinjol", "investasi"],
+  relatedCalculators: ['pinjol', 'investasi'],
 };

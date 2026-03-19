@@ -4,14 +4,14 @@ interface Props {
   disclaimer?: string;
 }
 
-export default function CTAButton({ href, label, disclaimer }: Props) {
+export default function CTAButton({ href, label, disclaimer }: Readonly<Props>) {
   return (
     <div className="mt-6">
       <a
         href={href}
         target="_blank"
         rel="noopener noreferrer nofollow"
-        className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 rounded-xl bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold text-sm transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-green-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none active:bg-green-800 sm:w-auto dark:focus:ring-offset-gray-900"
       >
         {label}
         <svg
@@ -29,11 +29,7 @@ export default function CTAButton({ href, label, disclaimer }: Props) {
           <path d="M7 17L17 7M7 7h10v10" />
         </svg>
       </a>
-      {disclaimer && (
-        <p className="mt-2 text-xs text-gray-400 dark:text-gray-500">
-          {disclaimer}
-        </p>
-      )}
+      {disclaimer && <p className="mt-2 text-xs text-gray-400 dark:text-gray-500">{disclaimer}</p>}
     </div>
   );
 }

@@ -5,7 +5,7 @@
  */
 export function debounce<T extends (...args: Parameters<T>) => void>(
   fn: T,
-  delay = 300,
+  delay = 300
 ): ((...args: Parameters<T>) => void) & { cancel: () => void } {
   let timer: ReturnType<typeof setTimeout> | undefined;
 

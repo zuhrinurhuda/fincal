@@ -1,80 +1,80 @@
-import type { CalculatorConfig } from "@/types/calculator";
-import { formatIDR } from "@/utils/formatCurrency";
-import { flatToEffectiveRate } from "@/utils/financialFormulas";
+import type { CalculatorConfig } from '@/types/calculator';
+import { formatIDR } from '@/utils/formatCurrency';
+import { flatToEffectiveRate } from '@/utils/financialFormulas';
 
 export const kreditMotor: CalculatorConfig = {
-  slug: "kredit-motor",
-  title: "Kalkulator Kredit Motor",
+  slug: 'kredit-motor',
+  title: 'Kalkulator Kredit Motor',
   description:
-    "Simulasi cicilan kredit motor dengan perhitungan bunga flat, total pembayaran, dan konversi ke suku bunga efektif.",
+    'Simulasi cicilan kredit motor dengan perhitungan bunga flat, total pembayaran, dan konversi ke suku bunga efektif.',
   metaDescription:
-    "Kalkulator kredit motor online — hitung cicilan bulanan, total bunga, dan bunga efektif. Simulasi dari berbagai tenor dan DP. Gratis.",
+    'Kalkulator kredit motor online — hitung cicilan bulanan, total bunga, dan bunga efektif. Simulasi dari berbagai tenor dan DP. Gratis.',
   keywords: [
-    "kalkulator kredit motor",
-    "simulasi cicilan motor",
-    "kredit motor murah",
-    "cicilan motor",
-    "bunga flat motor",
-    "leasing motor",
+    'kalkulator kredit motor',
+    'simulasi cicilan motor',
+    'kredit motor murah',
+    'cicilan motor',
+    'bunga flat motor',
+    'leasing motor',
   ],
 
   inputs: [
     {
-      name: "hargaOtr",
-      label: "Harga OTR Motor",
-      type: "amount",
-      prefix: "Rp",
+      name: 'hargaOtr',
+      label: 'Harga OTR Motor',
+      type: 'amount',
+      prefix: 'Rp',
       defaultValue: 25_000_000,
       min: 5_000_000,
       max: 500_000_000,
-      helpText: "Harga On The Road kendaraan",
+      helpText: 'Harga On The Road kendaraan',
     },
     {
-      name: "dpPersen",
-      label: "Uang Muka (DP)",
-      type: "percentage",
-      suffix: "%",
-      inputMode: "decimal",
+      name: 'dpPersen',
+      label: 'Uang Muka (DP)',
+      type: 'percentage',
+      suffix: '%',
+      inputMode: 'decimal',
       defaultValue: 20,
       min: 0,
       max: 100,
-      helpText: "Minimal 15–20% dari harga OTR",
+      helpText: 'Minimal 15–20% dari harga OTR',
     },
     {
-      name: "tenor",
-      label: "Tenor",
-      type: "select",
-      suffix: "bulan",
+      name: 'tenor',
+      label: 'Tenor',
+      type: 'select',
+      suffix: 'bulan',
       defaultValue: 36,
       options: [
-        { label: "12 bulan (1 tahun)", value: 12 },
-        { label: "18 bulan (1,5 tahun)", value: 18 },
-        { label: "24 bulan (2 tahun)", value: 24 },
-        { label: "30 bulan (2,5 tahun)", value: 30 },
-        { label: "36 bulan (3 tahun)", value: 36 },
-        { label: "48 bulan (4 tahun)", value: 48 },
+        { label: '12 bulan (1 tahun)', value: 12 },
+        { label: '18 bulan (1,5 tahun)', value: 18 },
+        { label: '24 bulan (2 tahun)', value: 24 },
+        { label: '30 bulan (2,5 tahun)', value: 30 },
+        { label: '36 bulan (3 tahun)', value: 36 },
+        { label: '48 bulan (4 tahun)', value: 48 },
       ],
     },
     {
-      name: "bungaFlat",
-      label: "Suku Bunga Flat",
-      type: "percentage",
-      suffix: "% / tahun",
-      inputMode: "decimal",
+      name: 'bungaFlat',
+      label: 'Suku Bunga Flat',
+      type: 'percentage',
+      suffix: '% / tahun',
+      inputMode: 'decimal',
       defaultValue: 8,
       min: 0,
       max: 40,
-      helpText: "Bunga flat per tahun yang ditawarkan leasing",
+      helpText: 'Bunga flat per tahun yang ditawarkan leasing',
     },
     {
-      name: "asuransi",
-      label: "Asuransi",
-      type: "select",
+      name: 'asuransi',
+      label: 'Asuransi',
+      type: 'select',
       defaultValue: 0,
       options: [
-        { label: "Tanpa Asuransi", value: 0 },
-        { label: "TLO (Total Loss Only)", value: 1 },
-        { label: "All Risk", value: 2 },
+        { label: 'Tanpa Asuransi', value: 0 },
+        { label: 'TLO (Total Loss Only)', value: 1 },
+        { label: 'All Risk', value: 2 },
       ],
     },
   ],
@@ -86,11 +86,11 @@ export const kreditMotor: CalculatorConfig = {
     const bungaFlat = Number(values.bungaFlat) || 0;
     const asuransiType = Number(values.asuransi) || 0;
 
-    const dp = Math.round(harga * dpPersen / 100);
+    const dp = Math.round((harga * dpPersen) / 100);
     const pokokKredit = harga - dp;
 
     // Flat rate calculation
-    const bungaBulanan = pokokKredit * (bungaFlat / 100) / 12;
+    const bungaBulanan = (pokokKredit * (bungaFlat / 100)) / 12;
     const totalBunga = bungaBulanan * tenor;
     const cicilanPokok = pokokKredit / tenor;
     const cicilanPerBulan = cicilanPokok + bungaBulanan;
@@ -118,41 +118,41 @@ export const kreditMotor: CalculatorConfig = {
 
   formatResult: (r) => ({
     primary: {
-      label: "Cicilan per Bulan",
+      label: 'Cicilan per Bulan',
       value: `${formatIDR(Number(r.cicilanPerBulan))}/bulan`,
     },
     breakdown: [
-      { label: "Uang Muka (DP)", value: formatIDR(Number(r.dp)) },
-      { label: "Pokok Kredit", value: formatIDR(Number(r.pokokKredit)) },
-      { label: "Cicilan per Bulan", value: formatIDR(Number(r.cicilanPerBulan)) },
-      { label: "Total Bunga", value: formatIDR(Number(r.totalBunga)) },
-      { label: "Total Pembayaran", value: formatIDR(Number(r.totalPembayaran)) },
-      { label: "Bunga Flat", value: `${r.bungaFlat}% / tahun` },
-      { label: "Bunga Efektif", value: `${r.bungaEfektif}% / tahun` },
-      { label: "Biaya Asuransi", value: formatIDR(Number(r.biayaAsuransi)) },
+      { label: 'Uang Muka (DP)', value: formatIDR(Number(r.dp)) },
+      { label: 'Pokok Kredit', value: formatIDR(Number(r.pokokKredit)) },
+      { label: 'Cicilan per Bulan', value: formatIDR(Number(r.cicilanPerBulan)) },
+      { label: 'Total Bunga', value: formatIDR(Number(r.totalBunga)) },
+      { label: 'Total Pembayaran', value: formatIDR(Number(r.totalPembayaran)) },
+      { label: 'Bunga Flat', value: `${r.bungaFlat}% / tahun` },
+      { label: 'Bunga Efektif', value: `${r.bungaEfektif}% / tahun` },
+      { label: 'Biaya Asuransi', value: formatIDR(Number(r.biayaAsuransi)) },
     ],
   }),
 
   faqs: [
     {
-      question: "Apa bedanya bunga flat dan bunga efektif pada kredit motor?",
+      question: 'Apa bedanya bunga flat dan bunga efektif pada kredit motor?',
       answer:
-        "Bunga flat dihitung dari pokok pinjaman awal dan tidak berubah selama tenor. Bunga efektif dihitung dari sisa pokok yang terus berkurang setiap bulan. Bunga flat yang terlihat rendah sebenarnya setara dengan bunga efektif yang hampir 2 kali lipat lebih tinggi.",
+        'Bunga flat dihitung dari pokok pinjaman awal dan tidak berubah selama tenor. Bunga efektif dihitung dari sisa pokok yang terus berkurang setiap bulan. Bunga flat yang terlihat rendah sebenarnya setara dengan bunga efektif yang hampir 2 kali lipat lebih tinggi.',
     },
     {
-      question: "Berapa minimal DP kredit motor?",
+      question: 'Berapa minimal DP kredit motor?',
       answer:
-        "Umumnya minimal DP untuk kredit motor baru adalah 15–20% dari harga OTR. Beberapa dealer atau leasing menawarkan DP rendah mulai 10%, tetapi konsekuensinya cicilan bulanan akan lebih besar dan total bunga lebih tinggi.",
+        'Umumnya minimal DP untuk kredit motor baru adalah 15–20% dari harga OTR. Beberapa dealer atau leasing menawarkan DP rendah mulai 10%, tetapi konsekuensinya cicilan bulanan akan lebih besar dan total bunga lebih tinggi.',
     },
     {
-      question: "Apa itu asuransi TLO dan All Risk pada kredit motor?",
+      question: 'Apa itu asuransi TLO dan All Risk pada kredit motor?',
       answer:
-        "TLO (Total Loss Only) menanggung kerugian jika motor hilang dicuri atau rusak total (kerusakan ≥75%). All Risk menanggung semua risiko termasuk kerusakan ringan. TLO lebih murah (~0,8%/tahun) dibanding All Risk (~2,5%/tahun dari harga kendaraan).",
+        'TLO (Total Loss Only) menanggung kerugian jika motor hilang dicuri atau rusak total (kerusakan ≥75%). All Risk menanggung semua risiko termasuk kerusakan ringan. TLO lebih murah (~0,8%/tahun) dibanding All Risk (~2,5%/tahun dari harga kendaraan).',
     },
     {
-      question: "Bagaimana cara memilih tenor kredit motor yang tepat?",
+      question: 'Bagaimana cara memilih tenor kredit motor yang tepat?',
       answer:
-        "Pilih tenor yang sesuai kemampuan bayar bulanan. Tenor pendek (12–24 bulan) berarti cicilan lebih besar tetapi total bunga lebih kecil. Tenor panjang (36–48 bulan) membuat cicilan lebih ringan, tetapi Anda membayar bunga lebih banyak secara total.",
+        'Pilih tenor yang sesuai kemampuan bayar bulanan. Tenor pendek (12–24 bulan) berarti cicilan lebih besar tetapi total bunga lebih kecil. Tenor panjang (36–48 bulan) membuat cicilan lebih ringan, tetapi Anda membayar bunga lebih banyak secara total.',
     },
   ],
 
@@ -212,16 +212,15 @@ export const kreditMotor: CalculatorConfig = {
 
   methodSection: [
     {
-      label: "Ketentuan Pembiayaan Kendaraan Bermotor",
-      source:
-        "POJK No. 35/POJK.05/2018 tentang Penyelenggaraan Usaha Perusahaan Pembiayaan",
-      url: "https://www.ojk.go.id/id/regulasi/otoritas-jasa-keuangan/peraturan-ojk/Pages/POJK-35-05-2018.aspx",
+      label: 'Ketentuan Pembiayaan Kendaraan Bermotor',
+      source: 'POJK No. 35/POJK.05/2018 tentang Penyelenggaraan Usaha Perusahaan Pembiayaan',
+      url: 'https://www.ojk.go.id/id/regulasi/otoritas-jasa-keuangan/peraturan-ojk/Pages/POJK-35-05-2018.aspx',
     },
   ],
 
-  relatedCalculators: ["kredit-mobil", "pinjol"],
+  relatedCalculators: ['kredit-mobil', 'pinjol'],
 
-  partnerLink: "#",
-  ctaLabel: "Bandingkan Kredit Motor",
-  ctaDisclaimer: "* Produk dari mitra terpilih",
+  partnerLink: '#',
+  ctaLabel: 'Bandingkan Kredit Motor',
+  ctaDisclaimer: '* Produk dari mitra terpilih',
 };

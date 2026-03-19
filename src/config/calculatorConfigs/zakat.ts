@@ -1,66 +1,66 @@
-import type { CalculatorConfig } from "@/types/calculator";
-import { formatIDR } from "@/utils/formatCurrency";
-import { zakatMal } from "@/utils/financialFormulas";
+import type { CalculatorConfig } from '@/types/calculator';
+import { formatIDR } from '@/utils/formatCurrency';
+import { zakatMal } from '@/utils/financialFormulas';
 
 const GOLD_PRICE_FALLBACK = 1_100_000; // Rp per gram — static fallback
 const NISAB_GOLD_GRAMS = 85;
 
 export const zakat: CalculatorConfig = {
-  slug: "zakat",
-  title: "Kalkulator Zakat Maal",
+  slug: 'zakat',
+  title: 'Kalkulator Zakat Maal',
   description:
-    "Hitung zakat maal berdasarkan nisab emas 85 gram, total aset, dan utang. Sesuai Fatwa MUI dan pedoman BAZNAS.",
+    'Hitung zakat maal berdasarkan nisab emas 85 gram, total aset, dan utang. Sesuai Fatwa MUI dan pedoman BAZNAS.',
   metaDescription:
-    "Kalkulator zakat maal online — hitung zakat harta berdasarkan nisab 85 gram emas, aset, dan utang. Sesuai fatwa MUI. Gratis & akurat.",
+    'Kalkulator zakat maal online — hitung zakat harta berdasarkan nisab 85 gram emas, aset, dan utang. Sesuai fatwa MUI. Gratis & akurat.',
   keywords: [
-    "kalkulator zakat",
-    "zakat maal",
-    "hitung zakat",
-    "nisab zakat",
-    "zakat harta",
-    "zakat emas",
-    "baznas",
+    'kalkulator zakat',
+    'zakat maal',
+    'hitung zakat',
+    'nisab zakat',
+    'zakat harta',
+    'zakat emas',
+    'baznas',
   ],
 
   inputs: [
     {
-      name: "emasGram",
-      label: "Emas yang Dimiliki",
-      type: "number",
-      inputMode: "decimal",
-      suffix: "gram",
+      name: 'emasGram',
+      label: 'Emas yang Dimiliki',
+      type: 'number',
+      inputMode: 'decimal',
+      suffix: 'gram',
       defaultValue: 0,
       min: 0,
       max: 100_000,
-      helpText: "Total berat emas yang Anda miliki",
+      helpText: 'Total berat emas yang Anda miliki',
     },
     {
-      name: "hargaEmas",
-      label: "Harga Emas per Gram",
-      type: "amount",
-      prefix: "Rp",
+      name: 'hargaEmas',
+      label: 'Harga Emas per Gram',
+      type: 'amount',
+      prefix: 'Rp',
       defaultValue: GOLD_PRICE_FALLBACK,
       min: 100_000,
       max: 10_000_000,
-      helpText: "Harga emas hari ini (cek harga terbaru di Antam/Pegadaian)",
+      helpText: 'Harga emas hari ini (cek harga terbaru di Antam/Pegadaian)',
     },
     {
-      name: "asetLain",
-      label: "Aset Lain (tabungan, investasi, dll.)",
-      type: "amount",
-      prefix: "Rp",
+      name: 'asetLain',
+      label: 'Aset Lain (tabungan, investasi, dll.)',
+      type: 'amount',
+      prefix: 'Rp',
       defaultValue: 50_000_000,
       min: 0,
-      helpText: "Total tabungan, deposito, investasi, piutang, dan aset produktif lainnya",
+      helpText: 'Total tabungan, deposito, investasi, piutang, dan aset produktif lainnya',
     },
     {
-      name: "utang",
-      label: "Total Utang / Kewajiban",
-      type: "amount",
-      prefix: "Rp",
+      name: 'utang',
+      label: 'Total Utang / Kewajiban',
+      type: 'amount',
+      prefix: 'Rp',
       defaultValue: 0,
       min: 0,
-      helpText: "Utang yang jatuh tempo dalam waktu dekat",
+      helpText: 'Utang yang jatuh tempo dalam waktu dekat',
     },
   ],
 
@@ -82,7 +82,7 @@ export const zakat: CalculatorConfig = {
       utang: Math.round(utang),
       nisab: Math.round(nisab),
       hartaBersih: Math.round(result.totalWealth),
-      isAboveNisab: result.isAboveNisab ? "Ya" : "Tidak",
+      isAboveNisab: result.isAboveNisab ? 'Ya' : 'Tidak',
       zakatAmount: Math.round(result.zakatAmount),
       hargaEmas,
     };
@@ -90,46 +90,49 @@ export const zakat: CalculatorConfig = {
 
   formatResult: (r) => ({
     primary: {
-      label: "Zakat yang Harus Dibayar",
+      label: 'Zakat yang Harus Dibayar',
       value: formatIDR(Number(r.zakatAmount)),
     },
     breakdown: [
-      { label: "Nilai Emas", value: formatIDR(Number(r.nilaiEmas)) },
-      { label: "Aset Lain", value: formatIDR(Number(r.totalAset) - Number(r.nilaiEmas)) },
-      { label: "Total Aset", value: formatIDR(Number(r.totalAset)) },
-      { label: "Total Utang", value: formatIDR(Number(r.utang)) },
-      { label: "Harta Bersih", value: formatIDR(Number(r.hartaBersih)) },
-      { label: `Nisab (85g × ${formatIDR(Number(r.hargaEmas))})`, value: formatIDR(Number(r.nisab)) },
-      { label: "Mencapai Nisab?", value: String(r.isAboveNisab) },
-      { label: "Zakat (2,5%)", value: formatIDR(Number(r.zakatAmount)) },
+      { label: 'Nilai Emas', value: formatIDR(Number(r.nilaiEmas)) },
+      { label: 'Aset Lain', value: formatIDR(Number(r.totalAset) - Number(r.nilaiEmas)) },
+      { label: 'Total Aset', value: formatIDR(Number(r.totalAset)) },
+      { label: 'Total Utang', value: formatIDR(Number(r.utang)) },
+      { label: 'Harta Bersih', value: formatIDR(Number(r.hartaBersih)) },
+      {
+        label: `Nisab (85g × ${formatIDR(Number(r.hargaEmas))})`,
+        value: formatIDR(Number(r.nisab)),
+      },
+      { label: 'Mencapai Nisab?', value: String(r.isAboveNisab) },
+      { label: 'Zakat (2,5%)', value: formatIDR(Number(r.zakatAmount)) },
     ],
   }),
 
   faqs: [
     {
-      question: "Apa itu zakat maal dan siapa yang wajib membayar?",
+      question: 'Apa itu zakat maal dan siapa yang wajib membayar?',
       answer:
-        "Zakat maal adalah zakat atas harta kekayaan yang wajib dikeluarkan oleh setiap Muslim yang hartanya sudah mencapai nisab (batas minimum) dan sudah dimiliki selama satu tahun (haul). Besarannya adalah 2,5% dari harta bersih setelah dikurangi utang.",
+        'Zakat maal adalah zakat atas harta kekayaan yang wajib dikeluarkan oleh setiap Muslim yang hartanya sudah mencapai nisab (batas minimum) dan sudah dimiliki selama satu tahun (haul). Besarannya adalah 2,5% dari harta bersih setelah dikurangi utang.',
     },
     {
-      question: "Berapa nisab zakat maal?",
+      question: 'Berapa nisab zakat maal?',
       answer:
-        "Nisab zakat maal setara dengan 85 gram emas murni. Jika harga emas Rp 1.100.000/gram, maka nisab = 85 × Rp 1.100.000 = Rp 93.500.000. Harta bersih Anda harus mencapai atau melebihi nisab ini untuk wajib zakat.",
+        'Nisab zakat maal setara dengan 85 gram emas murni. Jika harga emas Rp 1.100.000/gram, maka nisab = 85 × Rp 1.100.000 = Rp 93.500.000. Harta bersih Anda harus mencapai atau melebihi nisab ini untuk wajib zakat.',
     },
     {
-      question: "Apa saja harta yang termasuk dalam perhitungan zakat?",
+      question: 'Apa saja harta yang termasuk dalam perhitungan zakat?',
       answer:
-        "Harta yang dihitung meliputi: uang tunai dan tabungan, deposito, emas dan perak, investasi (saham, reksa dana, obligasi), piutang yang dapat ditagih, barang dagangan, dan hasil usaha. Harta untuk kebutuhan pokok (rumah tinggal, kendaraan operasional) umumnya tidak dihitung.",
+        'Harta yang dihitung meliputi: uang tunai dan tabungan, deposito, emas dan perak, investasi (saham, reksa dana, obligasi), piutang yang dapat ditagih, barang dagangan, dan hasil usaha. Harta untuk kebutuhan pokok (rumah tinggal, kendaraan operasional) umumnya tidak dihitung.',
     },
     {
-      question: "Kemana sebaiknya menyalurkan zakat?",
+      question: 'Kemana sebaiknya menyalurkan zakat?',
       answer:
-        "Zakat dapat disalurkan melalui lembaga resmi seperti BAZNAS, LAZ (Lembaga Amil Zakat) yang terdaftar, atau masjid yang terpercaya. Terdapat 8 golongan penerima zakat (asnaf): fakir, miskin, amil, muallaf, riqab, gharimin, fi sabilillah, dan ibnu sabil.",
+        'Zakat dapat disalurkan melalui lembaga resmi seperti BAZNAS, LAZ (Lembaga Amil Zakat) yang terdaftar, atau masjid yang terpercaya. Terdapat 8 golongan penerima zakat (asnaf): fakir, miskin, amil, muallaf, riqab, gharimin, fi sabilillah, dan ibnu sabil.',
     },
     {
-      question: "Apakah zakat bisa mengurangi pajak penghasilan?",
+      question: 'Apakah zakat bisa mengurangi pajak penghasilan?',
       answer:
-        "Ya. Berdasarkan UU No. 23 Tahun 2011 tentang Pengelolaan Zakat dan PP No. 60 Tahun 2010, zakat yang dibayarkan melalui badan/lembaga resmi (BAZNAS/LAZ) dapat dijadikan pengurang penghasilan bruto dalam perhitungan PPh. Simpan bukti pembayaran zakat dari lembaga resmi.",
+        'Ya. Berdasarkan UU No. 23 Tahun 2011 tentang Pengelolaan Zakat dan PP No. 60 Tahun 2010, zakat yang dibayarkan melalui badan/lembaga resmi (BAZNAS/LAZ) dapat dijadikan pengurang penghasilan bruto dalam perhitungan PPh. Simpan bukti pembayaran zakat dari lembaga resmi.',
     },
   ],
 
@@ -197,20 +200,20 @@ export const zakat: CalculatorConfig = {
 
   methodSection: [
     {
-      label: "Dasar Hukum Zakat",
-      source: "Fatwa MUI No. 3 Tahun 2003 tentang Zakat Penghasilan",
-      url: "https://mui.or.id/produk/fatwa/",
+      label: 'Dasar Hukum Zakat',
+      source: 'Fatwa MUI No. 3 Tahun 2003 tentang Zakat Penghasilan',
+      url: 'https://mui.or.id/produk/fatwa/',
     },
     {
-      label: "Panduan Zakat BAZNAS",
-      source: "BAZNAS — Badan Amil Zakat Nasional RI",
-      url: "https://baznas.go.id/zakatmaal",
+      label: 'Panduan Zakat BAZNAS',
+      source: 'BAZNAS — Badan Amil Zakat Nasional RI',
+      url: 'https://baznas.go.id/zakatmaal',
     },
     {
-      label: "Zakat sebagai Pengurang Pajak",
-      source: "UU No. 23 Tahun 2011 tentang Pengelolaan Zakat & PP No. 60 Tahun 2010",
+      label: 'Zakat sebagai Pengurang Pajak',
+      source: 'UU No. 23 Tahun 2011 tentang Pengelolaan Zakat & PP No. 60 Tahun 2010',
     },
   ],
 
-  relatedCalculators: ["pph21", "investasi"],
+  relatedCalculators: ['pph21', 'investasi'],
 };

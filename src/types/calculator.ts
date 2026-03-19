@@ -5,8 +5,8 @@
 export type InputConfig = {
   name: string;
   label: string;
-  type: "amount" | "number" | "select" | "percentage";
-  inputMode?: "numeric" | "decimal";
+  type: 'amount' | 'number' | 'select' | 'percentage';
+  inputMode?: 'numeric' | 'decimal';
   options?: { label: string; value: number }[];
   prefix?: string;
   suffix?: string;
@@ -98,7 +98,7 @@ export type SimulationResult = {
 // Ad slot types
 // ---------------------------------------------------------------------------
 
-export type AdSlot = "top" | "sidebar" | "inArticle" | "footer";
+export type AdSlot = 'top' | 'sidebar' | 'inArticle' | 'footer';
 
 export type AdsConfig = {
   client: string;

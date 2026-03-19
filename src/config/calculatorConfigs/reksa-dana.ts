@@ -1,74 +1,74 @@
-import type { CalculatorConfig } from "@/types/calculator";
-import { formatIDR } from "@/utils/formatCurrency";
+import type { CalculatorConfig } from '@/types/calculator';
+import { formatIDR } from '@/utils/formatCurrency';
 
 export const reksaDana: CalculatorConfig = {
-  slug: "reksa-dana",
-  title: "Kalkulator Reksa Dana",
+  slug: 'reksa-dana',
+  title: 'Kalkulator Reksa Dana',
   description:
-    "Hitung return reksa dana berdasarkan NAB (Nilai Aktiva Bersih), jumlah unit, dan biaya transaksi.",
+    'Hitung return reksa dana berdasarkan NAB (Nilai Aktiva Bersih), jumlah unit, dan biaya transaksi.',
   metaDescription:
-    "Kalkulator reksa dana — hitung return investasi berdasarkan NAB, unit penyertaan, dan biaya pembelian/penjualan. Gratis & akurat.",
+    'Kalkulator reksa dana — hitung return investasi berdasarkan NAB, unit penyertaan, dan biaya pembelian/penjualan. Gratis & akurat.',
   keywords: [
-    "kalkulator reksa dana",
-    "hitung return reksa dana",
-    "NAB reksa dana",
-    "biaya reksa dana",
-    "return investasi",
-    "simulasi reksa dana",
+    'kalkulator reksa dana',
+    'hitung return reksa dana',
+    'NAB reksa dana',
+    'biaya reksa dana',
+    'return investasi',
+    'simulasi reksa dana',
   ],
 
   inputs: [
     {
-      name: "nabAwal",
-      label: "NAB per Unit Saat Beli",
-      type: "amount",
-      prefix: "Rp",
+      name: 'nabAwal',
+      label: 'NAB per Unit Saat Beli',
+      type: 'amount',
+      prefix: 'Rp',
       defaultValue: 1_500,
       min: 1,
       max: 100_000_000,
-      helpText: "Nilai Aktiva Bersih per unit saat pembelian",
+      helpText: 'Nilai Aktiva Bersih per unit saat pembelian',
     },
     {
-      name: "nabSekarang",
-      label: "NAB per Unit Saat Ini",
-      type: "amount",
-      prefix: "Rp",
+      name: 'nabSekarang',
+      label: 'NAB per Unit Saat Ini',
+      type: 'amount',
+      prefix: 'Rp',
       defaultValue: 1_800,
       min: 1,
       max: 100_000_000,
-      helpText: "Nilai Aktiva Bersih per unit saat ini / saat jual",
+      helpText: 'Nilai Aktiva Bersih per unit saat ini / saat jual',
     },
     {
-      name: "jumlahUnit",
-      label: "Jumlah Unit Penyertaan",
-      type: "number",
-      inputMode: "decimal",
+      name: 'jumlahUnit',
+      label: 'Jumlah Unit Penyertaan',
+      type: 'number',
+      inputMode: 'decimal',
       defaultValue: 10_000,
       min: 0.0001,
       max: 100_000_000,
-      helpText: "Total unit yang Anda miliki",
+      helpText: 'Total unit yang Anda miliki',
     },
     {
-      name: "biayaPembelian",
-      label: "Biaya Pembelian (subscription fee)",
-      type: "percentage",
-      suffix: "%",
-      inputMode: "decimal",
+      name: 'biayaPembelian',
+      label: 'Biaya Pembelian (subscription fee)',
+      type: 'percentage',
+      suffix: '%',
+      inputMode: 'decimal',
       defaultValue: 1,
       min: 0,
       max: 10,
-      helpText: "Biaya saat membeli reksa dana, umumnya 0–2%",
+      helpText: 'Biaya saat membeli reksa dana, umumnya 0–2%',
     },
     {
-      name: "biayaPenjualan",
-      label: "Biaya Penjualan (redemption fee)",
-      type: "percentage",
-      suffix: "%",
-      inputMode: "decimal",
+      name: 'biayaPenjualan',
+      label: 'Biaya Penjualan (redemption fee)',
+      type: 'percentage',
+      suffix: '%',
+      inputMode: 'decimal',
       defaultValue: 0,
       min: 0,
       max: 10,
-      helpText: "Biaya saat menjual/mencairkan, umumnya 0–1%",
+      helpText: 'Biaya saat menjual/mencairkan, umumnya 0–1%',
     },
   ],
 
@@ -109,41 +109,47 @@ export const reksaDana: CalculatorConfig = {
 
   formatResult: (r) => ({
     primary: {
-      label: "Return Bersih",
+      label: 'Return Bersih',
       value: `${formatIDR(Number(r.returnBersih))} (${r.returnPersenBersih}%)`,
     },
     breakdown: [
-      { label: "Nilai Investasi Awal", value: formatIDR(Number(r.nilaiAwal)) },
-      { label: "Biaya Pembelian", value: formatIDR(Number(r.biayaBeli)) },
-      { label: "Total Modal (termasuk fee)", value: formatIDR(Number(r.totalModalBeli)) },
-      { label: "Nilai Investasi Saat Ini", value: formatIDR(Number(r.nilaiSekarang)) },
-      { label: "Biaya Penjualan", value: formatIDR(Number(r.biayaJual)) },
-      { label: "Nilai Setelah Fee Jual", value: formatIDR(Number(r.nilaiSetelahFee)) },
-      { label: "Return Kotor", value: `${formatIDR(Number(r.returnKotor))} (${r.returnPersenKotor}%)` },
-      { label: "Return Bersih", value: `${formatIDR(Number(r.returnBersih))} (${r.returnPersenBersih}%)` },
+      { label: 'Nilai Investasi Awal', value: formatIDR(Number(r.nilaiAwal)) },
+      { label: 'Biaya Pembelian', value: formatIDR(Number(r.biayaBeli)) },
+      { label: 'Total Modal (termasuk fee)', value: formatIDR(Number(r.totalModalBeli)) },
+      { label: 'Nilai Investasi Saat Ini', value: formatIDR(Number(r.nilaiSekarang)) },
+      { label: 'Biaya Penjualan', value: formatIDR(Number(r.biayaJual)) },
+      { label: 'Nilai Setelah Fee Jual', value: formatIDR(Number(r.nilaiSetelahFee)) },
+      {
+        label: 'Return Kotor',
+        value: `${formatIDR(Number(r.returnKotor))} (${r.returnPersenKotor}%)`,
+      },
+      {
+        label: 'Return Bersih',
+        value: `${formatIDR(Number(r.returnBersih))} (${r.returnPersenBersih}%)`,
+      },
     ],
   }),
 
   faqs: [
     {
-      question: "Apa itu NAB (Nilai Aktiva Bersih)?",
+      question: 'Apa itu NAB (Nilai Aktiva Bersih)?',
       answer:
-        "NAB adalah nilai total aset reksa dana dikurangi kewajiban, dibagi jumlah unit penyertaan yang beredar. NAB per unit mencerminkan harga satu unit reksa dana. NAB diperbarui setiap hari kerja oleh bank kustodian.",
+        'NAB adalah nilai total aset reksa dana dikurangi kewajiban, dibagi jumlah unit penyertaan yang beredar. NAB per unit mencerminkan harga satu unit reksa dana. NAB diperbarui setiap hari kerja oleh bank kustodian.',
     },
     {
-      question: "Apa bedanya biaya pembelian dan biaya penjualan?",
+      question: 'Apa bedanya biaya pembelian dan biaya penjualan?',
       answer:
-        "Biaya pembelian (subscription fee) dikenakan saat Anda membeli reksa dana, umumnya 0–2%. Biaya penjualan (redemption fee) dikenakan saat Anda mencairkan reksa dana, umumnya 0–1%. Banyak platform investasi online kini menawarkan biaya 0% untuk kedua transaksi.",
+        'Biaya pembelian (subscription fee) dikenakan saat Anda membeli reksa dana, umumnya 0–2%. Biaya penjualan (redemption fee) dikenakan saat Anda mencairkan reksa dana, umumnya 0–1%. Banyak platform investasi online kini menawarkan biaya 0% untuk kedua transaksi.',
     },
     {
-      question: "Bagaimana cara menghitung return reksa dana?",
+      question: 'Bagaimana cara menghitung return reksa dana?',
       answer:
-        "Return kotor = (NAB sekarang − NAB saat beli) × jumlah unit. Untuk return bersih, kurangi biaya pembelian dan penjualan dari perhitungan tersebut. Kalkulator ini menghitung kedua angka secara otomatis.",
+        'Return kotor = (NAB sekarang − NAB saat beli) × jumlah unit. Untuk return bersih, kurangi biaya pembelian dan penjualan dari perhitungan tersebut. Kalkulator ini menghitung kedua angka secara otomatis.',
     },
     {
-      question: "Apa saja jenis reksa dana yang tersedia di Indonesia?",
+      question: 'Apa saja jenis reksa dana yang tersedia di Indonesia?',
       answer:
-        "Ada empat jenis utama: (1) Reksa Dana Pasar Uang — risiko rendah, return 4–6%/tahun. (2) Reksa Dana Pendapatan Tetap — risiko rendah-menengah, return 6–8%/tahun. (3) Reksa Dana Campuran — risiko menengah, return 8–12%/tahun. (4) Reksa Dana Saham — risiko tinggi, potensi return 10–20%/tahun.",
+        'Ada empat jenis utama: (1) Reksa Dana Pasar Uang — risiko rendah, return 4–6%/tahun. (2) Reksa Dana Pendapatan Tetap — risiko rendah-menengah, return 6–8%/tahun. (3) Reksa Dana Campuran — risiko menengah, return 8–12%/tahun. (4) Reksa Dana Saham — risiko tinggi, potensi return 10–20%/tahun.',
     },
   ],
 
@@ -196,12 +202,11 @@ export const reksaDana: CalculatorConfig = {
 
   methodSection: [
     {
-      label: "Regulasi Reksa Dana",
-      source:
-        "POJK No. 23/POJK.04/2016 tentang Reksa Dana Berbentuk Kontrak Investasi Kolektif",
-      url: "https://www.ojk.go.id/id/regulasi/otoritas-jasa-keuangan/peraturan-ojk/Pages/POJK-23-04-2016.aspx",
+      label: 'Regulasi Reksa Dana',
+      source: 'POJK No. 23/POJK.04/2016 tentang Reksa Dana Berbentuk Kontrak Investasi Kolektif',
+      url: 'https://www.ojk.go.id/id/regulasi/otoritas-jasa-keuangan/peraturan-ojk/Pages/POJK-23-04-2016.aspx',
     },
   ],
 
-  relatedCalculators: ["investasi", "zakat"],
+  relatedCalculators: ['investasi', 'zakat'],
 };

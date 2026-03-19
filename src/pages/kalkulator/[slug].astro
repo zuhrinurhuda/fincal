@@ -1,7 +1,7 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import CalculatorShell from "@/components/calculator/CalculatorShell";
-import { calculatorRegistry } from "@/config/calculatorRegistry";
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CalculatorShell from '@/components/calculator/CalculatorShell';
+import { calculatorRegistry } from '@/config/calculatorRegistry';
 
 export async function getStaticPaths() {
   return Object.values(calculatorRegistry).map((config) => ({
@@ -16,7 +16,7 @@ interface Props {
 
 const { config } = Astro.props;
 
-const baseUrl = import.meta.env.SITE ?? "https://yourdomain.com";
+const baseUrl = import.meta.env.SITE ?? 'https://yourdomain.com';
 const canonicalUrl = `${baseUrl}/kalkulator/${config.slug}`;
 ---
 

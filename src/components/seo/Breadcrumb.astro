@@ -1,5 +1,5 @@
 ---
-import type { CalculatorConfig } from "@/types/calculator";
+import type { CalculatorConfig } from '@/types/calculator';
 
 interface Props {
   config: CalculatorConfig;
@@ -14,15 +14,11 @@ const { config } = Astro.props;
     itemscope
     itemtype="https://schema.org/BreadcrumbList"
   >
-    <li
-      itemprop="itemListElement"
-      itemscope
-      itemtype="https://schema.org/ListItem"
-    >
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
       <a
         href="/"
         itemprop="item"
-        class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+        class="transition-colors hover:text-blue-600 dark:hover:text-blue-400"
       >
         <span itemprop="name">Beranda</span>
       </a>
@@ -31,15 +27,11 @@ const { config } = Astro.props;
 
     <li aria-hidden="true" class="select-none">/</li>
 
-    <li
-      itemprop="itemListElement"
-      itemscope
-      itemtype="https://schema.org/ListItem"
-    >
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
       <a
         href="/"
         itemprop="item"
-        class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+        class="transition-colors hover:text-blue-600 dark:hover:text-blue-400"
       >
         <span itemprop="name">Kalkulator</span>
       </a>
@@ -48,15 +40,11 @@ const { config } = Astro.props;
 
     <li aria-hidden="true" class="select-none">/</li>
 
-    <li
-      itemprop="itemListElement"
-      itemscope
-      itemtype="https://schema.org/ListItem"
-    >
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
       <span
         itemprop="name"
         aria-current="page"
-        class="text-gray-700 dark:text-gray-300 font-medium"
+        class="font-medium text-gray-700 dark:text-gray-300"
       >
         {config.title}
       </span>
