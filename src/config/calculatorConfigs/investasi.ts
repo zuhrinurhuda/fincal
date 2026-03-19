@@ -1,6 +1,6 @@
-import type { CalculatorConfig } from "../../types/calculator";
-import { formatIDR } from "../../utils/formatCurrency";
-import { compoundInterest } from "../../utils/financialFormulas";
+import type { CalculatorConfig } from "@/types/calculator";
+import { formatIDR } from "@/utils/formatCurrency";
+import { compoundInterest } from "@/utils/financialFormulas";
 
 export const investasi: CalculatorConfig = {
   slug: "investasi",

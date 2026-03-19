@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import type { FormattedResult } from "../../types/calculator";
-import CTAButton from "../ui/CTAButton";
+import type { FormattedResult } from "@/types/calculator";
+import CTAButton from "@/components/ui/CTAButton";
 
 interface Props {
   result: FormattedResult;

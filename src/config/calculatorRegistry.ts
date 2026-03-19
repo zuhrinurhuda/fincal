@@ -1,15 +1,15 @@
-import type { CalculatorConfig } from "../types/calculator";
+import type { CalculatorConfig } from "@/types/calculator";
 
-import { kpr } from "./calculatorConfigs/kpr";
-import { pph21 } from "./calculatorConfigs/pph21";
-import { kreditMotor } from "./calculatorConfigs/kredit-motor";
-import { kreditMobil } from "./calculatorConfigs/kredit-mobil";
-import { pinjol } from "./calculatorConfigs/pinjol";
-import { kur } from "./calculatorConfigs/kur";
-import { investasi } from "./calculatorConfigs/investasi";
-import { reksaDana } from "./calculatorConfigs/reksa-dana";
-import { zakat } from "./calculatorConfigs/zakat";
-import { pelunasanKpr } from "./calculatorConfigs/pelunasan-kpr";
+import { kpr } from "@/config/calculatorConfigs/kpr";
+import { pph21 } from "@/config/calculatorConfigs/pph21";
+import { kreditMotor } from "@/config/calculatorConfigs/kredit-motor";
+import { kreditMobil } from "@/config/calculatorConfigs/kredit-mobil";
+import { pinjol } from "@/config/calculatorConfigs/pinjol";
+import { kur } from "@/config/calculatorConfigs/kur";
+import { investasi } from "@/config/calculatorConfigs/investasi";
+import { reksaDana } from "@/config/calculatorConfigs/reksa-dana";
+import { zakat } from "@/config/calculatorConfigs/zakat";
+import { pelunasanKpr } from "@/config/calculatorConfigs/pelunasan-kpr";
 
 export const calculatorRegistry: Record<string, CalculatorConfig> = {
   [kpr.slug]: kpr,

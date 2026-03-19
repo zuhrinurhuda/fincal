@@ -3,7 +3,7 @@ import {
   formatIDR,
   formatIDRCompact,
   parseIDR,
-} from "../utils/formatCurrency";
+} from "@/utils/formatCurrency";
 
 export function useFormatCurrency() {
   const format = useCallback((value: number) => formatIDR(value), []);

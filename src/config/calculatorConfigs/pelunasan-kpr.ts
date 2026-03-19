@@ -1,6 +1,6 @@
-import type { CalculatorConfig } from "../../types/calculator";
-import { formatIDR } from "../../utils/formatCurrency";
-import { extraPaymentSimulation } from "../../utils/financialFormulas";
+import type { CalculatorConfig } from "@/types/calculator";
+import { formatIDR } from "@/utils/formatCurrency";
+import { extraPaymentSimulation } from "@/utils/financialFormulas";
 
 export const pelunasanKpr: CalculatorConfig = {
   slug: "pelunasan-kpr",

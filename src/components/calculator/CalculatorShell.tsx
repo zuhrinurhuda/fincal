@@ -9,11 +9,11 @@ import {
 import type {
   CalculatorConfig,
   FormattedResult,
-} from "../../types/calculator";
-import { debounce } from "../../utils/debounce";
-import AmountInput from "./AmountInput";
-import InputField from "./InputField";
-import ResultCard from "./ResultCard";
+} from "@/types/calculator";
+import { debounce } from "@/utils/debounce";
+import AmountInput from "@/components/calculator/AmountInput";
+import InputField from "@/components/calculator/InputField";
+import ResultCard from "@/components/calculator/ResultCard";
 
 // ---------------------------------------------------------------------------
 // ErrorBoundary — prevents a calculator crash from breaking the whole page

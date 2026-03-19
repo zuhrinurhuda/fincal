@@ -1,5 +1,5 @@
-import type { CalculatorConfig } from "../../types/calculator";
-import { formatIDR } from "../../utils/formatCurrency";
+import type { CalculatorConfig } from "@/types/calculator";
+import { formatIDR } from "@/utils/formatCurrency";
 
 const PTKP_VALUES: Record<number, number> = {
   0: 54_000_000,  // TK/0

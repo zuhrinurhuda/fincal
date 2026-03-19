@@ -24,5 +24,8 @@ pnpm-debug.log*
 .vscode/
 .idea/
 
+# Cloudflare local
+.wrangler/
+
 # misc
 coverage/

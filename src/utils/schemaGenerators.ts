@@ -1,4 +1,4 @@
-import type { CalculatorConfig, FAQItem } from "../types/calculator";
+import type { CalculatorConfig, FAQItem } from "@/types/calculator";
 
 // ---------------------------------------------------------------------------
 // 1. BreadcrumbList

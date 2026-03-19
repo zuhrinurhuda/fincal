@@ -1,5 +1,5 @@
-import type { CalculatorConfig } from "../../types/calculator";
-import { formatIDR } from "../../utils/formatCurrency";
+import type { CalculatorConfig } from "@/types/calculator";
+import { formatIDR } from "@/utils/formatCurrency";
 
 export const pinjol: CalculatorConfig = {
   slug: "pinjol",

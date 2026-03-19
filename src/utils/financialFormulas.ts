@@ -3,7 +3,7 @@ import type {
   CompoundRow,
   ZakatResult,
   SimulationResult,
-} from "../types/calculator";
+} from "@/types/calculator";
 
 // ---------------------------------------------------------------------------
 // Loan Amortization (annuity / equal-payment method)

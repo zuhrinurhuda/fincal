@@ -1,5 +1,5 @@
 import { useId } from "react";
-import type { InputConfig } from "../../types/calculator";
+import type { InputConfig } from "@/types/calculator";
 
 interface Props {
   config: InputConfig;
