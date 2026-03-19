@@ -1,6 +1,6 @@
-import type { CalculatorConfig } from "../../types/calculator";
-import { formatIDR } from "../../utils/formatCurrency";
-import { zakatMal } from "../../utils/financialFormulas";
+import type { CalculatorConfig } from "@/types/calculator";
+import { formatIDR } from "@/utils/formatCurrency";
+import { zakatMal } from "@/utils/financialFormulas";
 
 const GOLD_PRICE_FALLBACK = 1_100_000; // Rp per gram — static fallback
 const NISAB_GOLD_GRAMS = 85;

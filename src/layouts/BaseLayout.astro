@@ -1,21 +1,22 @@
 ---
-import type { CalculatorConfig } from "../types/calculator";
+import "@/styles/global.css";
+import type { CalculatorConfig } from "@/types/calculator";
 import {
   generateBreadcrumbSchema,
   generateFAQSchema,
   generateSoftwareAppSchema,
   generateHowToSchema,
-} from "../utils/schemaGenerators";
-import { adsConfig } from "../config/adsConfig";
-import Header from "../components/ui/Header.astro";
-import Footer from "../components/ui/Footer.astro";
-import Container from "../components/ui/Container.astro";
-import AdBanner from "../components/ads/AdBanner.astro";
-import AdInArticle from "../components/ads/AdInArticle.astro";
-import Breadcrumb from "../components/seo/Breadcrumb.astro";
-import FAQSection from "../components/seo/FAQSection.astro";
-import MethodSection from "../components/seo/MethodSection.astro";
-import RelatedCalculators from "../components/ui/RelatedCalculators.astro";
+} from "@/utils/schemaGenerators";
+import { adsConfig } from "@/config/adsConfig";
+import Header from "@/components/ui/Header.astro";
+import Footer from "@/components/ui/Footer.astro";
+import Container from "@/components/ui/Container.astro";
+import AdBanner from "@/components/ads/AdBanner.astro";
+import AdInArticle from "@/components/ads/AdInArticle.astro";
+import Breadcrumb from "@/components/seo/Breadcrumb.astro";
+import FAQSection from "@/components/seo/FAQSection.astro";
+import MethodSection from "@/components/seo/MethodSection.astro";
+import RelatedCalculators from "@/components/ui/RelatedCalculators.astro";
 
 interface Props {
   title: string;

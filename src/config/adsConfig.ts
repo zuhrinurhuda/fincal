@@ -1,4 +1,4 @@
-import type { AdsConfig } from "../types/calculator";
+import type { AdsConfig } from "@/types/calculator";
 
 export const adsConfig: AdsConfig = {
   client:

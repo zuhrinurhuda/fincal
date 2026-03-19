@@ -1,4 +1,4 @@
-import { calculatorRegistry } from "../config/calculatorRegistry";
+import { calculatorRegistry } from "@/config/calculatorRegistry";
 
 const baseUrl = import.meta.env.SITE ?? "https://yourdomain.com";
 const lastmod = new Date().toISOString().slice(0, 10);

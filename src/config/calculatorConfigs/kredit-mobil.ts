@@ -1,6 +1,6 @@
-import type { CalculatorConfig } from "../../types/calculator";
-import { formatIDR } from "../../utils/formatCurrency";
-import { flatToEffectiveRate } from "../../utils/financialFormulas";
+import type { CalculatorConfig } from "@/types/calculator";
+import { formatIDR } from "@/utils/formatCurrency";
+import { flatToEffectiveRate } from "@/utils/financialFormulas";
 
 export const kreditMobil: CalculatorConfig = {
   slug: "kredit-mobil",

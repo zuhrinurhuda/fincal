@@ -1,6 +1,6 @@
-import type { CalculatorConfig } from "../../types/calculator";
-import { formatIDR } from "../../utils/formatCurrency";
-import { loanAmortization } from "../../utils/financialFormulas";
+import type { CalculatorConfig } from "@/types/calculator";
+import { formatIDR } from "@/utils/formatCurrency";
+import { loanAmortization } from "@/utils/financialFormulas";
 
 const KUR_RATE = 6; // subsidized annual effective rate
 
