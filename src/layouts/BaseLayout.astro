@@ -1,0 +1,197 @@
+---
+import type { CalculatorConfig } from "../types/calculator";
+import {
+  generateBreadcrumbSchema,
+  generateFAQSchema,
+  generateSoftwareAppSchema,
+  generateHowToSchema,
+} from "../utils/schemaGenerators";
+import { adsConfig } from "../config/adsConfig";
+import Header from "../components/ui/Header.astro";
+import Footer from "../components/ui/Footer.astro";
+import Container from "../components/ui/Container.astro";
+import AdBanner from "../components/ads/AdBanner.astro";
+import AdInArticle from "../components/ads/AdInArticle.astro";
+import Breadcrumb from "../components/seo/Breadcrumb.astro";
+import FAQSection from "../components/seo/FAQSection.astro";
+import MethodSection from "../components/seo/MethodSection.astro";
+import RelatedCalculators from "../components/ui/RelatedCalculators.astro";
+
+interface Props {
+  title: string;
+  metaDescription: string;
+  canonicalUrl: string;
+  calculatorConfig: CalculatorConfig;
+  ogImage?: string;
+}
+
+const { title, metaDescription, canonicalUrl, calculatorConfig, ogImage } =
+  Astro.props;
+
+const baseUrl = new URL(canonicalUrl).origin;
+const resolvedOgImage =
+  ogImage ?? `/og/${calculatorConfig.slug}.png`;
+
+const breadcrumbSchema = generateBreadcrumbSchema(calculatorConfig, baseUrl);
+const faqSchema = generateFAQSchema(calculatorConfig.faqs);
+const softwareAppSchema = generateSoftwareAppSchema(calculatorConfig, baseUrl);
+const howToSchema = generateHowToSchema(calculatorConfig);
+
+const hasLongContent = calculatorConfig.seoContent.length > 600;
+---
+
+<!doctype html>
+<html lang="id" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:image" content={resolvedOgImage} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:url" content={canonicalUrl} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={resolvedOgImage} />
+
+    <!-- JSON-LD Schemas -->
+    <script type="application/ld+json" set:html={breadcrumbSchema} />
+    <script type="application/ld+json" set:html={faqSchema} />
+    <script type="application/ld+json" set:html={softwareAppSchema} />
+    <script type="application/ld+json" set:html={howToSchema} />
+
+    <!-- Theme: injected before paint to prevent FOUC -->
+    <script is:inline>
+      (function () {
+        var saved = localStorage.getItem("theme");
+        var prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        if (saved === "dark" || (!saved && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+
+    <!-- AdSense -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+      data-ad-client={adsConfig.client}
+      crossorigin="anonymous"></script>
+
+    <!-- Fonts: system stack (no web font request = faster LCP) -->
+    <style>
+      :root {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      /* Prose content styles for seoContent HTML */
+      .prose-content h2 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-top: 1.75rem;
+        margin-bottom: 0.75rem;
+        color: inherit;
+      }
+      .prose-content p {
+        margin-bottom: 1rem;
+        line-height: 1.75;
+      }
+      .prose-content ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+        margin-bottom: 1rem;
+        line-height: 1.75;
+      }
+      .prose-content li {
+        margin-bottom: 0.375rem;
+      }
+      .prose-content strong {
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen antialiased"
+  >
+    <Header />
+
+    <!-- Top ad: fixed min-height reserves space before AdSense loads (prevents CLS) -->
+    <div class="w-full bg-gray-50 dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
+      <AdBanner position="top" />
+    </div>
+
+    <main id="main-content">
+      <Container>
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8 py-8">
+          <!-- Main article column -->
+          <article>
+            <Breadcrumb config={calculatorConfig} />
+
+            <h1
+              class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50 mt-4 mb-3"
+            >
+              {title}
+            </h1>
+            <p class="text-base text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+              {calculatorConfig.description}
+            </p>
+
+            <AdInArticle />
+
+            <!-- React calculator island: injected by the page via slot -->
+            <slot />
+
+            <div class="mt-8">
+              <AdInArticle />
+            </div>
+
+            <!-- SEO content: fully server-rendered, zero hydration -->
+            <section
+              class="prose-content text-gray-700 dark:text-gray-300 mt-10 text-sm leading-relaxed"
+              set:html={calculatorConfig.seoContent}
+            />
+
+            {hasLongContent && <AdInArticle />}
+
+            <FAQSection faqs={calculatorConfig.faqs} />
+            <MethodSection sources={calculatorConfig.methodSection} />
+            <RelatedCalculators slugs={calculatorConfig.relatedCalculators} />
+          </article>
+
+          <!-- Sidebar: desktop only, sticky ad -->
+          <aside class="hidden lg:block">
+            {
+              hasLongContent && (
+                <div class="sticky top-4">
+                  <AdBanner position="sidebar" />
+                </div>
+              )
+            }
+          </aside>
+        </div>
+      </Container>
+    </main>
+
+    <Footer />
+  </body>
+</html>

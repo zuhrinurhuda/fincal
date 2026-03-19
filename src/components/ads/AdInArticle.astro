@@ -1,0 +1,55 @@
+---
+import { adsConfig } from "../../config/adsConfig";
+
+// A unique suffix per component instance to avoid ID collisions
+const uid = Math.random().toString(36).slice(2, 9);
+const client = adsConfig.client;
+const slot = adsConfig.slots.inArticle;
+---
+
+<div
+  id={`ad-ia-${uid}`}
+  class="relative my-6 w-full overflow-hidden rounded-lg"
+  style="min-height: 90px;"
+  aria-label="Iklan"
+  aria-hidden="true"
+>
+  <!-- Skeleton shown until ad loads or becomes visible -->
+  <div
+    id={`ad-ia-sk-${uid}`}
+    class="absolute inset-0 animate-pulse bg-gray-100 dark:bg-gray-800 rounded-lg"
+  >
+  </div>
+</div>
+
+<script is:inline define:vars={{ uid, client, slot }}>
+  (function () {
+    var container = document.getElementById("ad-ia-" + uid);
+    var skeleton = document.getElementById("ad-ia-sk-" + uid);
+    if (!container) return;
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        if (!entries[0].isIntersecting) return;
+        observer.disconnect();
+
+        // Hide skeleton
+        if (skeleton) skeleton.style.display = "none";
+
+        // Inject and push the ad unit
+        var ins = document.createElement("ins");
+        ins.className = "adsbygoogle";
+        ins.style.display = "block";
+        ins.setAttribute("data-ad-client", client);
+        ins.setAttribute("data-ad-slot", slot);
+        ins.setAttribute("data-ad-format", "fluid");
+        ins.setAttribute("data-ad-layout-key", "-fb+5w+4e-db+86");
+        container.appendChild(ins);
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      },
+      { rootMargin: "200px 0px" }
+    );
+
+    observer.observe(container);
+  })();
+</script>

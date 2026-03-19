@@ -1,0 +1,45 @@
+---
+import ThemeToggle from "./ThemeToggle.tsx";
+---
+
+<header
+  class="sticky top-0 z-50 w-full bg-white/90 dark:bg-gray-950/90 backdrop-blur border-b border-gray-200 dark:border-gray-800"
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+    <!-- Logo -->
+    <a
+      href="/"
+      class="flex items-center gap-2 font-bold text-lg text-blue-600 dark:text-blue-400 hover:opacity-80 transition-opacity"
+      aria-label="FinCal – Kalkulator Keuangan Indonesia"
+    >
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        aria-hidden="true"
+        class="shrink-0"
+      >
+        <rect width="24" height="24" rx="6" fill="currentColor" opacity="0.15"
+        ></rect>
+        <path
+          d="M7 8h10M7 12h6M7 16h8"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"></path>
+      </svg>
+      FinCal
+    </a>
+
+    <!-- Nav + theme toggle -->
+    <nav class="flex items-center gap-1" aria-label="Navigasi utama">
+      <a
+        href="/"
+        class="hidden sm:block px-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
+      >
+        Semua Kalkulator
+      </a>
+      <ThemeToggle client:load />
+    </nav>
+  </div>
+</header>

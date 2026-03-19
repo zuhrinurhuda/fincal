@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CalculatorShell from "../../components/calculator/CalculatorShell";
+import { calculatorRegistry } from "../../config/calculatorRegistry";
+
+export async function getStaticPaths() {
+  return Object.values(calculatorRegistry).map((config) => ({
+    params: { slug: config.slug },
+    props: { config },
+  }));
+}
+
+interface Props {
+  config: (typeof calculatorRegistry)[string];
+}
+
+const { config } = Astro.props;
+
+const baseUrl = import.meta.env.SITE ?? "https://yourdomain.com";
+const canonicalUrl = `${baseUrl}/kalkulator/${config.slug}`;
+---
+
+<BaseLayout
+  title={config.title}
+  metaDescription={config.metaDescription}
+  canonicalUrl={canonicalUrl}
+  calculatorConfig={config}
+  ogImage={`${baseUrl}/og/${config.slug}.png`}
+>
+  <CalculatorShell config={config} client:load />
+</BaseLayout>

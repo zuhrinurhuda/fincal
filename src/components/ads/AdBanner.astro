@@ -1,0 +1,40 @@
+---
+import { adsConfig } from "../../config/adsConfig";
+
+interface Props {
+  position: "top" | "sidebar" | "footer";
+}
+
+const { position } = Astro.props;
+
+const slotId =
+  position === "sidebar"
+    ? adsConfig.slots.sidebar
+    : position === "footer"
+      ? adsConfig.slots.footer
+      : adsConfig.slots.top;
+
+const isVertical = position === "sidebar";
+
+// Reserve space to prevent CLS — height matches typical ad unit sizes
+const minHeight = isVertical ? "250px" : "90px";
+const adFormat = isVertical ? "rectangle" : "horizontal";
+---
+
+<div
+  class="w-full flex items-center justify-center overflow-hidden"
+  style={`min-height: ${minHeight}`}
+  aria-label="Iklan"
+  aria-hidden="true"
+>
+  <ins
+    class="adsbygoogle"
+    style="display:block"
+    data-ad-client={adsConfig.client}
+    data-ad-slot={slotId}
+    data-ad-format={adFormat}
+    data-full-width-responsive="true"
+  >
+  </ins>
+</div>
+<script is:inline>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>

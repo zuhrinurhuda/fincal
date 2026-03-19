@@ -1,0 +1,66 @@
+---
+import type { CalculatorConfig } from "../../types/calculator";
+
+interface Props {
+  config: CalculatorConfig;
+}
+
+const { config } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="mb-2">
+  <ol
+    class="flex flex-wrap items-center gap-1 text-xs text-gray-500 dark:text-gray-400"
+    itemscope
+    itemtype="https://schema.org/BreadcrumbList"
+  >
+    <li
+      itemprop="itemListElement"
+      itemscope
+      itemtype="https://schema.org/ListItem"
+    >
+      <a
+        href="/"
+        itemprop="item"
+        class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+      >
+        <span itemprop="name">Beranda</span>
+      </a>
+      <meta itemprop="position" content="1" />
+    </li>
+
+    <li aria-hidden="true" class="select-none">/</li>
+
+    <li
+      itemprop="itemListElement"
+      itemscope
+      itemtype="https://schema.org/ListItem"
+    >
+      <a
+        href="/"
+        itemprop="item"
+        class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+      >
+        <span itemprop="name">Kalkulator</span>
+      </a>
+      <meta itemprop="position" content="2" />
+    </li>
+
+    <li aria-hidden="true" class="select-none">/</li>
+
+    <li
+      itemprop="itemListElement"
+      itemscope
+      itemtype="https://schema.org/ListItem"
+    >
+      <span
+        itemprop="name"
+        aria-current="page"
+        class="text-gray-700 dark:text-gray-300 font-medium"
+      >
+        {config.title}
+      </span>
+      <meta itemprop="position" content="3" />
+    </li>
+  </ol>
+</nav>

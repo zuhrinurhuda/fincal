@@ -1,0 +1,71 @@
+---
+import type { MethodSource } from "../../types/calculator";
+
+interface Props {
+  sources: MethodSource[];
+}
+
+const { sources } = Astro.props;
+---
+
+<section class="mt-10" aria-labelledby="method-heading">
+  <h2
+    id="method-heading"
+    class="text-xl font-bold text-gray-900 dark:text-gray-50 mb-4"
+  >
+    Metode Perhitungan & Sumber Referensi
+  </h2>
+
+  <div
+    class="rounded-xl border border-blue-100 dark:border-blue-900/40 bg-blue-50/50 dark:bg-blue-950/20 px-5 py-4 space-y-3"
+  >
+    <p class="text-xs text-blue-700 dark:text-blue-400 font-medium uppercase tracking-wide">
+      Dasar Hukum & Regulasi
+    </p>
+
+    <ul class="space-y-3">
+      {
+        sources.map((src) => (
+          <li class="flex items-start gap-3">
+            <svg
+              class="shrink-0 mt-0.5 w-4 h-4 text-blue-500 dark:text-blue-400"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <div class="text-sm">
+              <span class="font-medium text-gray-900 dark:text-gray-100">
+                {src.label}:
+              </span>{" "}
+              {src.url ? (
+                <a
+                  href={src.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  {src.source}
+                </a>
+              ) : (
+                <span class="text-gray-600 dark:text-gray-400">
+                  {src.source}
+                </span>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="text-xs text-gray-500 dark:text-gray-400 pt-1 border-t border-blue-100 dark:border-blue-900/30">
+      Hasil kalkulator bersifat estimasi. Konsultasikan dengan bank atau
+      penasihat keuangan untuk keputusan finansial yang tepat.
+    </p>
+  </div>
+</section>
