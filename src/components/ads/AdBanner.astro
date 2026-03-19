@@ -1,28 +1,28 @@
 ---
-import { adsConfig } from "@/config/adsConfig";
+import { adsConfig } from '@/config/adsConfig';
 
 interface Props {
-  position: "top" | "sidebar" | "footer";
+  position: 'top' | 'sidebar' | 'footer';
 }
 
 const { position } = Astro.props;
 
 const slotId =
-  position === "sidebar"
+  position === 'sidebar'
     ? adsConfig.slots.sidebar
-    : position === "footer"
+    : position === 'footer'
       ? adsConfig.slots.footer
       : adsConfig.slots.top;
 
-const isVertical = position === "sidebar";
+const isVertical = position === 'sidebar';
 
 // Reserve space to prevent CLS — height matches typical ad unit sizes
-const minHeight = isVertical ? "250px" : "90px";
-const adFormat = isVertical ? "rectangle" : "horizontal";
+const minHeight = isVertical ? '250px' : '90px';
+const adFormat = isVertical ? 'rectangle' : 'horizontal';
 ---
 
 <div
-  class="w-full flex items-center justify-center overflow-hidden"
+  class="flex w-full items-center justify-center overflow-hidden"
   style={`min-height: ${minHeight}`}
   aria-label="Iklan"
   aria-hidden="true"
@@ -37,4 +37,6 @@ const adFormat = isVertical ? "rectangle" : "horizontal";
   >
   </ins>
 </div>
-<script is:inline>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
+<script is:inline>
+  (window.adsbygoogle = window.adsbygoogle || []).push({});
+</script>

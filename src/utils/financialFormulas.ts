@@ -3,7 +3,7 @@ import type {
   CompoundRow,
   ZakatResult,
   SimulationResult,
-} from "@/types/calculator";
+} from '@/types/calculator';
 
 // ---------------------------------------------------------------------------
 // Loan Amortization (annuity / equal-payment method)
@@ -12,7 +12,7 @@ import type {
 export function loanAmortization(
   principal: number,
   annualRate: number,
-  tenorMonths: number,
+  tenorMonths: number
 ): AmortizationRow[] {
   const monthlyRate = annualRate / 100 / 12;
   const schedule: AmortizationRow[] = [];
@@ -64,7 +64,7 @@ export function compoundInterest(
   principal: number,
   monthlyAddition: number,
   annualRate: number,
-  years: number,
+  years: number
 ): CompoundRow[] {
   const monthlyRate = annualRate / 100 / 12;
   const rows: CompoundRow[] = [];
@@ -96,12 +96,9 @@ export function compoundInterest(
 // while interest is still charged on the original amount.
 // ---------------------------------------------------------------------------
 
-export function flatToEffectiveRate(
-  flatRatePercent: number,
-  tenorMonths: number,
-): number {
+export function flatToEffectiveRate(flatRatePercent: number, tenorMonths: number): number {
   const flatRate = flatRatePercent / 100;
-  const totalInterest = flatRate * tenorMonths / 12;
+  const totalInterest = (flatRate * tenorMonths) / 12;
   const monthlyPayment = (1 + totalInterest) / tenorMonths;
 
   // Solve for monthly effective rate r such that:
@@ -113,7 +110,8 @@ export function flatToEffectiveRate(
     const pow = Math.pow(1 + r, n);
     const f = (r * pow) / (pow - 1) - monthlyPayment;
     const df =
-      (pow * (pow - 1) - r * n * Math.pow(1 + r, n - 1) * (pow - 1) -
+      (pow * (pow - 1) -
+        r * n * Math.pow(1 + r, n - 1) * (pow - 1) -
         r * pow * n * Math.pow(1 + r, n - 1)) /
       Math.pow(pow - 1, 2);
 
@@ -124,8 +122,7 @@ export function flatToEffectiveRate(
     const dNumerator = pow + r * dPow;
     const dDenominator = dPow;
     const derivative =
-      (dNumerator * denominator - numerator * dDenominator) /
-      (denominator * denominator);
+      (dNumerator * denominator - numerator * dDenominator) / (denominator * denominator);
 
     if (Math.abs(derivative) < 1e-15) break;
 
@@ -145,11 +142,7 @@ export function flatToEffectiveRate(
 // Zakat Maal
 // ---------------------------------------------------------------------------
 
-export function zakatMal(
-  totalAssets: number,
-  totalDebts: number,
-  nisabValue: number,
-): ZakatResult {
+export function zakatMal(totalAssets: number, totalDebts: number, nisabValue: number): ZakatResult {
   const totalWealth = totalAssets - totalDebts;
   const isAboveNisab = totalWealth >= nisabValue;
 
@@ -169,29 +162,18 @@ export function extraPaymentSimulation(
   remainingPrincipal: number,
   annualRate: number,
   remainingMonths: number,
-  extraPerMonth: number,
+  extraPerMonth: number
 ): SimulationResult {
-  const normalSchedule = runAmortization(
-    remainingPrincipal,
-    annualRate,
-    remainingMonths,
-    0,
-  );
+  const normalSchedule = runAmortization(remainingPrincipal, annualRate, remainingMonths, 0);
   const acceleratedSchedule = runAmortization(
     remainingPrincipal,
     annualRate,
     remainingMonths,
-    extraPerMonth,
+    extraPerMonth
   );
 
-  const normalTotalInterest = normalSchedule.reduce(
-    (sum, r) => sum + r.interest,
-    0,
-  );
-  const acceleratedTotalInterest = acceleratedSchedule.reduce(
-    (sum, r) => sum + r.interest,
-    0,
-  );
+  const normalTotalInterest = normalSchedule.reduce((sum, r) => sum + r.interest, 0);
+  const acceleratedTotalInterest = acceleratedSchedule.reduce((sum, r) => sum + r.interest, 0);
 
   return {
     normalTenorMonths: normalSchedule.length,
@@ -213,7 +195,7 @@ function runAmortization(
   principal: number,
   annualRate: number,
   maxMonths: number,
-  extraPerMonth: number,
+  extraPerMonth: number
 ): AmortizationRow[] {
   const monthlyRate = annualRate / 100 / 12;
   const schedule: AmortizationRow[] = [];

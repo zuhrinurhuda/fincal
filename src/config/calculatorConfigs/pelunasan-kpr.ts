@@ -1,71 +1,71 @@
-import type { CalculatorConfig } from "@/types/calculator";
-import { formatIDR } from "@/utils/formatCurrency";
-import { extraPaymentSimulation } from "@/utils/financialFormulas";
+import type { CalculatorConfig } from '@/types/calculator';
+import { formatIDR } from '@/utils/formatCurrency';
+import { extraPaymentSimulation } from '@/utils/financialFormulas';
 
 export const pelunasanKpr: CalculatorConfig = {
-  slug: "pelunasan-kpr",
-  title: "Kalkulator Pelunasan KPR Dipercepat",
+  slug: 'pelunasan-kpr',
+  title: 'Kalkulator Pelunasan KPR Dipercepat',
   description:
-    "Simulasi pelunasan KPR lebih cepat dengan extra payment — lihat berapa bulan lebih cepat lunas dan berapa bunga yang dihemat.",
+    'Simulasi pelunasan KPR lebih cepat dengan extra payment — lihat berapa bulan lebih cepat lunas dan berapa bunga yang dihemat.',
   metaDescription:
-    "Kalkulator pelunasan KPR dipercepat — hitung penghematan bunga dan percepatan tenor dengan extra payment bulanan. Gratis & akurat.",
+    'Kalkulator pelunasan KPR dipercepat — hitung penghematan bunga dan percepatan tenor dengan extra payment bulanan. Gratis & akurat.',
   keywords: [
-    "pelunasan kpr dipercepat",
-    "kalkulator pelunasan kpr",
-    "extra payment kpr",
-    "simulasi pelunasan",
-    "hemat bunga kpr",
-    "prepayment kpr",
+    'pelunasan kpr dipercepat',
+    'kalkulator pelunasan kpr',
+    'extra payment kpr',
+    'simulasi pelunasan',
+    'hemat bunga kpr',
+    'prepayment kpr',
   ],
 
   inputs: [
     {
-      name: "sisaPokok",
-      label: "Sisa Pokok Pinjaman",
-      type: "amount",
-      prefix: "Rp",
+      name: 'sisaPokok',
+      label: 'Sisa Pokok Pinjaman',
+      type: 'amount',
+      prefix: 'Rp',
       defaultValue: 300_000_000,
       min: 1_000_000,
       max: 50_000_000_000,
-      helpText: "Sisa pokok KPR yang belum dilunasi",
+      helpText: 'Sisa pokok KPR yang belum dilunasi',
     },
     {
-      name: "sukuBunga",
-      label: "Suku Bunga Saat Ini",
-      type: "percentage",
-      suffix: "% / tahun",
-      inputMode: "decimal",
+      name: 'sukuBunga',
+      label: 'Suku Bunga Saat Ini',
+      type: 'percentage',
+      suffix: '% / tahun',
+      inputMode: 'decimal',
       defaultValue: 10,
       min: 0,
       max: 30,
-      helpText: "Suku bunga efektif tahunan KPR saat ini",
+      helpText: 'Suku bunga efektif tahunan KPR saat ini',
     },
     {
-      name: "sisaTenor",
-      label: "Sisa Tenor",
-      type: "select",
-      suffix: "tahun",
+      name: 'sisaTenor',
+      label: 'Sisa Tenor',
+      type: 'select',
+      suffix: 'tahun',
       defaultValue: 15,
       options: [
-        { label: "5 tahun", value: 5 },
-        { label: "8 tahun", value: 8 },
-        { label: "10 tahun", value: 10 },
-        { label: "12 tahun", value: 12 },
-        { label: "15 tahun", value: 15 },
-        { label: "18 tahun", value: 18 },
-        { label: "20 tahun", value: 20 },
-        { label: "25 tahun", value: 25 },
+        { label: '5 tahun', value: 5 },
+        { label: '8 tahun', value: 8 },
+        { label: '10 tahun', value: 10 },
+        { label: '12 tahun', value: 12 },
+        { label: '15 tahun', value: 15 },
+        { label: '18 tahun', value: 18 },
+        { label: '20 tahun', value: 20 },
+        { label: '25 tahun', value: 25 },
       ],
     },
     {
-      name: "extraPayment",
-      label: "Extra Payment per Bulan",
-      type: "amount",
-      prefix: "Rp",
+      name: 'extraPayment',
+      label: 'Extra Payment per Bulan',
+      type: 'amount',
+      prefix: 'Rp',
       defaultValue: 1_000_000,
       min: 0,
       max: 10_000_000_000,
-      helpText: "Tambahan pembayaran di luar cicilan pokok per bulan",
+      helpText: 'Tambahan pembayaran di luar cicilan pokok per bulan',
     },
   ],
 
@@ -98,47 +98,47 @@ export const pelunasanKpr: CalculatorConfig = {
 
   formatResult: (r) => ({
     primary: {
-      label: "Penghematan Bunga",
+      label: 'Penghematan Bunga',
       value: formatIDR(Number(r.penghematanBunga)),
     },
     breakdown: [
-      { label: "Sisa Pokok", value: formatIDR(Number(r.sisaPokok)) },
-      { label: "Cicilan Normal", value: `${formatIDR(Number(r.cicilanNormal))}/bulan` },
-      { label: "Cicilan + Extra", value: `${formatIDR(Number(r.cicilanDenganExtra))}/bulan` },
-      { label: "Tenor Normal", value: `${r.tenorNormal} bulan` },
-      { label: "Tenor Dipercepat", value: `${r.tenorDipercepat} bulan` },
-      { label: "Lebih Cepat Lunas", value: `${r.bulanLebihCepat} bulan` },
-      { label: "Total Bunga (normal)", value: formatIDR(Number(r.bungaNormal)) },
-      { label: "Total Bunga (dipercepat)", value: formatIDR(Number(r.bungaDipercepat)) },
-      { label: "Penghematan Bunga", value: formatIDR(Number(r.penghematanBunga)) },
+      { label: 'Sisa Pokok', value: formatIDR(Number(r.sisaPokok)) },
+      { label: 'Cicilan Normal', value: `${formatIDR(Number(r.cicilanNormal))}/bulan` },
+      { label: 'Cicilan + Extra', value: `${formatIDR(Number(r.cicilanDenganExtra))}/bulan` },
+      { label: 'Tenor Normal', value: `${r.tenorNormal} bulan` },
+      { label: 'Tenor Dipercepat', value: `${r.tenorDipercepat} bulan` },
+      { label: 'Lebih Cepat Lunas', value: `${r.bulanLebihCepat} bulan` },
+      { label: 'Total Bunga (normal)', value: formatIDR(Number(r.bungaNormal)) },
+      { label: 'Total Bunga (dipercepat)', value: formatIDR(Number(r.bungaDipercepat)) },
+      { label: 'Penghematan Bunga', value: formatIDR(Number(r.penghematanBunga)) },
     ],
   }),
 
   faqs: [
     {
-      question: "Apakah pelunasan KPR dipercepat itu menguntungkan?",
+      question: 'Apakah pelunasan KPR dipercepat itu menguntungkan?',
       answer:
-        "Ya, sangat menguntungkan. Dengan melakukan extra payment setiap bulan, Anda mengurangi sisa pokok lebih cepat, sehingga total bunga yang harus dibayar berkurang signifikan. Semakin awal Anda melakukan extra payment, semakin besar penghematannya karena di awal masa kredit, porsi bunga dalam cicilan sangat besar.",
+        'Ya, sangat menguntungkan. Dengan melakukan extra payment setiap bulan, Anda mengurangi sisa pokok lebih cepat, sehingga total bunga yang harus dibayar berkurang signifikan. Semakin awal Anda melakukan extra payment, semakin besar penghematannya karena di awal masa kredit, porsi bunga dalam cicilan sangat besar.',
     },
     {
-      question: "Apakah ada penalti pelunasan KPR dipercepat?",
+      question: 'Apakah ada penalti pelunasan KPR dipercepat?',
       answer:
-        "Sebagian bank mengenakan penalti prepayment sebesar 1–3% dari sisa pokok atau dari jumlah yang dilunasi lebih awal. Biasanya penalti ini berlaku jika pelunasan dilakukan dalam 3–5 tahun pertama masa kredit. Cek perjanjian kredit Anda untuk detailnya.",
+        'Sebagian bank mengenakan penalti prepayment sebesar 1–3% dari sisa pokok atau dari jumlah yang dilunasi lebih awal. Biasanya penalti ini berlaku jika pelunasan dilakukan dalam 3–5 tahun pertama masa kredit. Cek perjanjian kredit Anda untuk detailnya.',
     },
     {
-      question: "Lebih baik menambah cicilan bulanan atau melunasi sekaligus?",
+      question: 'Lebih baik menambah cicilan bulanan atau melunasi sekaligus?',
       answer:
-        "Keduanya menguntungkan, tergantung kondisi keuangan. Menambah cicilan bulanan (extra payment rutin) cocok jika Anda punya penghasilan stabil lebih. Pelunasan sekaligus (lump sum) cocok jika mendapat dana besar seperti bonus tahunan atau warisan. Kalkulator ini mensimulasikan skenario extra payment rutin.",
+        'Keduanya menguntungkan, tergantung kondisi keuangan. Menambah cicilan bulanan (extra payment rutin) cocok jika Anda punya penghasilan stabil lebih. Pelunasan sekaligus (lump sum) cocok jika mendapat dana besar seperti bonus tahunan atau warisan. Kalkulator ini mensimulasikan skenario extra payment rutin.',
     },
     {
-      question: "Berapa extra payment yang ideal?",
+      question: 'Berapa extra payment yang ideal?',
       answer:
-        "Tidak ada angka pasti — tergantung kemampuan finansial Anda. Bahkan tambahan Rp 500.000–1.000.000 per bulan bisa memberikan penghematan puluhan hingga ratusan juta rupiah dalam jangka panjang. Pastikan extra payment tidak mengganggu dana darurat dan kebutuhan lainnya.",
+        'Tidak ada angka pasti — tergantung kemampuan finansial Anda. Bahkan tambahan Rp 500.000–1.000.000 per bulan bisa memberikan penghematan puluhan hingga ratusan juta rupiah dalam jangka panjang. Pastikan extra payment tidak mengganggu dana darurat dan kebutuhan lainnya.',
     },
     {
-      question: "Kapan waktu terbaik untuk memulai extra payment?",
+      question: 'Kapan waktu terbaik untuk memulai extra payment?',
       answer:
-        "Semakin awal semakin baik. Di tahun-tahun awal KPR, sebagian besar cicilan Anda masuk ke bunga (bukan pokok). Dengan extra payment di awal, Anda mengurangi pokok lebih cepat sehingga bunga di bulan-bulan berikutnya menjadi lebih kecil. Efek penghematannya sangat signifikan jika dimulai sejak dini.",
+        'Semakin awal semakin baik. Di tahun-tahun awal KPR, sebagian besar cicilan Anda masuk ke bunga (bukan pokok). Dengan extra payment di awal, Anda mengurangi pokok lebih cepat sehingga bunga di bulan-bulan berikutnya menjadi lebih kecil. Efek penghematannya sangat signifikan jika dimulai sejak dini.',
     },
   ],
 
@@ -196,12 +196,12 @@ export const pelunasanKpr: CalculatorConfig = {
 
   methodSection: [
     {
-      label: "Regulasi Kredit Perbankan",
+      label: 'Regulasi Kredit Perbankan',
       source:
-        "POJK No. 42/POJK.03/2017 tentang Kewajiban Penyusunan dan Pelaksanaan Kebijakan Perkreditan Bank",
-      url: "https://www.ojk.go.id/id/regulasi/otoritas-jasa-keuangan/peraturan-ojk/Pages/POJK-Nomor-42-POJK.03-2017.aspx",
+        'POJK No. 42/POJK.03/2017 tentang Kewajiban Penyusunan dan Pelaksanaan Kebijakan Perkreditan Bank',
+      url: 'https://www.ojk.go.id/id/regulasi/otoritas-jasa-keuangan/peraturan-ojk/Pages/POJK-Nomor-42-POJK.03-2017.aspx',
     },
   ],
 
-  relatedCalculators: ["kpr", "investasi"],
+  relatedCalculators: ['kpr', 'investasi'],
 };

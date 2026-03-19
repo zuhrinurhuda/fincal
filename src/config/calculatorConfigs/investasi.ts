@@ -1,70 +1,70 @@
-import type { CalculatorConfig } from "@/types/calculator";
-import { formatIDR } from "@/utils/formatCurrency";
-import { compoundInterest } from "@/utils/financialFormulas";
+import type { CalculatorConfig } from '@/types/calculator';
+import { formatIDR } from '@/utils/formatCurrency';
+import { compoundInterest } from '@/utils/financialFormulas';
 
 export const investasi: CalculatorConfig = {
-  slug: "investasi",
-  title: "Kalkulator Investasi",
+  slug: 'investasi',
+  title: 'Kalkulator Investasi',
   description:
-    "Simulasi pertumbuhan investasi dengan bunga majemuk (compound interest), setoran bulanan, dan breakdown per tahun.",
+    'Simulasi pertumbuhan investasi dengan bunga majemuk (compound interest), setoran bulanan, dan breakdown per tahun.',
   metaDescription:
-    "Kalkulator investasi compound interest — simulasi pertumbuhan modal dengan setoran bulanan dan return tahunan. Gratis & akurat.",
+    'Kalkulator investasi compound interest — simulasi pertumbuhan modal dengan setoran bulanan dan return tahunan. Gratis & akurat.',
   keywords: [
-    "kalkulator investasi",
-    "compound interest",
-    "simulasi investasi",
-    "bunga majemuk",
-    "kalkulator reksadana",
-    "return investasi",
+    'kalkulator investasi',
+    'compound interest',
+    'simulasi investasi',
+    'bunga majemuk',
+    'kalkulator reksadana',
+    'return investasi',
   ],
 
   inputs: [
     {
-      name: "modalAwal",
-      label: "Modal Awal",
-      type: "amount",
-      prefix: "Rp",
+      name: 'modalAwal',
+      label: 'Modal Awal',
+      type: 'amount',
+      prefix: 'Rp',
       defaultValue: 10_000_000,
       min: 0,
       max: 100_000_000_000,
-      helpText: "Dana awal yang diinvestasikan",
+      helpText: 'Dana awal yang diinvestasikan',
     },
     {
-      name: "setoranBulanan",
-      label: "Setoran Bulanan",
-      type: "amount",
-      prefix: "Rp",
+      name: 'setoranBulanan',
+      label: 'Setoran Bulanan',
+      type: 'amount',
+      prefix: 'Rp',
       defaultValue: 1_000_000,
       min: 0,
       max: 1_000_000_000,
-      helpText: "Jumlah yang diinvestasikan setiap bulan",
+      helpText: 'Jumlah yang diinvestasikan setiap bulan',
     },
     {
-      name: "returnTahunan",
-      label: "Return per Tahun",
-      type: "percentage",
-      suffix: "%",
-      inputMode: "decimal",
+      name: 'returnTahunan',
+      label: 'Return per Tahun',
+      type: 'percentage',
+      suffix: '%',
+      inputMode: 'decimal',
       defaultValue: 10,
       min: 0,
       max: 100,
-      helpText: "Estimasi return rata-rata per tahun",
+      helpText: 'Estimasi return rata-rata per tahun',
     },
     {
-      name: "tenor",
-      label: "Jangka Waktu",
-      type: "select",
-      suffix: "tahun",
+      name: 'tenor',
+      label: 'Jangka Waktu',
+      type: 'select',
+      suffix: 'tahun',
       defaultValue: 10,
       options: [
-        { label: "1 tahun", value: 1 },
-        { label: "3 tahun", value: 3 },
-        { label: "5 tahun", value: 5 },
-        { label: "10 tahun", value: 10 },
-        { label: "15 tahun", value: 15 },
-        { label: "20 tahun", value: 20 },
-        { label: "25 tahun", value: 25 },
-        { label: "30 tahun", value: 30 },
+        { label: '1 tahun', value: 1 },
+        { label: '3 tahun', value: 3 },
+        { label: '5 tahun', value: 5 },
+        { label: '10 tahun', value: 10 },
+        { label: '15 tahun', value: 15 },
+        { label: '20 tahun', value: 20 },
+        { label: '25 tahun', value: 25 },
+        { label: '30 tahun', value: 30 },
       ],
     },
   ],
@@ -95,45 +95,45 @@ export const investasi: CalculatorConfig = {
 
   formatResult: (r) => ({
     primary: {
-      label: "Nilai Akhir Investasi",
+      label: 'Nilai Akhir Investasi',
       value: formatIDR(Number(r.nilaiAkhir)),
     },
     breakdown: [
-      { label: "Modal Awal", value: formatIDR(Number(r.modalAwal)) },
-      { label: "Setoran Bulanan", value: formatIDR(Number(r.setoranBulanan)) },
-      { label: "Total Modal Disetor", value: formatIDR(Number(r.totalModal)) },
-      { label: "Total Keuntungan", value: formatIDR(Number(r.totalKeuntungan)) },
-      { label: "Nilai Akhir Investasi", value: formatIDR(Number(r.nilaiAkhir)) },
-      { label: "Return per Tahun", value: `${r.returnTahunan}%` },
-      { label: "Jangka Waktu", value: `${r.tenor} tahun` },
+      { label: 'Modal Awal', value: formatIDR(Number(r.modalAwal)) },
+      { label: 'Setoran Bulanan', value: formatIDR(Number(r.setoranBulanan)) },
+      { label: 'Total Modal Disetor', value: formatIDR(Number(r.totalModal)) },
+      { label: 'Total Keuntungan', value: formatIDR(Number(r.totalKeuntungan)) },
+      { label: 'Nilai Akhir Investasi', value: formatIDR(Number(r.nilaiAkhir)) },
+      { label: 'Return per Tahun', value: `${r.returnTahunan}%` },
+      { label: 'Jangka Waktu', value: `${r.tenor} tahun` },
     ],
   }),
 
   faqs: [
     {
-      question: "Apa itu compound interest (bunga majemuk)?",
+      question: 'Apa itu compound interest (bunga majemuk)?',
       answer:
-        "Compound interest atau bunga majemuk adalah bunga yang dihitung tidak hanya dari pokok investasi, tetapi juga dari bunga yang sudah terkumpul sebelumnya. Efeknya, pertumbuhan investasi menjadi eksponensial — semakin lama berinvestasi, semakin cepat uang Anda bertumbuh.",
+        'Compound interest atau bunga majemuk adalah bunga yang dihitung tidak hanya dari pokok investasi, tetapi juga dari bunga yang sudah terkumpul sebelumnya. Efeknya, pertumbuhan investasi menjadi eksponensial — semakin lama berinvestasi, semakin cepat uang Anda bertumbuh.',
     },
     {
-      question: "Berapa return investasi yang realistis?",
+      question: 'Berapa return investasi yang realistis?',
       answer:
-        "Return investasi bergantung pada instrumen. Deposito: 3–5%/tahun. Obligasi: 6–8%/tahun. Reksa dana campuran: 8–12%/tahun. Saham (indeks): 10–15%/tahun dalam jangka panjang. Angka-angka ini adalah rata-rata historis dan bukan jaminan return di masa depan.",
+        'Return investasi bergantung pada instrumen. Deposito: 3–5%/tahun. Obligasi: 6–8%/tahun. Reksa dana campuran: 8–12%/tahun. Saham (indeks): 10–15%/tahun dalam jangka panjang. Angka-angka ini adalah rata-rata historis dan bukan jaminan return di masa depan.',
     },
     {
-      question: "Lebih penting mana: modal awal besar atau setoran rutin?",
+      question: 'Lebih penting mana: modal awal besar atau setoran rutin?',
       answer:
-        "Dalam jangka panjang, konsistensi setoran bulanan sering kali lebih berpengaruh daripada modal awal. Seseorang yang menyetor Rp 1 juta/bulan selama 20 tahun dengan return 10% bisa mengumpulkan lebih dari Rp 700 juta — meski modal awalnya kecil. Kunci utamanya adalah konsistensi dan waktu.",
+        'Dalam jangka panjang, konsistensi setoran bulanan sering kali lebih berpengaruh daripada modal awal. Seseorang yang menyetor Rp 1 juta/bulan selama 20 tahun dengan return 10% bisa mengumpulkan lebih dari Rp 700 juta — meski modal awalnya kecil. Kunci utamanya adalah konsistensi dan waktu.',
     },
     {
-      question: "Apakah return investasi sudah pasti sesuai simulasi?",
+      question: 'Apakah return investasi sudah pasti sesuai simulasi?',
       answer:
-        "Tidak. Kalkulator ini menggunakan return tetap (fixed rate) sebagai simulasi. Pada kenyataannya, return investasi berfluktuasi setiap tahun, terutama untuk instrumen berisiko tinggi seperti saham. Simulasi ini berguna sebagai gambaran potensi, bukan jaminan hasil.",
+        'Tidak. Kalkulator ini menggunakan return tetap (fixed rate) sebagai simulasi. Pada kenyataannya, return investasi berfluktuasi setiap tahun, terutama untuk instrumen berisiko tinggi seperti saham. Simulasi ini berguna sebagai gambaran potensi, bukan jaminan hasil.',
     },
     {
-      question: "Kapan waktu terbaik untuk mulai berinvestasi?",
+      question: 'Kapan waktu terbaik untuk mulai berinvestasi?',
       answer:
-        "Sekarang. Berkat compound interest, semakin cepat Anda mulai, semakin besar efek pertumbuhannya. Perbedaan memulai investasi di usia 25 vs 35 bisa sangat signifikan — walaupun jumlah setoran yang sama, 10 tahun ekstra bisa menggandakan hasil akhir.",
+        'Sekarang. Berkat compound interest, semakin cepat Anda mulai, semakin besar efek pertumbuhannya. Perbedaan memulai investasi di usia 25 vs 35 bisa sangat signifikan — walaupun jumlah setoran yang sama, 10 tahun ekstra bisa menggandakan hasil akhir.',
     },
   ],
 
@@ -193,11 +193,11 @@ export const investasi: CalculatorConfig = {
 
   methodSection: [
     {
-      label: "Literasi Keuangan dan Investasi",
-      source: "OJK — Panduan Investasi untuk Masyarakat",
-      url: "https://sikapiuangmu.ojk.go.id/FrontEnd/CMS/Category/63",
+      label: 'Literasi Keuangan dan Investasi',
+      source: 'OJK — Panduan Investasi untuk Masyarakat',
+      url: 'https://sikapiuangmu.ojk.go.id/FrontEnd/CMS/Category/63',
     },
   ],
 
-  relatedCalculators: ["reksa-dana", "zakat"],
+  relatedCalculators: ['reksa-dana', 'zakat'],
 };

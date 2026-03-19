@@ -1,22 +1,22 @@
 ---
-import "@/styles/global.css";
-import type { CalculatorConfig } from "@/types/calculator";
+import '@/styles/global.css';
+import type { CalculatorConfig } from '@/types/calculator';
 import {
   generateBreadcrumbSchema,
   generateFAQSchema,
   generateSoftwareAppSchema,
   generateHowToSchema,
-} from "@/utils/schemaGenerators";
-import { adsConfig } from "@/config/adsConfig";
-import Header from "@/components/ui/Header.astro";
-import Footer from "@/components/ui/Footer.astro";
-import Container from "@/components/ui/Container.astro";
-import AdBanner from "@/components/ads/AdBanner.astro";
-import AdInArticle from "@/components/ads/AdInArticle.astro";
-import Breadcrumb from "@/components/seo/Breadcrumb.astro";
-import FAQSection from "@/components/seo/FAQSection.astro";
-import MethodSection from "@/components/seo/MethodSection.astro";
-import RelatedCalculators from "@/components/ui/RelatedCalculators.astro";
+} from '@/utils/schemaGenerators';
+import { adsConfig } from '@/config/adsConfig';
+import Header from '@/components/ui/Header.astro';
+import Footer from '@/components/ui/Footer.astro';
+import Container from '@/components/ui/Container.astro';
+import AdBanner from '@/components/ads/AdBanner.astro';
+import AdInArticle from '@/components/ads/AdInArticle.astro';
+import Breadcrumb from '@/components/seo/Breadcrumb.astro';
+import FAQSection from '@/components/seo/FAQSection.astro';
+import MethodSection from '@/components/seo/MethodSection.astro';
+import RelatedCalculators from '@/components/ui/RelatedCalculators.astro';
 
 interface Props {
   title: string;
@@ -26,12 +26,10 @@ interface Props {
   ogImage?: string;
 }
 
-const { title, metaDescription, canonicalUrl, calculatorConfig, ogImage } =
-  Astro.props;
+const { title, metaDescription, canonicalUrl, calculatorConfig, ogImage } = Astro.props;
 
 const baseUrl = new URL(canonicalUrl).origin;
-const resolvedOgImage =
-  ogImage ?? `/og/${calculatorConfig.slug}.png`;
+const resolvedOgImage = ogImage ?? `/og/${calculatorConfig.slug}.png`;
 
 const breadcrumbSchema = generateBreadcrumbSchema(calculatorConfig, baseUrl);
 const faqSchema = generateFAQSchema(calculatorConfig.faqs);
@@ -75,12 +73,10 @@ const hasLongContent = calculatorConfig.seoContent.length > 600;
     <!-- Theme: injected before paint to prevent FOUC -->
     <script is:inline>
       (function () {
-        var saved = localStorage.getItem("theme");
-        var prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)"
-        ).matches;
-        if (saved === "dark" || (!saved && prefersDark)) {
-          document.documentElement.classList.add("dark");
+        var saved = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'dark' || (!saved && prefersDark)) {
+          document.documentElement.classList.add('dark');
         }
       })();
     </script>
@@ -96,13 +92,7 @@ const hasLongContent = calculatorConfig.seoContent.length > 600;
     <style>
       :root {
         font-family:
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          Helvetica,
-          Arial,
-          sans-serif;
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
       }
       /* Prose content styles for seoContent HTML */
@@ -131,29 +121,27 @@ const hasLongContent = calculatorConfig.seoContent.length > 600;
       }
     </style>
   </head>
-  <body
-    class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen antialiased"
-  >
+  <body class="min-h-screen bg-white text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100">
     <Header />
 
     <!-- Top ad: fixed min-height reserves space before AdSense loads (prevents CLS) -->
-    <div class="w-full bg-gray-50 dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
+    <div class="w-full border-b border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
       <AdBanner position="top" />
     </div>
 
     <main id="main-content">
       <Container>
-        <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8 py-8">
+        <div class="grid grid-cols-1 gap-8 py-8 lg:grid-cols-[1fr_300px]">
           <!-- Main article column -->
           <article>
             <Breadcrumb config={calculatorConfig} />
 
             <h1
-              class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50 mt-4 mb-3"
+              class="mt-4 mb-3 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-50"
             >
               {title}
             </h1>
-            <p class="text-base text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+            <p class="mb-6 text-base leading-relaxed text-gray-600 dark:text-gray-400">
               {calculatorConfig.description}
             </p>
 
@@ -168,7 +156,7 @@ const hasLongContent = calculatorConfig.seoContent.length > 600;
 
             <!-- SEO content: fully server-rendered, zero hydration -->
             <section
-              class="prose-content text-gray-700 dark:text-gray-300 mt-10 text-sm leading-relaxed"
+              class="prose-content mt-10 text-sm leading-relaxed text-gray-700 dark:text-gray-300"
               set:html={calculatorConfig.seoContent}
             />
 

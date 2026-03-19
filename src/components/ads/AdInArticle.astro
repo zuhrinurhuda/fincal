@@ -1,5 +1,5 @@
 ---
-import { adsConfig } from "@/config/adsConfig";
+import { adsConfig } from '@/config/adsConfig';
 
 // A unique suffix per component instance to avoid ID collisions
 const uid = Math.random().toString(36).slice(2, 9);
@@ -17,15 +17,15 @@ const slot = adsConfig.slots.inArticle;
   <!-- Skeleton shown until ad loads or becomes visible -->
   <div
     id={`ad-ia-sk-${uid}`}
-    class="absolute inset-0 animate-pulse bg-gray-100 dark:bg-gray-800 rounded-lg"
+    class="absolute inset-0 animate-pulse rounded-lg bg-gray-100 dark:bg-gray-800"
   >
   </div>
 </div>
 
 <script is:inline define:vars={{ uid, client, slot }}>
   (function () {
-    var container = document.getElementById("ad-ia-" + uid);
-    var skeleton = document.getElementById("ad-ia-sk-" + uid);
+    var container = document.getElementById('ad-ia-' + uid);
+    var skeleton = document.getElementById('ad-ia-sk-' + uid);
     if (!container) return;
 
     var observer = new IntersectionObserver(
@@ -34,20 +34,20 @@ const slot = adsConfig.slots.inArticle;
         observer.disconnect();
 
         // Hide skeleton
-        if (skeleton) skeleton.style.display = "none";
+        if (skeleton) skeleton.style.display = 'none';
 
         // Inject and push the ad unit
-        var ins = document.createElement("ins");
-        ins.className = "adsbygoogle";
-        ins.style.display = "block";
-        ins.setAttribute("data-ad-client", client);
-        ins.setAttribute("data-ad-slot", slot);
-        ins.setAttribute("data-ad-format", "fluid");
-        ins.setAttribute("data-ad-layout-key", "-fb+5w+4e-db+86");
+        var ins = document.createElement('ins');
+        ins.className = 'adsbygoogle';
+        ins.style.display = 'block';
+        ins.setAttribute('data-ad-client', client);
+        ins.setAttribute('data-ad-slot', slot);
+        ins.setAttribute('data-ad-format', 'fluid');
+        ins.setAttribute('data-ad-layout-key', '-fb+5w+4e-db+86');
         container.appendChild(ins);
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       },
-      { rootMargin: "200px 0px" }
+      { rootMargin: '200px 0px' }
     );
 
     observer.observe(container);

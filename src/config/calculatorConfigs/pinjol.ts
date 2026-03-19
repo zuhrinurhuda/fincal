@@ -1,63 +1,63 @@
-import type { CalculatorConfig } from "@/types/calculator";
-import { formatIDR } from "@/utils/formatCurrency";
+import type { CalculatorConfig } from '@/types/calculator';
+import { formatIDR } from '@/utils/formatCurrency';
 
 export const pinjol: CalculatorConfig = {
-  slug: "pinjol",
-  title: "Kalkulator Pinjaman Online (Pinjol)",
+  slug: 'pinjol',
+  title: 'Kalkulator Pinjaman Online (Pinjol)',
   description:
-    "Hitung total biaya pinjaman online, bunga harian, dan bandingkan bunga flat dengan bunga efektif tahunan.",
+    'Hitung total biaya pinjaman online, bunga harian, dan bandingkan bunga flat dengan bunga efektif tahunan.',
   metaDescription:
-    "Kalkulator pinjol — hitung total bayar pinjaman online, bunga harian vs efektif tahunan. Kenali biaya nyata sebelum pinjam. Gratis.",
+    'Kalkulator pinjol — hitung total bayar pinjaman online, bunga harian vs efektif tahunan. Kenali biaya nyata sebelum pinjam. Gratis.',
   keywords: [
-    "kalkulator pinjol",
-    "pinjaman online",
-    "bunga pinjol",
-    "hitung bunga pinjaman online",
-    "pinjol legal",
-    "simulasi pinjol",
+    'kalkulator pinjol',
+    'pinjaman online',
+    'bunga pinjol',
+    'hitung bunga pinjaman online',
+    'pinjol legal',
+    'simulasi pinjol',
   ],
 
   inputs: [
     {
-      name: "pokokPinjaman",
-      label: "Jumlah Pinjaman",
-      type: "amount",
-      prefix: "Rp",
+      name: 'pokokPinjaman',
+      label: 'Jumlah Pinjaman',
+      type: 'amount',
+      prefix: 'Rp',
       defaultValue: 2_000_000,
       min: 100_000,
       max: 20_000_000,
-      helpText: "Jumlah pokok yang dipinjam",
+      helpText: 'Jumlah pokok yang dipinjam',
     },
     {
-      name: "jenisTenor",
-      label: "Satuan Tenor",
-      type: "select",
+      name: 'jenisTenor',
+      label: 'Satuan Tenor',
+      type: 'select',
       defaultValue: 1,
       options: [
-        { label: "Hari", value: 1 },
-        { label: "Bulan", value: 2 },
+        { label: 'Hari', value: 1 },
+        { label: 'Bulan', value: 2 },
       ],
     },
     {
-      name: "tenor",
-      label: "Lama Pinjaman",
-      type: "number",
-      inputMode: "numeric",
+      name: 'tenor',
+      label: 'Lama Pinjaman',
+      type: 'number',
+      inputMode: 'numeric',
       defaultValue: 30,
       min: 1,
       max: 365,
-      helpText: "Durasi pinjaman dalam hari atau bulan",
+      helpText: 'Durasi pinjaman dalam hari atau bulan',
     },
     {
-      name: "bungaHarian",
-      label: "Bunga Flat Harian",
-      type: "percentage",
-      suffix: "% / hari",
-      inputMode: "decimal",
+      name: 'bungaHarian',
+      label: 'Bunga Flat Harian',
+      type: 'percentage',
+      suffix: '% / hari',
+      inputMode: 'decimal',
       defaultValue: 0.4,
       min: 0,
       max: 5,
-      helpText: "Bunga flat per hari yang dikenakan pinjol (maks legal 0,4%/hari)",
+      helpText: 'Bunga flat per hari yang dikenakan pinjol (maks legal 0,4%/hari)',
     },
   ],
 
@@ -93,40 +93,40 @@ export const pinjol: CalculatorConfig = {
 
   formatResult: (r) => ({
     primary: {
-      label: "Total yang Harus Dibayar",
+      label: 'Total yang Harus Dibayar',
       value: formatIDR(Number(r.totalBayar)),
     },
     breakdown: [
-      { label: "Pokok Pinjaman", value: formatIDR(Number(r.pokok)) },
-      { label: "Tenor", value: `${r.tenorHari} hari` },
-      { label: "Bunga per Hari", value: formatIDR(Number(r.bungaPerHari)) },
-      { label: "Total Bunga", value: formatIDR(Number(r.totalBunga)) },
-      { label: "Total Bayar", value: formatIDR(Number(r.totalBayar)) },
-      { label: "Bunga Flat (tahunan)", value: `${r.bungaFlatTahunan}%` },
-      { label: "Bunga Efektif (tahunan)", value: `${r.bungaEfektifTahunan}%` },
+      { label: 'Pokok Pinjaman', value: formatIDR(Number(r.pokok)) },
+      { label: 'Tenor', value: `${r.tenorHari} hari` },
+      { label: 'Bunga per Hari', value: formatIDR(Number(r.bungaPerHari)) },
+      { label: 'Total Bunga', value: formatIDR(Number(r.totalBunga)) },
+      { label: 'Total Bayar', value: formatIDR(Number(r.totalBayar)) },
+      { label: 'Bunga Flat (tahunan)', value: `${r.bungaFlatTahunan}%` },
+      { label: 'Bunga Efektif (tahunan)', value: `${r.bungaEfektifTahunan}%` },
     ],
   }),
 
   faqs: [
     {
-      question: "Berapa bunga maksimal pinjaman online yang legal?",
+      question: 'Berapa bunga maksimal pinjaman online yang legal?',
       answer:
-        "Berdasarkan POJK No. 10/POJK.05/2022, bunga pinjaman online tidak boleh melebihi 0,4% per hari dari pokok pinjaman. Total biaya pinjaman (bunga + biaya lainnya) juga tidak boleh melebihi 100% dari pokok. Jika platform mengenakan bunga lebih dari ini, kemungkinan besar platform tersebut ilegal.",
+        'Berdasarkan POJK No. 10/POJK.05/2022, bunga pinjaman online tidak boleh melebihi 0,4% per hari dari pokok pinjaman. Total biaya pinjaman (bunga + biaya lainnya) juga tidak boleh melebihi 100% dari pokok. Jika platform mengenakan bunga lebih dari ini, kemungkinan besar platform tersebut ilegal.',
     },
     {
-      question: "Bagaimana cara membedakan pinjol legal dan ilegal?",
+      question: 'Bagaimana cara membedakan pinjol legal dan ilegal?',
       answer:
-        "Pinjol legal terdaftar dan diawasi OJK. Cek di website OJK atau aplikasi OJK untuk daftar terbaru perusahaan fintech lending berizin. Pinjol ilegal biasanya menawarkan proses sangat cepat tanpa verifikasi, meminta akses berlebihan ke HP, dan mengenakan bunga sangat tinggi.",
+        'Pinjol legal terdaftar dan diawasi OJK. Cek di website OJK atau aplikasi OJK untuk daftar terbaru perusahaan fintech lending berizin. Pinjol ilegal biasanya menawarkan proses sangat cepat tanpa verifikasi, meminta akses berlebihan ke HP, dan mengenakan bunga sangat tinggi.',
     },
     {
-      question: "Apa itu bunga efektif tahunan dan mengapa penting?",
+      question: 'Apa itu bunga efektif tahunan dan mengapa penting?',
       answer:
-        "Bunga efektif tahunan menunjukkan biaya nyata pinjaman jika disetarakan dalam satu tahun. Bunga harian 0,4% mungkin terlihat kecil, tetapi jika dihitung efektif tahunan bisa mencapai lebih dari 300%. Angka ini membantu Anda membandingkan biaya pinjol dengan produk kredit lain seperti KTA atau kartu kredit.",
+        'Bunga efektif tahunan menunjukkan biaya nyata pinjaman jika disetarakan dalam satu tahun. Bunga harian 0,4% mungkin terlihat kecil, tetapi jika dihitung efektif tahunan bisa mencapai lebih dari 300%. Angka ini membantu Anda membandingkan biaya pinjol dengan produk kredit lain seperti KTA atau kartu kredit.',
     },
     {
-      question: "Apa risiko mengambil pinjaman online?",
+      question: 'Apa risiko mengambil pinjaman online?',
       answer:
-        "Risiko utama: bunga yang sangat tinggi jika diperpanjang (roll over), potensi terjerat utang berbunga, dan risiko data pribadi disalahgunakan oleh pinjol ilegal. Sebaiknya gunakan pinjol hanya untuk kebutuhan darurat jangka pendek dan pastikan bisa melunasi tepat waktu.",
+        'Risiko utama: bunga yang sangat tinggi jika diperpanjang (roll over), potensi terjerat utang berbunga, dan risiko data pribadi disalahgunakan oleh pinjol ilegal. Sebaiknya gunakan pinjol hanya untuk kebutuhan darurat jangka pendek dan pastikan bisa melunasi tepat waktu.',
     },
   ],
 
@@ -183,16 +183,16 @@ export const pinjol: CalculatorConfig = {
 
   methodSection: [
     {
-      label: "Regulasi Pinjaman Online (P2P Lending)",
+      label: 'Regulasi Pinjaman Online (P2P Lending)',
       source:
-        "POJK No. 10/POJK.05/2022 tentang Layanan Pendanaan Bersama Berbasis Teknologi Informasi",
-      url: "https://www.ojk.go.id/id/regulasi/otoritas-jasa-keuangan/peraturan-ojk/Pages/POJK-10-05-2022.aspx",
+        'POJK No. 10/POJK.05/2022 tentang Layanan Pendanaan Bersama Berbasis Teknologi Informasi',
+      url: 'https://www.ojk.go.id/id/regulasi/otoritas-jasa-keuangan/peraturan-ojk/Pages/POJK-10-05-2022.aspx',
     },
     {
-      label: "Batas Biaya Pinjaman Online",
-      source: "SE OJK No. 19/SEOJK.06/2023 tentang Tata Kelola Pendanaan Bersama",
+      label: 'Batas Biaya Pinjaman Online',
+      source: 'SE OJK No. 19/SEOJK.06/2023 tentang Tata Kelola Pendanaan Bersama',
     },
   ],
 
-  relatedCalculators: ["kur", "kredit-motor"],
+  relatedCalculators: ['kur', 'kredit-motor'],
 };
