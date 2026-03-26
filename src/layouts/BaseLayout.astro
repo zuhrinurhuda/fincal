@@ -11,8 +11,9 @@ import { adsConfig } from '@/config/adsConfig';
 import Header from '@/components/ui/Header.astro';
 import Footer from '@/components/ui/Footer.astro';
 import Container from '@/components/ui/Container.astro';
-import AdBanner from '@/components/ads/AdBanner.astro';
-import AdInArticle from '@/components/ads/AdInArticle.astro';
+// TODO: uncomment when AdSense is ready
+// import AdBanner from '@/components/ads/AdBanner.astro';
+// import AdInArticle from '@/components/ads/AdInArticle.astro';
 import Breadcrumb from '@/components/seo/Breadcrumb.astro';
 import FAQSection from '@/components/seo/FAQSection.astro';
 import MethodSection from '@/components/seo/MethodSection.astro';
@@ -126,7 +127,8 @@ const hasLongContent = calculatorConfig.seoContent.length > 600;
 
     <!-- Top ad: fixed min-height reserves space before AdSense loads (prevents CLS) -->
     <div class="w-full border-b border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
-      <AdBanner position="top" />
+      <!-- TODO: uncomment when AdSense is ready -->
+      <!-- <AdBanner position="top" /> -->
     </div>
 
     <main id="main-content">
@@ -145,13 +147,15 @@ const hasLongContent = calculatorConfig.seoContent.length > 600;
               {calculatorConfig.description}
             </p>
 
-            <AdInArticle />
+            <!-- TODO: uncomment when AdSense is ready -->
+            <!-- <AdInArticle /> -->
 
             <!-- React calculator island: injected by the page via slot -->
             <slot />
 
             <div class="mt-8">
-              <AdInArticle />
+              <!-- TODO: uncomment when AdSense is ready -->
+              <!-- <AdInArticle /> -->
             </div>
 
             <!-- SEO content: fully server-rendered, zero hydration -->
@@ -160,7 +164,8 @@ const hasLongContent = calculatorConfig.seoContent.length > 600;
               set:html={calculatorConfig.seoContent}
             />
 
-            {hasLongContent && <AdInArticle />}
+            <!-- TODO: uncomment when AdSense is ready -->
+            <!-- {hasLongContent && <AdInArticle />} -->
 
             <FAQSection faqs={calculatorConfig.faqs} />
             <MethodSection sources={calculatorConfig.methodSection} />
@@ -172,7 +177,8 @@ const hasLongContent = calculatorConfig.seoContent.length > 600;
             {
               hasLongContent && (
                 <div class="sticky top-4">
-                  <AdBanner position="sidebar" />
+                  {/* TODO: uncomment when AdSense is ready */}
+                  {/* <AdBanner position="sidebar" /> */}
                 </div>
               )
             }
