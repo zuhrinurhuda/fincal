@@ -16,6 +16,9 @@ export const pinjol: CalculatorConfig = {
     'pinjol legal',
     'simulasi pinjol',
   ],
+  category: 'Kredit',
+  icon: 'smartphone',
+  order: 5,
 
   inputs: [
     {

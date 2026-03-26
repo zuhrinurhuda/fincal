@@ -21,6 +21,9 @@ export const zakat: CalculatorConfig = {
     'zakat emas',
     'baznas',
   ],
+  category: 'Pajak & Zakat',
+  icon: 'heart',
+  order: 9,
 
   inputs: [
     {

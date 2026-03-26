@@ -17,6 +17,9 @@ export const pelunasanKpr: CalculatorConfig = {
     'hemat bunga kpr',
     'prepayment kpr',
   ],
+  category: 'Kredit',
+  icon: 'rocket',
+  order: 10,
 
   inputs: [
     {

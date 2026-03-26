@@ -17,6 +17,9 @@ export const kreditMobil: CalculatorConfig = {
     'leasing mobil',
     'dp kredit mobil',
   ],
+  category: 'Kredit',
+  icon: 'car',
+  order: 4,
 
   inputs: [
     {

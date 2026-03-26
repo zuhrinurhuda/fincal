@@ -17,6 +17,9 @@ export const investasi: CalculatorConfig = {
     'kalkulator reksadana',
     'return investasi',
   ],
+  category: 'Investasi',
+  icon: 'trending-up',
+  order: 7,
 
   inputs: [
     {

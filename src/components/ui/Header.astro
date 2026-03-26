@@ -1,5 +1,4 @@
 ---
-import ErrorBoundary from '@/components/ui/ErrorBoundary';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 ---
 
@@ -39,9 +38,7 @@ import ThemeToggle from '@/components/ui/ThemeToggle';
       >
         Semua Kalkulator
       </a>
-      <ErrorBoundary message="Terjadi kesalahan pada tombol tema." client:load>
-        <ThemeToggle />
-      </ErrorBoundary>
+      <ThemeToggle client:load />
     </nav>
   </div>
 </header>

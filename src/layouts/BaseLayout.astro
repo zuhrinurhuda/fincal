@@ -12,8 +12,8 @@ import Header from '@/components/ui/Header.astro';
 import Footer from '@/components/ui/Footer.astro';
 import Container from '@/components/ui/Container.astro';
 // TODO: uncomment when AdSense is ready
-// import AdBanner from '@/components/ads/AdBanner.astro';
-// import AdInArticle from '@/components/ads/AdInArticle.astro';
+import AdBanner from '@/components/ads/AdBanner.astro';
+import AdInArticle from '@/components/ads/AdInArticle.astro';
 import Breadcrumb from '@/components/seo/Breadcrumb.astro';
 import FAQSection from '@/components/seo/FAQSection.astro';
 import MethodSection from '@/components/seo/MethodSection.astro';
@@ -96,30 +96,6 @@ const hasLongContent = calculatorConfig.seoContent.length > 600;
           -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
       }
-      /* Prose content styles for seoContent HTML */
-      .prose-content h2 {
-        font-size: 1.25rem;
-        font-weight: 700;
-        margin-top: 1.75rem;
-        margin-bottom: 0.75rem;
-        color: inherit;
-      }
-      .prose-content p {
-        margin-bottom: 1rem;
-        line-height: 1.75;
-      }
-      .prose-content ul {
-        list-style-type: disc;
-        padding-left: 1.5rem;
-        margin-bottom: 1rem;
-        line-height: 1.75;
-      }
-      .prose-content li {
-        margin-bottom: 0.375rem;
-      }
-      .prose-content strong {
-        font-weight: 600;
-      }
     </style>
   </head>
   <body class="min-h-screen bg-white text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100">
@@ -128,7 +104,7 @@ const hasLongContent = calculatorConfig.seoContent.length > 600;
     <!-- Top ad: fixed min-height reserves space before AdSense loads (prevents CLS) -->
     <div class="w-full border-b border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
       <!-- TODO: uncomment when AdSense is ready -->
-      <!-- <AdBanner position="top" /> -->
+      <AdBanner position="top" />
     </div>
 
     <main id="main-content">
@@ -148,14 +124,14 @@ const hasLongContent = calculatorConfig.seoContent.length > 600;
             </p>
 
             <!-- TODO: uncomment when AdSense is ready -->
-            <!-- <AdInArticle /> -->
+            <AdInArticle />
 
             <!-- React calculator island: injected by the page via slot -->
             <slot />
 
             <div class="mt-8">
               <!-- TODO: uncomment when AdSense is ready -->
-              <!-- <AdInArticle /> -->
+              <AdInArticle />
             </div>
 
             <!-- SEO content: fully server-rendered, zero hydration -->
@@ -165,7 +141,7 @@ const hasLongContent = calculatorConfig.seoContent.length > 600;
             />
 
             <!-- TODO: uncomment when AdSense is ready -->
-            <!-- {hasLongContent && <AdInArticle />} -->
+            {hasLongContent && <AdInArticle />}
 
             <FAQSection faqs={calculatorConfig.faqs} />
             <MethodSection sources={calculatorConfig.methodSection} />
@@ -178,7 +154,7 @@ const hasLongContent = calculatorConfig.seoContent.length > 600;
               hasLongContent && (
                 <div class="sticky top-4">
                   {/* TODO: uncomment when AdSense is ready */}
-                  {/* <AdBanner position="sidebar" /> */}
+                  <AdBanner position="sidebar" />
                 </div>
               )
             }

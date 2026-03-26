@@ -17,6 +17,9 @@ export const kpr: CalculatorConfig = {
     'kpr bank',
     'simulasi kredit rumah',
   ],
+  category: 'Kredit',
+  icon: 'home',
+  order: 1,
 
   inputs: [
     {
