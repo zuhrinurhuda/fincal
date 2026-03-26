@@ -1,7 +1,8 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import type { CalculatorConfig, FormattedResult } from '@/types/calculator';
 import { calculatorRegistry } from '@/config/calculatorRegistry';
 import { debounce } from '@/utils/debounce';
+import { trackCalculatorUsed, trackCalculatorError } from '@/lib/analytics';
 import AmountInput from '@/components/calculator/AmountInput';
 import InputField from '@/components/calculator/InputField';
 import ResultCard from '@/components/calculator/ResultCard';
@@ -65,6 +66,7 @@ function Calculator({ config }: { config: CalculatorConfig }) {
   const [values, setValues] = useState<Record<string, number | string>>(initialValues);
   const [result, setResult] = useState<FormattedResult | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const trackedRef = useRef(false);
 
   const compute = useCallback(
     (vals: Record<string, number | string>) => {
@@ -74,9 +76,13 @@ function Calculator({ config }: { config: CalculatorConfig }) {
         try {
           const raw = config.calculate(vals);
           setResult(config.formatResult(raw));
+          if (!trackedRef.current) {
+            trackedRef.current = true;
+            trackCalculatorUsed(config.slug, config.category);
+          }
         } catch (e) {
           console.error('catch error:', e);
-          // Silently keep previous result on formula error
+          trackCalculatorError(config.slug, e instanceof Error ? e.message : 'Unknown error');
         }
       }
     },
@@ -143,6 +149,7 @@ function Calculator({ config }: { config: CalculatorConfig }) {
             partnerLink={config.partnerLink}
             ctaLabel={config.ctaLabel}
             ctaDisclaimer={config.ctaDisclaimer}
+            calculatorSlug={config.slug}
           />
         </div>
       )}

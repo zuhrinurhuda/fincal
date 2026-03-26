@@ -1,9 +1,9 @@
-const baseUrl = import.meta.env.SITE ?? 'https://yourdomain.com';
+const baseUrl = import.meta.env.SITE ?? 'https://fincal.id';
 
 export async function GET() {
   const text = `User-agent: *
 Allow: /
-Sitemap: ${baseUrl}/sitemap.xml
+Sitemap: ${baseUrl}/sitemap-index.xml
 `;
 
   return new Response(text, {

@@ -15,7 +15,18 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
-  integrations: [react(), mdx(), partytown(), sitemap()],
+  integrations: [
+    react(),
+    mdx(),
+    partytown({
+      config: {
+        forward: ['dataLayer.push'],
+      },
+    }),
+    sitemap({
+      filter: (page) => !page.includes('/404'),
+    }),
+  ],
   adapter: cloudflare(),
   vite: {
     plugins: [tailwindcss()],

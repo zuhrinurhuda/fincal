@@ -51,4 +51,16 @@ const { faqs } = Astro.props;
       ))
     }
   </div>
+
+  <script>
+    import { trackFaqExpand } from '@/lib/analytics';
+
+    document.querySelectorAll<HTMLDetailsElement>('details[name="faq"]').forEach((el) => {
+      el.addEventListener('toggle', () => {
+        if (!el.open) return;
+        const question = el.querySelector('summary span')?.textContent ?? '';
+        trackFaqExpand(question);
+      });
+    });
+  </script>
 </section>

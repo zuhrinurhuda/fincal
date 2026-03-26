@@ -11,6 +11,8 @@ import {
 import { adsConfig } from '@/config/adsConfig';
 import Header from '@/components/ui/Header.astro';
 import Footer from '@/components/ui/Footer.astro';
+import Analytics from '@/components/analytics/Analytics.astro';
+import WebVitals from '@/components/analytics/WebVitals.astro';
 import type { HomeCalculatorCard } from '@/types/home';
 
 const baseUrl = import.meta.env.SITE ?? 'https://fincal.id';
@@ -74,12 +76,28 @@ const faqSchema = generateFAQSchema(homeConfig.faqs);
       })();
     </script>
 
-    <!-- AdSense -->
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-      data-ad-client={adsConfig.client}
-      crossorigin="anonymous"></script>
+    <!-- GA4 via Partytown (off main thread) -->
+    <Analytics />
+
+    <!-- AdSense: deferred until idle to protect LCP/INP -->
+    <script is:inline define:vars={{ adClient: adsConfig.client }}>
+      (function () {
+        function load() {
+          if (document.querySelector('script[src*="adsbygoogle"]')) return;
+          var s = document.createElement('script');
+          s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+          s.async = true;
+          s.crossOrigin = 'anonymous';
+          s.setAttribute('data-ad-client', adClient);
+          document.head.appendChild(s);
+        }
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(load, { timeout: 3000 });
+        } else {
+          setTimeout(load, 2000);
+        }
+      })();
+    </script>
 
     <style>
       :root {
@@ -93,5 +111,6 @@ const faqSchema = generateFAQSchema(homeConfig.faqs);
     <Header />
     <slot />
     <Footer />
+    <WebVitals />
   </body>
 </html>

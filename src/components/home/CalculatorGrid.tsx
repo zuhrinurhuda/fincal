@@ -1,6 +1,7 @@
-import { useState, useMemo, useEffect, useRef, type ReactNode } from 'react';
+import { useState, useMemo, useEffect, useRef, useCallback, type ReactNode } from 'react';
 import type { HomeCalculatorCard } from '@/types/home';
 import type { CalculatorCategory } from '@/types/calculator';
+import { trackSearchFilter, trackCategoryFilter } from '@/lib/analytics';
 
 type SortOption = 'populer' | 'az' | 'za';
 
@@ -186,6 +187,20 @@ export default function CalculatorGrid({
     return result;
   }, [calculators, search, selectedCategories, sort]);
 
+  const searchTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  const trackSearch = useCallback((query: string, count: number) => {
+    clearTimeout(searchTimerRef.current);
+    if (!query.trim()) return;
+    searchTimerRef.current = setTimeout(() => {
+      trackSearchFilter(query, count);
+    }, 800);
+  }, []);
+
+  useEffect(() => {
+    trackSearch(search, filtered.length);
+  }, [search, filtered.length, trackSearch]);
+
   function toggleCategory(cat: CalculatorCategory) {
     setSelectedCategories((prev) => {
       const next = new Set(prev);
@@ -193,6 +208,7 @@ export default function CalculatorGrid({
         next.delete(cat);
       } else {
         next.add(cat);
+        trackCategoryFilter(cat);
       }
       return next;
     });
