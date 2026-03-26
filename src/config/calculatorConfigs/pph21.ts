@@ -59,6 +59,9 @@ export const pph21: CalculatorConfig = {
     'TER pph 21',
     'pajak gaji',
   ],
+  category: 'Pajak & Zakat',
+  icon: 'receipt',
+  order: 2,
 
   inputs: [
     {

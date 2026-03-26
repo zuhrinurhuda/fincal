@@ -16,6 +16,9 @@ export const reksaDana: CalculatorConfig = {
     'return investasi',
     'simulasi reksa dana',
   ],
+  category: 'Investasi',
+  icon: 'bar-chart',
+  order: 8,
 
   inputs: [
     {

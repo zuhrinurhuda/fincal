@@ -26,6 +26,9 @@ export const kur: CalculatorConfig = {
     'bunga kur',
     'pinjaman kur',
   ],
+  category: 'Kredit',
+  icon: 'store',
+  order: 6,
 
   inputs: [
     {

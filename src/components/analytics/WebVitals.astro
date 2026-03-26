@@ -1,0 +1,9 @@
+<script>
+  import { initWebVitals } from '@/lib/webVitals';
+
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(() => initWebVitals(), { timeout: 5000 });
+  } else {
+    setTimeout(() => initWebVitals(), 3000);
+  }
+</script>

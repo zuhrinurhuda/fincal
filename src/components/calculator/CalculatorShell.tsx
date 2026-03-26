@@ -1,47 +1,12 @@
-import { Component, useState, useEffect, useMemo, useCallback, type ReactNode } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import type { CalculatorConfig, FormattedResult } from '@/types/calculator';
+import { calculatorRegistry } from '@/config/calculatorRegistry';
 import { debounce } from '@/utils/debounce';
+import { trackCalculatorUsed, trackCalculatorError } from '@/lib/analytics';
 import AmountInput from '@/components/calculator/AmountInput';
 import InputField from '@/components/calculator/InputField';
 import ResultCard from '@/components/calculator/ResultCard';
-
-// ---------------------------------------------------------------------------
-// ErrorBoundary — prevents a calculator crash from breaking the whole page
-// ---------------------------------------------------------------------------
-
-interface BoundaryState {
-  hasError: boolean;
-}
-
-class ErrorBoundary extends Component<{ children: ReactNode }, BoundaryState> {
-  constructor(props: { children: ReactNode }) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(): BoundaryState {
-    return { hasError: true };
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="rounded-xl border border-red-200 bg-red-50 p-6 text-center dark:border-red-900 dark:bg-red-950/30">
-          <p className="text-sm font-medium text-red-600 dark:text-red-400">
-            Terjadi kesalahan pada kalkulator.
-          </p>
-          <button
-            className="mt-3 text-xs text-red-500 underline dark:text-red-400"
-            onClick={() => this.setState({ hasError: false })}
-          >
-            Coba lagi
-          </button>
-        </div>
-      );
-    }
-    return this.props.children;
-  }
-}
+import ErrorBoundary from '@/components/ui/ErrorBoundary';
 
 // ---------------------------------------------------------------------------
 // Validation helpers
@@ -101,6 +66,7 @@ function Calculator({ config }: { config: CalculatorConfig }) {
   const [values, setValues] = useState<Record<string, number | string>>(initialValues);
   const [result, setResult] = useState<FormattedResult | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const trackedRef = useRef(false);
 
   const compute = useCallback(
     (vals: Record<string, number | string>) => {
@@ -110,8 +76,13 @@ function Calculator({ config }: { config: CalculatorConfig }) {
         try {
           const raw = config.calculate(vals);
           setResult(config.formatResult(raw));
-        } catch {
-          // Silently keep previous result on formula error
+          if (!trackedRef.current) {
+            trackedRef.current = true;
+            trackCalculatorUsed(config.slug, config.category);
+          }
+        } catch (e) {
+          console.error('catch error:', e);
+          trackCalculatorError(config.slug, e instanceof Error ? e.message : 'Unknown error');
         }
       }
     },
@@ -178,6 +149,7 @@ function Calculator({ config }: { config: CalculatorConfig }) {
             partnerLink={config.partnerLink}
             ctaLabel={config.ctaLabel}
             ctaDisclaimer={config.ctaDisclaimer}
+            calculatorSlug={config.slug}
           />
         </div>
       )}
@@ -189,9 +161,21 @@ function Calculator({ config }: { config: CalculatorConfig }) {
 // Public export — wrapped in ErrorBoundary
 // ---------------------------------------------------------------------------
 
-export default function CalculatorShell({ config }: { config: CalculatorConfig }) {
+export default function CalculatorShell({ configSlug }: { configSlug: string }) {
+  const config = calculatorRegistry[configSlug];
+
+  if (!config) {
+    return (
+      <div className="rounded-xl border border-red-200 bg-red-50 p-6 text-center dark:border-red-900 dark:bg-red-950/30">
+        <p className="text-sm font-medium text-red-600 dark:text-red-400">
+          Kalkulator tidak ditemukan.
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <ErrorBoundary>
+    <ErrorBoundary message="Terjadi kesalahan pada kalkulator.">
       <Calculator config={config} />
     </ErrorBoundary>
   );

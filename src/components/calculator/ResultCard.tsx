@@ -7,6 +7,7 @@ interface Props {
   partnerLink?: string;
   ctaLabel?: string;
   ctaDisclaimer?: string;
+  calculatorSlug?: string;
 }
 
 export default function ResultCard({
@@ -14,6 +15,7 @@ export default function ResultCard({
   partnerLink,
   ctaLabel,
   ctaDisclaimer,
+  calculatorSlug,
 }: Readonly<Props>) {
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -67,7 +69,12 @@ export default function ResultCard({
       {/* Affiliate CTA — separated from result visually (Google policy) */}
       {partnerLink && ctaLabel && (
         <div className="mt-6 border-t border-gray-100 pt-5 dark:border-gray-800">
-          <CTAButton href={partnerLink} label={ctaLabel} disclaimer={ctaDisclaimer} />
+          <CTAButton
+            href={partnerLink}
+            label={ctaLabel}
+            disclaimer={ctaDisclaimer}
+            calculatorSlug={calculatorSlug}
+          />
         </div>
       )}
     </div>

@@ -1,0 +1,24 @@
+---
+const gaId = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID ?? '';
+---
+
+{
+  gaId && (
+    <>
+      <script
+        type="text/partytown"
+        src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+      />
+      <script type="text/partytown" define:vars={{ gaId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', gaId, {
+          send_page_view: true,
+        });
+      </script>
+    </>
+  )
+}

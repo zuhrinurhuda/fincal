@@ -34,12 +34,17 @@ export type FormattedResult = {
   breakdown: { label: string; value: string }[];
 };
 
+export type CalculatorCategory = 'Kredit' | 'Investasi' | 'Pajak & Zakat';
+
 export type CalculatorConfig = {
   slug: string;
   title: string;
   description: string;
   metaDescription: string;
   keywords: string[];
+  category: CalculatorCategory;
+  icon: string;
+  order: number;
 
   inputs: InputConfig[];
 
@@ -98,7 +103,7 @@ export type SimulationResult = {
 // Ad slot types
 // ---------------------------------------------------------------------------
 
-export type AdSlot = 'top' | 'sidebar' | 'inArticle' | 'footer';
+export type AdSlot = 'top' | 'sidebar' | 'inArticle' | 'inFeed' | 'footer';
 
 export type AdsConfig = {
   client: string;

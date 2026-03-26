@@ -17,6 +17,9 @@ export const kreditMotor: CalculatorConfig = {
     'bunga flat motor',
     'leasing motor',
   ],
+  category: 'Kredit',
+  icon: 'bike',
+  order: 3,
 
   inputs: [
     {
