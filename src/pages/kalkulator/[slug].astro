@@ -15,6 +15,7 @@ interface Props {
 }
 
 const { config } = Astro.props;
+const configSlug = config.slug;
 
 const baseUrl = import.meta.env.SITE ?? 'https://yourdomain.com';
 const canonicalUrl = `${baseUrl}/kalkulator/${config.slug}`;
@@ -27,5 +28,5 @@ const canonicalUrl = `${baseUrl}/kalkulator/${config.slug}`;
   calculatorConfig={config}
   ogImage={`${baseUrl}/og/${config.slug}.png`}
 >
-  <CalculatorShell config={config} client:load />
+  <CalculatorShell configSlug={configSlug} client:load />
 </BaseLayout>
