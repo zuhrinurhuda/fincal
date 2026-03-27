@@ -1,9 +1,11 @@
 ---
 const gaId = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID ?? '';
+const gaDebug =
+  import.meta.env.PUBLIC_GA4_DEBUG === 'true' || import.meta.env.PUBLIC_GA4_DEBUG === '1';
 ---
 
 {
-  gaId && (
+  gaId ? (
     <>
       <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
       <script is:inline define:vars={{ gaId }}>
@@ -16,6 +18,20 @@ const gaId = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID ?? '';
           send_page_view: true,
         });
       </script>
+      {
+        gaDebug && (
+          <script is:inline define:vars={{ gaId }}>
+            window.__ga4Id = gaId;
+            console.info('[GA4 debug] PUBLIC_GA4_MEASUREMENT_ID =', gaId);
+          </script>
+        )
+      }
     </>
+  ) : (
+    gaDebug && (
+      <script is:inline>
+        console.warn('[GA4 debug] PUBLIC_GA4_MEASUREMENT_ID is empty');
+      </script>
+    )
   )
 }
