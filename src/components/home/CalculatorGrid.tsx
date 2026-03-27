@@ -140,11 +140,7 @@ function InFeedAd({ adClient, adSlot }: Readonly<{ adClient: string; adSlot: str
   );
 }
 
-export default function CalculatorGrid({
-  calculators,
-  adClient,
-  adSlotInFeed,
-}: Readonly<Props>) {
+export default function CalculatorGrid({ calculators, adClient, adSlotInFeed }: Readonly<Props>) {
   const [search, setSearch] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<Set<CalculatorCategory>>(new Set());
   const [sort, setSort] = useState<SortOption>('populer');
@@ -260,23 +256,23 @@ export default function CalculatorGrid({
             <fieldset className="min-w-0">
               <legend className="sr-only">Filter kategori</legend>
               <div className="flex flex-wrap gap-1.5">
-              {categories.map((cat) => {
-                const active = selectedCategories.has(cat);
-                return (
-                  <button
-                    key={cat}
-                    onClick={() => toggleCategory(cat)}
-                    className={`cursor-pointer rounded-full px-3 py-1 text-xs font-medium transition-all ${
-                      active
-                        ? 'bg-blue-600 text-white shadow-sm dark:bg-blue-500'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
-                    }`}
-                    aria-pressed={active}
-                  >
-                    {cat}
-                  </button>
-                );
-              })}
+                {categories.map((cat) => {
+                  const active = selectedCategories.has(cat);
+                  return (
+                    <button
+                      key={cat}
+                      onClick={() => toggleCategory(cat)}
+                      className={`cursor-pointer rounded-full px-3 py-1 text-xs font-medium transition-all ${
+                        active
+                          ? 'bg-blue-600 text-white shadow-sm dark:bg-blue-500'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
+                      }`}
+                      aria-pressed={active}
+                    >
+                      {cat}
+                    </button>
+                  );
+                })}
               </div>
             </fieldset>
 
@@ -307,7 +303,8 @@ export default function CalculatorGrid({
             if ('type' in item && item.type === 'ad') {
               return (
                 <div key={item.key} className="col-span-full sm:col-span-2 lg:col-span-1">
-                  <InFeedAd adClient={adClient} adSlot={adSlotInFeed} />
+                  {/* TODO: uncomment when AdSense is ready */}
+                  {/* <InFeedAd adClient={adClient} adSlot={adSlotInFeed} /> */}
                 </div>
               );
             }

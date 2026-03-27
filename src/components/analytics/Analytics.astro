@@ -1,5 +1,6 @@
 ---
 const gaId = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID ?? '';
+console.log('gaId', gaId, import.meta.env.PUBLIC_GA4_MEASUREMENT_ID);
 const gaDebug =
   import.meta.env.PUBLIC_GA4_DEBUG === 'true' || import.meta.env.PUBLIC_GA4_DEBUG === '1';
 ---
