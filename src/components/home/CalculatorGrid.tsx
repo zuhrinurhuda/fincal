@@ -302,7 +302,7 @@ export default function CalculatorGrid({ calculators, adClient, adSlotInFeed }: 
           {gridItems.map((item) => {
             if ('type' in item && item.type === 'ad') {
               return (
-                <div key={item.key} className="col-span-full sm:col-span-2 lg:col-span-1">
+                <div key={item.key} className="">
                   {/* TODO: uncomment when AdSense is ready */}
                   {/* <InFeedAd adClient={adClient} adSlot={adSlotInFeed} /> */}
                 </div>
