@@ -8,7 +8,8 @@ import {
   generateOrganizationSchema,
   generateFAQSchema,
 } from '@/utils/schemaGenerators';
-import { adsConfig } from '@/config/adsConfig';
+// TODO: uncomment when AdSense is ready
+// import { adsConfig } from '@/config/adsConfig';
 import Header from '@/components/ui/Header.astro';
 import Footer from '@/components/ui/Footer.astro';
 import Analytics from '@/components/analytics/Analytics.astro';
@@ -76,11 +77,12 @@ const faqSchema = generateFAQSchema(homeConfig.faqs);
       })();
     </script>
 
-    <!-- GA4 via Partytown (off main thread) -->
+    <!-- GA4 standard gtag -->
     <Analytics />
 
     <!-- AdSense: deferred until idle to protect LCP/INP -->
-    <script is:inline define:vars={{ adClient: adsConfig.client }}>
+    <!-- TODO: uncomment when AdSense is ready -->
+    <!-- <script is:inline define:vars={{ adClient: adsConfig.client }}>
       (function () {
         function load() {
           if (document.querySelector('script[src*="adsbygoogle"]')) return;
@@ -97,7 +99,7 @@ const faqSchema = generateFAQSchema(homeConfig.faqs);
           setTimeout(load, 2000);
         }
       })();
-    </script>
+    </script> -->
 
     <style>
       :root {
