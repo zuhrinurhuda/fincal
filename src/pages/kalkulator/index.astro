@@ -1,0 +1,118 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+import Container from '@/components/ui/Container.astro';
+import CalculatorGrid from '@/components/home/CalculatorGrid';
+import FAQSection from '@/components/seo/FAQSection.astro';
+import { calculatorRegistry } from '@/config/calculatorRegistry';
+import { kalkulatorIndexConfig } from '@/config/kalkulatorIndexConfig';
+import { adsConfig } from '@/config/adsConfig';
+import {
+  generateKalkulatorIndexBreadcrumbSchema,
+  generateItemListSchema,
+  generateFAQSchema,
+} from '@/utils/schemaGenerators';
+import type { HomeCalculatorCard } from '@/types/home';
+
+const baseUrl = import.meta.env.SITE ?? 'https://fincal.id';
+const canonicalUrl = `${baseUrl}/kalkulator/`;
+
+const calculators: HomeCalculatorCard[] = Object.values(calculatorRegistry)
+  .map(({ slug, title, description, keywords, category, icon, order }) => ({
+    slug,
+    title,
+    description,
+    keywords,
+    category,
+    icon,
+    order,
+  }))
+  .sort((a, b) => a.order - b.order);
+
+const breadcrumbSchema = generateKalkulatorIndexBreadcrumbSchema(baseUrl);
+const itemListSchema = generateItemListSchema(calculators, baseUrl);
+const faqSchema = generateFAQSchema(kalkulatorIndexConfig.faqs);
+---
+
+<PageLayout
+  title={kalkulatorIndexConfig.title}
+  metaDescription={kalkulatorIndexConfig.metaDescription}
+  canonicalUrl={canonicalUrl}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={breadcrumbSchema} />
+    <script type="application/ld+json" set:html={itemListSchema} />
+    <script type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <!-- Top ad banner -->
+  <div class="w-full border-b border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
+    <!-- TODO: uncomment when AdSense is ready -->
+    <!-- <AdBanner position="top" /> -->
+  </div>
+
+  <main id="main-content">
+    <Container class="py-6">
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-4">
+        <ol
+          class="flex flex-wrap items-center gap-1 text-xs text-gray-500 dark:text-gray-400"
+          itemscope
+          itemtype="https://schema.org/BreadcrumbList"
+        >
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a
+              href="/"
+              itemprop="item"
+              class="transition-colors hover:text-blue-600 dark:hover:text-blue-400"
+            >
+              <span itemprop="name">Beranda</span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </li>
+          <li aria-hidden="true" class="select-none">/</li>
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <span itemprop="name" aria-current="page" class="font-medium text-gray-700 dark:text-gray-300">
+              Kalkulator
+            </span>
+            <meta itemprop="position" content="2" />
+          </li>
+        </ol>
+      </nav>
+
+      <h1 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-50">
+        {kalkulatorIndexConfig.h1}
+      </h1>
+      <p class="mt-2 mb-6 max-w-2xl text-base leading-relaxed text-gray-600 dark:text-gray-400">
+        {kalkulatorIndexConfig.subtitle}
+      </p>
+
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_300px]">
+        <!-- Main column -->
+        <div>
+          <CalculatorGrid
+            calculators={calculators}
+            adClient={adsConfig.client}
+            adSlotInFeed={adsConfig.slots.inFeed}
+            client:load
+          />
+
+          <!-- SEO content -->
+          <section
+            class="prose-content mt-12 text-sm leading-relaxed text-gray-700 dark:text-gray-300"
+            set:html={kalkulatorIndexConfig.seoContent}
+          />
+
+          <FAQSection faqs={kalkulatorIndexConfig.faqs} />
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="hidden lg:block">
+          <div class="sticky top-20">
+            <!-- TODO: uncomment when AdSense is ready -->
+            <!-- <AdBanner position="sidebar" /> -->
+          </div>
+        </aside>
+      </div>
+    </Container>
+  </main>
+</PageLayout>

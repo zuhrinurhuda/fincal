@@ -1,0 +1,181 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '@/layouts/PageLayout.astro';
+import Container from '@/components/ui/Container.astro';
+import {
+  generateArtikelIndexBreadcrumbSchema,
+  generateFAQSchema,
+} from '@/utils/schemaGenerators';
+import type { FAQItem } from '@/types/calculator';
+
+const baseUrl = import.meta.env.SITE ?? 'https://fincal.id';
+const canonicalUrl = `${baseUrl}/artikel/`;
+
+const allArtikel = await getCollection('artikel');
+const sorted = allArtikel
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+
+const categories = ['Semua', 'Kredit', 'Investasi', 'Pajak & Zakat', 'Panduan Keuangan'] as const;
+
+const CATEGORY_COLORS: Record<string, string> = {
+  'Kredit': 'bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300',
+  'Investasi': 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300',
+  'Pajak & Zakat': 'bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300',
+  'Panduan Keuangan': 'bg-purple-50 text-purple-700 dark:bg-purple-950/50 dark:text-purple-300',
+};
+
+const faqs: FAQItem[] = [
+  {
+    question: 'Apa topik yang dibahas di artikel FinCal?',
+    answer: 'Kami membahas panduan keuangan praktis untuk masyarakat Indonesia — mulai dari cara hitung cicilan KPR, perbedaan bunga flat dan efektif, panduan PPh 21, tips investasi, hingga kalkulator zakat.',
+  },
+  {
+    question: 'Apakah artikel di FinCal gratis dibaca?',
+    answer: 'Ya, semua artikel di FinCal 100% gratis tanpa perlu registrasi atau membuat akun.',
+  },
+  {
+    question: 'Seberapa sering FinCal menerbitkan artikel baru?',
+    answer: 'Kami berusaha menerbitkan artikel baru secara rutin. Setiap artikel juga diperbarui bila ada perubahan regulasi yang relevan.',
+  },
+];
+
+const breadcrumbSchema = generateArtikelIndexBreadcrumbSchema(baseUrl);
+const faqSchema = generateFAQSchema(faqs);
+---
+
+<PageLayout
+  title="Artikel & Panduan Keuangan Indonesia | FinCal"
+  metaDescription="Panduan keuangan praktis untuk masyarakat Indonesia — KPR, kredit, pajak, investasi, dan zakat. Artikel informatif yang membantu Anda membuat keputusan finansial yang lebih baik."
+  canonicalUrl={canonicalUrl}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={breadcrumbSchema} />
+    <script type="application/ld+json" set:html={faqSchema} />
+  </Fragment>
+
+  <!-- Top ad banner -->
+  <div class="w-full border-b border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
+    <!-- TODO: uncomment when AdSense is ready -->
+    <!-- <AdBanner position="top" /> -->
+  </div>
+
+  <main id="main-content">
+    <Container class="py-8">
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-5">
+        <ol class="flex flex-wrap items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+          <li>
+            <a href="/" class="transition-colors hover:text-blue-600 dark:hover:text-blue-400">Beranda</a>
+          </li>
+          <li aria-hidden="true" class="select-none">/</li>
+          <li>
+            <span class="font-medium text-gray-700 dark:text-gray-300" aria-current="page">Artikel</span>
+          </li>
+        </ol>
+      </nav>
+
+      <h1 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-50">
+        Artikel & Panduan Keuangan
+      </h1>
+      <p class="mt-2 max-w-2xl text-base leading-relaxed text-gray-600 dark:text-gray-400">
+        Panduan praktis seputar KPR, kredit, pajak, investasi, dan zakat — ditulis khusus untuk masyarakat Indonesia.
+      </p>
+
+      <!-- Category filter (static) -->
+      <div class="mt-5 flex flex-wrap gap-2">
+        {categories.map((cat) => (
+          <a
+            href={cat === 'Semua' ? '/artikel/' : `/artikel/?kategori=${encodeURIComponent(cat)}`}
+            class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-blue-600 hover:text-white dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-blue-600 dark:hover:text-white"
+          >
+            {cat}
+          </a>
+        ))}
+      </div>
+
+      <!-- Article grid + sidebar -->
+      <div class="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[1fr_280px]">
+
+        <!-- Article list -->
+        <div>
+          {sorted.length === 0 ? (
+            <p class="text-sm text-gray-500 dark:text-gray-400">Belum ada artikel. Segera hadir.</p>
+          ) : (
+            <div class="space-y-6">
+              {sorted.map((post) => (
+                <a
+                  href={`/artikel/${post.id}/`}
+                  class="group flex flex-col gap-2 rounded-xl border border-gray-200 bg-white p-5 transition-all hover:border-blue-400 hover:shadow-md dark:border-gray-800 dark:bg-gray-900 dark:hover:border-blue-600"
+                >
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${CATEGORY_COLORS[post.data.category] ?? ''}`}>
+                      {post.data.category}
+                    </span>
+                    <time
+                      datetime={post.data.publishDate.toISOString()}
+                      class="text-xs text-gray-500 dark:text-gray-400"
+                    >
+                      {post.data.publishDate.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    </time>
+                  </div>
+
+                  <h2 class="text-base font-bold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400">
+                    {post.data.title}
+                  </h2>
+
+                  <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-400 line-clamp-2">
+                    {post.data.metaDescription}
+                  </p>
+
+                  <span class="mt-1 inline-flex items-center gap-1 text-xs font-medium text-blue-600 dark:text-blue-400">
+                    Baca selengkapnya
+                    <svg class="h-3 w-3 transition-transform group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                    </svg>
+                  </span>
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="hidden lg:block">
+          <div class="sticky top-20 space-y-6">
+            <!-- CTA card -->
+            <div class="rounded-xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-800 dark:bg-gray-900">
+              <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">Coba Kalkulator Gratis</p>
+              <p class="mt-1 text-xs leading-relaxed text-gray-600 dark:text-gray-400">
+                Simulasikan KPR, kredit kendaraan, pajak, zakat, dan investasi — akurat dan tanpa registrasi.
+              </p>
+              <a
+                href="/kalkulator/"
+                class="mt-3 flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+              >
+                Lihat Semua Kalkulator
+              </a>
+            </div>
+
+            <!-- TODO: uncomment when AdSense is ready -->
+            <!-- <AdBanner position="sidebar" /> -->
+          </div>
+        </aside>
+
+      </div>
+
+      <!-- FAQ -->
+      <div class="mt-14 border-t border-gray-100 pt-10 dark:border-gray-800">
+        <h2 class="text-lg font-bold text-gray-900 dark:text-gray-50">Pertanyaan Umum</h2>
+        <dl class="mt-4 space-y-4">
+          {faqs.map((faq) => (
+            <div class="rounded-lg border border-gray-200 p-4 dark:border-gray-800">
+              <dt class="text-sm font-semibold text-gray-900 dark:text-gray-100">{faq.question}</dt>
+              <dd class="mt-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400">{faq.answer}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+    </Container>
+  </main>
+</PageLayout>

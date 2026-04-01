@@ -313,7 +313,7 @@ export default function CalculatorGrid({ calculators, adClient, adSlotInFeed }: 
             return (
               <a
                 key={calc.slug}
-                href={`/kalkulator/${calc.slug}`}
+                href={`/kalkulator/${calc.slug}/`}
                 className="group flex flex-col rounded-xl border border-gray-200 bg-white p-5 transition-all hover:border-blue-400 hover:shadow-md dark:border-gray-800 dark:bg-gray-900 dark:hover:border-blue-600"
               >
                 <div className="mb-3 flex items-center gap-3">

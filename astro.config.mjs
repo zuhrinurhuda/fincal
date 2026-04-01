@@ -3,7 +3,6 @@ import react from '@astrojs/react';
 import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
-import partytown from '@astrojs/partytown';
 import sitemap from '@astrojs/sitemap';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -11,18 +10,14 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  site: 'https://fincal.id',
+  site: process.env.SITE || 'https://fincal.id',
+  trailingSlash: 'always',
   devToolbar: {
     enabled: false,
   },
   integrations: [
     react(),
     mdx(),
-    partytown({
-      config: {
-        forward: ['dataLayer.push'],
-      },
-    }),
     sitemap({
       filter: (page) => !page.includes('/404'),
     }),

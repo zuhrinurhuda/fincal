@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('artikel');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const baseUrl = import.meta.env.SITE ?? 'https://fincal.id';
+const canonicalUrl = `${baseUrl}/artikel/${post.id}/`;
+---
+
+<ArticleLayout
+  title={post.data.title}
+  metaDescription={post.data.metaDescription}
+  canonicalUrl={canonicalUrl}
+  publishDate={post.data.publishDate}
+  updatedDate={post.data.updatedDate}
+  author={post.data.author}
+  category={post.data.category}
+  tags={post.data.tags}
+  ogImage={post.data.ogImage}
+  relatedCalculators={post.data.relatedCalculators}
+>
+  <Content />
+</ArticleLayout>

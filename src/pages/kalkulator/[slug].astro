@@ -17,8 +17,8 @@ interface Props {
 const { config } = Astro.props;
 const configSlug = config.slug;
 
-const baseUrl = import.meta.env.SITE ?? 'https://yourdomain.com';
-const canonicalUrl = `${baseUrl}/kalkulator/${config.slug}`;
+const baseUrl = import.meta.env.SITE ?? 'https://fincal.id';
+const canonicalUrl = `${baseUrl}/kalkulator/${config.slug}/`;
 ---
 
 <BaseLayout
