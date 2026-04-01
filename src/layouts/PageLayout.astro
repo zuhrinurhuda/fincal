@@ -1,42 +1,21 @@
 ---
 import '@/styles/global.css';
-import { homeConfig } from '@/config/homeConfig';
-import { calculatorRegistry } from '@/config/calculatorRegistry';
-import {
-  generateWebSiteSchema,
-  generateItemListSchema,
-  generateOrganizationSchema,
-  generateFAQSchema,
-} from '@/utils/schemaGenerators';
-// TODO: uncomment when AdSense is ready
-// import { adsConfig } from '@/config/adsConfig';
 import Header from '@/components/ui/Header.astro';
 import Footer from '@/components/ui/Footer.astro';
 import Analytics from '@/components/analytics/Analytics.astro';
 import WebVitals from '@/components/analytics/WebVitals.astro';
-import type { HomeCalculatorCard } from '@/types/home';
 
+interface Props {
+  title: string;
+  metaDescription: string;
+  canonicalUrl: string;
+  ogImage?: string;
+}
+
+const { title, metaDescription, canonicalUrl, ogImage } = Astro.props;
 const baseUrl = import.meta.env.SITE ?? 'https://fincal.id';
-const canonicalUrl = `${baseUrl}/`;
-// TODO: Replace placeholder OG image with final branded asset.
-const ogImage = `${baseUrl}/og/default.png`;
-
-const calculators: HomeCalculatorCard[] = Object.values(calculatorRegistry)
-  .map(({ slug, title, description, keywords, category, icon, order }) => ({
-    slug,
-    title,
-    description,
-    keywords,
-    category,
-    icon,
-    order,
-  }))
-  .sort((a, b) => a.order - b.order);
-
-const webSiteSchema = generateWebSiteSchema(baseUrl);
-const itemListSchema = generateItemListSchema(calculators, baseUrl);
-const organizationSchema = generateOrganizationSchema(baseUrl);
-const faqSchema = generateFAQSchema(homeConfig.faqs);
+// TODO: Replace placeholder OG image with final branded asset at public/og/default.png (1200x630px).
+const resolvedOgImage = ogImage ?? `${baseUrl}/og/default.png`;
 ---
 
 <!doctype html>
@@ -46,29 +25,26 @@ const faqSchema = generateFAQSchema(homeConfig.faqs);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
 
-    <title>{homeConfig.title}</title>
-    <meta name="description" content={homeConfig.metaDescription} />
+    <title>{title}</title>
+    <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonicalUrl} />
 
     <!-- OpenGraph -->
-    <meta property="og:title" content={homeConfig.title} />
-    <meta property="og:description" content={homeConfig.metaDescription} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:image" content={resolvedOgImage} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="id_ID" />
     <meta property="og:url" content={canonicalUrl} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={homeConfig.title} />
-    <meta name="twitter:description" content={homeConfig.metaDescription} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={resolvedOgImage} />
 
-    <!-- JSON-LD Schemas -->
-    <script type="application/ld+json" set:html={webSiteSchema} />
-    <script type="application/ld+json" set:html={itemListSchema} />
-    <script type="application/ld+json" set:html={organizationSchema} />
-    <script type="application/ld+json" set:html={faqSchema} />
+    <!-- JSON-LD schemas injected by each page -->
+    <slot name="head" />
 
     <!-- Theme: injected before paint to prevent FOUC -->
     <script is:inline>
@@ -86,7 +62,7 @@ const faqSchema = generateFAQSchema(homeConfig.faqs);
 
     <!-- AdSense: deferred until idle to protect LCP/INP -->
     <!-- TODO: uncomment when AdSense is ready -->
-    <!-- <script is:inline define:vars={{ adClient: adsConfig.client }}>
+    <!-- <script is:inline>
       (function () {
         function load() {
           if (document.querySelector('script[src*="adsbygoogle"]')) return;
@@ -94,7 +70,6 @@ const faqSchema = generateFAQSchema(homeConfig.faqs);
           s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
           s.async = true;
           s.crossOrigin = 'anonymous';
-          s.setAttribute('data-ad-client', adClient);
           document.head.appendChild(s);
         }
         if ('requestIdleCallback' in window) {

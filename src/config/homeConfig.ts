@@ -8,6 +8,54 @@ export const homeConfig = {
   subtitle:
     'Simulasi KPR, kredit kendaraan, pajak penghasilan, zakat, dan investasi — akurat, gratis, tanpa registrasi.',
 
+  valuePropositions: [
+    {
+      icon: 'shield',
+      title: 'Akurat & Terpercaya',
+      description:
+        'Menggunakan rumus finansial standar dan regulasi Indonesia: suku bunga efektif, tarif PPh 21 sesuai PMK 168/2023, nisab zakat BAZNAS.',
+    },
+    {
+      icon: 'zap',
+      title: 'Cepat & Tanpa Registrasi',
+      description:
+        'Langsung hitung tanpa buat akun. Hasil simulasi muncul instan — tidak perlu menunggu.',
+    },
+    {
+      icon: 'lock',
+      title: 'Privasi Terjaga',
+      description:
+        'Semua kalkulasi dilakukan di browser Anda. Data tidak dikirim ke server manapun dan tidak disimpan.',
+    },
+    {
+      icon: 'device',
+      title: 'Akses di Semua Perangkat',
+      description:
+        'Responsif di desktop, tablet, dan handphone. Hitung kapan saja, di mana saja.',
+    },
+  ],
+
+  categories: [
+    {
+      name: 'Kredit & Pinjaman',
+      description: 'Simulasi cicilan KPR, kredit motor, kredit mobil, pinjol, KUR, dan pelunasan dipercepat.',
+      color: 'blue',
+      filter: 'Kredit' as const,
+    },
+    {
+      name: 'Investasi',
+      description: 'Hitung pertumbuhan investasi compound interest dan simulasi reksa dana.',
+      color: 'emerald',
+      filter: 'Investasi' as const,
+    },
+    {
+      name: 'Pajak & Zakat',
+      description: 'Kalkulasi PPh 21 karyawan dan zakat maal sesuai regulasi Indonesia.',
+      color: 'amber',
+      filter: 'Pajak & Zakat' as const,
+    },
+  ],
+
   seoContent: `
     <h2>Tentang FinCal</h2>
     <p>
@@ -22,17 +70,6 @@ export const homeConfig = {
       Anda bisa mensimulasikan cicilan kredit, menghitung pajak penghasilan, merencanakan investasi,
       dan menunaikan kewajiban zakat — semuanya dalam hitungan detik. Tidak perlu rumus manual atau
       spreadsheet rumit.
-    </p>
-
-    <h2>Kalkulator Apa Saja yang Tersedia?</h2>
-    <ul>
-      <li><strong>Kredit & Pinjaman</strong> — KPR, kredit motor, kredit mobil, pinjaman online (pinjol), KUR, dan pelunasan KPR dipercepat.</li>
-      <li><strong>Investasi</strong> — Simulasi compound interest dan kalkulator reksa dana berdasarkan NAB.</li>
-      <li><strong>Pajak & Zakat</strong> — PPh 21 karyawan dan zakat maal sesuai fatwa MUI.</li>
-    </ul>
-    <p>
-      Semua kalkulator gratis digunakan tanpa perlu membuat akun. Hasil kalkulasi bersifat estimasi —
-      konsultasikan dengan perencana keuangan profesional untuk keputusan finansial penting.
     </p>
   `,
 
@@ -51,11 +88,6 @@ export const homeConfig = {
       question: 'Apakah hasil kalkulasi FinCal akurat?',
       answer:
         'Kalkulator kami menggunakan rumus finansial standar dan regulasi yang berlaku di Indonesia. Namun hasil bersifat estimasi — untuk keputusan finansial penting, konsultasikan dengan bank atau perencana keuangan profesional.',
-    },
-    {
-      question: 'Kalkulator apa saja yang tersedia di FinCal?',
-      answer:
-        'Saat ini tersedia kalkulator KPR, kredit motor, kredit mobil, pinjaman online (pinjol), KUR, pelunasan KPR dipercepat, investasi compound interest, reksa dana, PPh 21, dan zakat maal.',
     },
     {
       question: 'Apakah data saya aman?',

@@ -11,7 +11,8 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  site: 'https://fincal.id',
+  site: process.env.SITE || 'https://fincal.id',
+  trailingSlash: 'always',
   devToolbar: {
     enabled: false,
   },

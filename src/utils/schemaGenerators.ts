@@ -2,7 +2,7 @@ import type { CalculatorConfig, FAQItem } from '@/types/calculator';
 import type { HomeCalculatorCard } from '@/types/home';
 
 // ---------------------------------------------------------------------------
-// 1. BreadcrumbList
+// 1. BreadcrumbList (calculator page)
 //    Beranda > Kalkulator > {config.title}
 // ---------------------------------------------------------------------------
 
@@ -15,19 +15,45 @@ export function generateBreadcrumbSchema(config: CalculatorConfig, baseUrl: stri
         '@type': 'ListItem',
         position: 1,
         name: 'Beranda',
-        item: baseUrl,
+        item: `${baseUrl}/`,
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Kalkulator',
-        item: `${baseUrl}/kalkulator`,
+        item: `${baseUrl}/kalkulator/`,
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: config.title,
-        item: `${baseUrl}/kalkulator/${config.slug}`,
+        item: `${baseUrl}/kalkulator/${config.slug}/`,
+      },
+    ],
+  });
+}
+
+// ---------------------------------------------------------------------------
+// 1b. BreadcrumbList (kalkulator index)
+//     Beranda > Kalkulator
+// ---------------------------------------------------------------------------
+
+export function generateKalkulatorIndexBreadcrumbSchema(baseUrl: string): string {
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Beranda',
+        item: `${baseUrl}/`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Kalkulator',
+        item: `${baseUrl}/kalkulator/`,
       },
     ],
   });
@@ -69,7 +95,7 @@ export function generateSoftwareAppSchema(config: CalculatorConfig, baseUrl: str
       price: '0',
       priceCurrency: 'IDR',
     },
-    url: `${baseUrl}/kalkulator/${config.slug}`,
+    url: `${baseUrl}/kalkulator/${config.slug}/`,
   });
 }
 
@@ -126,7 +152,7 @@ export function generateItemListSchema(calculators: HomeCalculatorCard[], baseUr
       '@type': 'ListItem',
       position: idx + 1,
       name: calc.title,
-      url: `${baseUrl}/kalkulator/${calc.slug}`,
+      url: `${baseUrl}/kalkulator/${calc.slug}/`,
     })),
   });
 }
