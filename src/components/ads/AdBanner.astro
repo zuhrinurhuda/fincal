@@ -1,5 +1,5 @@
 ---
-import { adsConfig } from '@/config/adsConfig';
+import { adsConfig, adsEnabled } from '@/config/adsConfig';
 
 interface Props {
   position: 'top' | 'sidebar' | 'footer';
@@ -21,23 +21,25 @@ const minHeight = isVertical ? '250px' : '90px';
 const adFormat = isVertical ? 'rectangle' : 'horizontal';
 ---
 
-<div
-  class="flex w-full items-center justify-center overflow-hidden"
-  style={`min-height: ${minHeight}`}
-  aria-label="Iklan"
-  aria-hidden="true"
->
-  <ins
-    class="adsbygoogle"
-    style="display:block"
-    data-ad-client={adsConfig.client}
-    data-ad-slot={slotId}
-    data-ad-format={adFormat}
-    data-full-width-responsive="true"
-  >
-  </ins>
-</div>
-<!-- TODO: uncomment when AdSense is ready -->
-<!-- <script is:inline>
-  (window.adsbygoogle = window.adsbygoogle || []).push({});
-</script> -->
+{
+  adsEnabled && (
+    <>
+      <div
+        class="flex w-full items-center justify-center overflow-hidden"
+        style={`min-height: ${minHeight}`}
+        aria-label="Iklan"
+        aria-hidden="true"
+      >
+        <ins
+          class="adsbygoogle"
+          style="display:block"
+          data-ad-client={adsConfig.client}
+          data-ad-slot={slotId}
+          data-ad-format={adFormat}
+          data-full-width-responsive="true"
+        />
+      </div>
+      <script is:inline>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </>
+  )
+}
