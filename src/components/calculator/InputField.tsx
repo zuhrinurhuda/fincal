@@ -23,7 +23,7 @@ export default function InputField({ config, value, onChange, error }: Readonly<
   const wrapperClass = `flex items-center rounded-lg border bg-white dark:bg-gray-800 transition-colors ${
     error
       ? 'border-red-400 dark:border-red-500 focus-within:ring-2 focus-within:ring-red-400'
-      : 'border-gray-300 dark:border-gray-700 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500'
+      : 'border-gray-300 dark:border-gray-700 focus-within:ring-2 focus-within:ring-brand-500 focus-within:border-brand-500'
   }`;
 
   return (

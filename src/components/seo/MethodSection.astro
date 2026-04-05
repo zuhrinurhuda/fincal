@@ -14,9 +14,9 @@ const { sources } = Astro.props;
   </h2>
 
   <div
-    class="space-y-3 rounded-xl border border-blue-100 bg-blue-50/50 px-5 py-4 dark:border-blue-900/40 dark:bg-blue-950/20"
+    class="space-y-3 rounded-xl border border-brand-100 bg-brand-50/50 px-5 py-4 dark:border-brand-900/40 dark:bg-brand-950/20"
   >
-    <p class="text-xs font-medium tracking-wide text-blue-700 uppercase dark:text-blue-400">
+    <p class="text-xs font-medium tracking-wide text-brand-700 uppercase dark:text-brand-400">
       Dasar Hukum & Regulasi
     </p>
 
@@ -25,7 +25,7 @@ const { sources } = Astro.props;
         sources.map((src) => (
           <li class="flex items-start gap-3">
             <svg
-              class="mt-0.5 h-4 w-4 shrink-0 text-blue-500 dark:text-blue-400"
+              class="mt-0.5 h-4 w-4 shrink-0 text-brand-500 dark:text-brand-400"
               viewBox="0 0 20 20"
               fill="currentColor"
               aria-hidden="true"
@@ -43,7 +43,7 @@ const { sources } = Astro.props;
                   href={src.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-blue-600 hover:underline dark:text-blue-400"
+                  class="text-brand-600 hover:underline dark:text-brand-400"
                 >
                   {src.source}
                 </a>
@@ -57,7 +57,7 @@ const { sources } = Astro.props;
     </ul>
 
     <p
-      class="border-t border-blue-100 pt-1 text-xs text-gray-500 dark:border-blue-900/30 dark:text-gray-400"
+      class="border-t border-brand-100 pt-1 text-xs text-gray-500 dark:border-brand-900/30 dark:text-gray-400"
     >
       Hasil kalkulator bersifat estimasi. Konsultasikan dengan bank atau penasihat keuangan untuk
       keputusan finansial yang tepat.

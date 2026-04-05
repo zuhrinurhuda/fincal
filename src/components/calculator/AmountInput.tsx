@@ -59,7 +59,7 @@ export default function AmountInput({ config, value, onChange, error }: Readonly
         className={`flex items-center rounded-lg border bg-white transition-colors dark:bg-gray-800 ${
           error
             ? 'border-red-400 focus-within:ring-2 focus-within:ring-red-400 dark:border-red-500'
-            : 'border-gray-300 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500 dark:border-gray-700'
+            : 'border-gray-300 focus-within:border-brand-500 focus-within:ring-2 focus-within:ring-brand-500 dark:border-gray-700'
         }`}
       >
         {config.prefix && (
