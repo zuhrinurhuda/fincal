@@ -1,6 +1,6 @@
 import type { FAQItem } from '@/types/calculator';
 
-export const kalkulatorIndexConfig = {
+export const calculatorIndexConfig = {
   title: 'Daftar Kalkulator Keuangan Online Gratis Indonesia | FinCal',
   metaDescription:
     'Daftar lengkap kalkulator keuangan online gratis — simulasi KPR, kredit motor & mobil, PPh 21, zakat, investasi, reksa dana, dan lainnya. Pilih kalkulator sesuai kebutuhan Anda.',

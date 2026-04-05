@@ -9,6 +9,7 @@ interface Props {
   calculators: HomeCalculatorCard[];
   adClient: string;
   adSlotInFeed: string;
+  adsEnabled: boolean;
 }
 
 const ALL_CATEGORIES: CalculatorCategory[] = ['Kredit', 'Investasi', 'Pajak & Zakat'];
@@ -98,14 +99,14 @@ const ICONS: Record<string, ReactNode> = {
 };
 
 const CATEGORY_COLORS: Record<CalculatorCategory, string> = {
-  Kredit: 'bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300',
-  Investasi: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300',
+  Kredit: 'bg-brand-50 text-brand-700 dark:bg-brand-950/50 dark:text-brand-300',
+  Investasi: 'bg-invest-50 text-invest-700 dark:bg-invest-950/50 dark:text-invest-300',
   'Pajak & Zakat': 'bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300',
 };
 
 const CATEGORY_ICON_COLORS: Record<CalculatorCategory, string> = {
-  Kredit: 'bg-blue-100 text-blue-600 dark:bg-blue-900/50 dark:text-blue-400',
-  Investasi: 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/50 dark:text-emerald-400',
+  Kredit: 'bg-brand-100 text-brand-600 dark:bg-brand-900/50 dark:text-brand-400',
+  Investasi: 'bg-invest-100 text-invest-600 dark:bg-invest-900/50 dark:text-invest-400',
   'Pajak & Zakat': 'bg-amber-100 text-amber-600 dark:bg-amber-900/50 dark:text-amber-400',
 };
 
@@ -140,7 +141,12 @@ function InFeedAd({ adClient, adSlot }: Readonly<{ adClient: string; adSlot: str
   );
 }
 
-export default function CalculatorGrid({ calculators, adClient, adSlotInFeed }: Readonly<Props>) {
+export default function CalculatorGrid({
+  calculators,
+  adClient,
+  adSlotInFeed,
+  adsEnabled,
+}: Readonly<Props>) {
   const [search, setSearch] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<Set<CalculatorCategory>>(new Set());
   const [sort, setSort] = useState<SortOption>('populer');
@@ -215,7 +221,7 @@ export default function CalculatorGrid({ calculators, adClient, adSlotInFeed }: 
   for (const calc of filtered) {
     gridItems.push(calc);
     cardCount++;
-    if (cardCount % AD_INTERVAL === 0) {
+    if (adsEnabled && cardCount % AD_INTERVAL === 0) {
       gridItems.push({ type: 'ad', key: `ad-${cardCount}` });
     }
   }
@@ -245,7 +251,7 @@ export default function CalculatorGrid({ calculators, adClient, adSlotInFeed }: 
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Cari kalkulator..."
-              className="w-full rounded-lg border border-gray-300 bg-white py-2.5 pr-4 pl-10 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder-gray-500 dark:focus:border-blue-400"
+              className="w-full rounded-lg border border-gray-300 bg-white py-2.5 pr-4 pl-10 text-sm text-gray-900 placeholder-gray-400 transition-colors focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder-gray-500 dark:focus:border-brand-400"
               aria-label="Cari kalkulator"
             />
           </div>
@@ -264,7 +270,7 @@ export default function CalculatorGrid({ calculators, adClient, adSlotInFeed }: 
                       onClick={() => toggleCategory(cat)}
                       className={`cursor-pointer rounded-full px-3 py-1 text-xs font-medium transition-all ${
                         active
-                          ? 'bg-blue-600 text-white shadow-sm dark:bg-blue-500'
+                          ? 'bg-brand-600 text-white shadow-sm dark:bg-brand-500'
                           : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
                       }`}
                       aria-pressed={active}
@@ -280,7 +286,7 @@ export default function CalculatorGrid({ calculators, adClient, adSlotInFeed }: 
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as SortOption)}
-              className="cursor-pointer rounded-lg border border-gray-300 bg-white px-2.5 py-1 text-xs text-gray-700 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300"
+              className="cursor-pointer rounded-lg border border-gray-300 bg-white px-2.5 py-1 text-xs text-gray-700 transition-colors focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300"
               aria-label="Urutkan"
             >
               <option value="populer">Populer</option>
@@ -302,9 +308,8 @@ export default function CalculatorGrid({ calculators, adClient, adSlotInFeed }: 
           {gridItems.map((item) => {
             if ('type' in item && item.type === 'ad') {
               return (
-                <div key={item.key} className="">
-                  {/* TODO: uncomment when AdSense is ready */}
-                  {/* <InFeedAd adClient={adClient} adSlot={adSlotInFeed} /> */}
+                <div key={item.key}>
+                  <InFeedAd adClient={adClient} adSlot={adSlotInFeed} />
                 </div>
               );
             }
@@ -314,7 +319,7 @@ export default function CalculatorGrid({ calculators, adClient, adSlotInFeed }: 
               <a
                 key={calc.slug}
                 href={`/kalkulator/${calc.slug}/`}
-                className="group flex flex-col rounded-xl border border-gray-200 bg-white p-5 transition-all hover:border-blue-400 hover:shadow-md dark:border-gray-800 dark:bg-gray-900 dark:hover:border-blue-600"
+                className="group flex flex-col rounded-xl border border-gray-200 bg-white p-5 transition-all hover:border-brand-400 hover:shadow-md dark:border-gray-800 dark:bg-gray-900 dark:hover:border-brand-600"
               >
                 <div className="mb-3 flex items-center gap-3">
                   <div
@@ -333,7 +338,7 @@ export default function CalculatorGrid({ calculators, adClient, adSlotInFeed }: 
                     </svg>
                   </div>
                   <div>
-                    <h2 className="text-sm font-semibold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400">
+                    <h2 className="text-sm font-semibold text-gray-900 transition-colors group-hover:text-brand-600 dark:text-gray-100 dark:group-hover:text-brand-400">
                       {calc.title}
                     </h2>
                     <span
@@ -346,7 +351,7 @@ export default function CalculatorGrid({ calculators, adClient, adSlotInFeed }: 
                 <p className="mt-1.5 flex-1 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
                   {calc.description}
                 </p>
-                <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-blue-600 dark:text-blue-400">
+                <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-brand-600 dark:text-brand-400">
                   Hitung sekarang
                   <svg
                     className="h-3 w-3 transition-transform group-hover:translate-x-0.5"
@@ -375,7 +380,7 @@ export default function CalculatorGrid({ calculators, adClient, adSlotInFeed }: 
               setSearch('');
               setSelectedCategories(new Set());
             }}
-            className="mt-2 cursor-pointer text-sm font-medium text-blue-600 hover:underline dark:text-blue-400"
+            className="mt-2 cursor-pointer text-sm font-medium text-brand-600 hover:underline dark:text-brand-400"
           >
             Reset filter
           </button>
