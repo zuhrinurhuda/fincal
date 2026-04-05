@@ -1,5 +1,5 @@
 ---
-import ThemeToggle from '@/components/ui/ThemeToggle';
+import ThemeToggle from '@/components/ui/ThemeToggle.astro';
 ---
 
 <header
@@ -9,7 +9,7 @@ import ThemeToggle from '@/components/ui/ThemeToggle';
     <!-- Logo -->
     <a
       href="/"
-      class="flex items-center gap-2 text-lg font-bold text-blue-600 transition-opacity hover:opacity-80 dark:text-blue-400"
+      class="flex items-center gap-2 text-lg font-bold text-brand-600 transition-opacity hover:opacity-80 dark:text-brand-400"
       aria-label="FinCal – Kalkulator Keuangan Indonesia"
     >
       <svg
@@ -44,7 +44,7 @@ import ThemeToggle from '@/components/ui/ThemeToggle';
       >
         Artikel
       </a>
-      <ThemeToggle client:load />
+      <ThemeToggle />
     </nav>
   </div>
 </header>
