@@ -14,7 +14,9 @@ const lastUpdated = '1 April 2026';
 >
   <main id="main-content">
     <Container class="py-10">
-      <article class="prose-content mx-auto max-w-3xl text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+      <article
+        class="prose-content mx-auto max-w-3xl text-sm leading-relaxed text-gray-700 dark:text-gray-300"
+      >
         <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-50">
           Kebijakan Privasi
         </h1>
@@ -23,24 +25,30 @@ const lastUpdated = '1 April 2026';
         </p>
 
         <p class="mt-6">
-          FinCal (<a href={baseUrl} class="text-blue-600 hover:underline dark:text-blue-400">fincal.id</a>) menghargai
-          privasi Anda. Kebijakan ini menjelaskan informasi apa yang kami kumpulkan, bagaimana kami menggunakannya,
-          dan hak Anda sebagai pengguna.
+          FinCal (<a href={baseUrl} class="text-brand-600 hover:underline dark:text-brand-400"
+            >fincal.id</a
+          >) menghargai privasi Anda. Kebijakan ini menjelaskan informasi apa yang kami kumpulkan,
+          bagaimana kami menggunakannya, dan hak Anda sebagai pengguna.
         </p>
 
-        <h2 class="mt-8 text-lg font-bold text-gray-900 dark:text-gray-50">1. Informasi yang Kami Kumpulkan</h2>
+        <h2 class="mt-8 text-lg font-bold text-gray-900 dark:text-gray-50">
+          1. Informasi yang Kami Kumpulkan
+        </h2>
 
-        <h3 class="mt-4 text-base font-semibold text-gray-900 dark:text-gray-100">Data Kalkulasi</h3>
+        <h3 class="mt-4 text-base font-semibold text-gray-900 dark:text-gray-100">
+          Data Kalkulasi
+        </h3>
         <p>
-          Semua data yang Anda masukkan ke kalkulator (jumlah pinjaman, tenor, suku bunga, penghasilan, dsb.)
-          diproses sepenuhnya di browser Anda (<em>client-side</em>). <strong>Data ini tidak dikirim ke server kami
-          dan tidak disimpan di manapun.</strong>
+          Semua data yang Anda masukkan ke kalkulator (jumlah pinjaman, tenor, suku bunga,
+          penghasilan, dsb.) diproses sepenuhnya di browser Anda (<em>client-side</em>). <strong
+            >Data ini tidak dikirim ke server kami dan tidak disimpan di manapun.</strong
+          >
         </p>
 
         <h3 class="mt-4 text-base font-semibold text-gray-900 dark:text-gray-100">Data Analitik</h3>
         <p>
-          Kami menggunakan <strong>Google Analytics 4 (GA4)</strong> untuk memahami bagaimana pengunjung menggunakan
-          situs kami. GA4 mengumpulkan informasi secara anonim, termasuk:
+          Kami menggunakan <strong>Google Analytics 4 (GA4)</strong> untuk memahami bagaimana pengunjung
+          menggunakan situs kami. GA4 mengumpulkan informasi secara anonim, termasuk:
         </p>
         <ul class="mt-2 list-disc space-y-1 pl-6">
           <li>Halaman yang dikunjungi dan durasi kunjungan</li>
@@ -49,11 +57,13 @@ const lastUpdated = '1 April 2026';
           <li>Sumber traffic (mesin pencari, media sosial, link langsung)</li>
         </ul>
         <p class="mt-2">
-          GA4 dijalankan melalui <strong>Partytown</strong> (web worker) sehingga tidak mempengaruhi
-          performa halaman.
+          GA4 dijalankan melalui <strong>Partytown</strong> (web worker) sehingga tidak mempengaruhi performa
+          halaman.
         </p>
 
-        <h3 class="mt-4 text-base font-semibold text-gray-900 dark:text-gray-100">Cookies dan Penyimpanan Lokal</h3>
+        <h3 class="mt-4 text-base font-semibold text-gray-900 dark:text-gray-100">
+          Cookies dan Penyimpanan Lokal
+        </h3>
         <p>Kami menggunakan:</p>
         <ul class="mt-2 list-disc space-y-1 pl-6">
           <li>
@@ -67,67 +77,76 @@ const lastUpdated = '1 April 2026';
               href="https://policies.google.com/privacy"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-blue-600 hover:underline dark:text-blue-400"
-            >Kebijakan Privasi Google</a> untuk informasi lebih lanjut.
+              class="text-brand-600 hover:underline dark:text-brand-400">Kebijakan Privasi Google</a
+            > untuk informasi lebih lanjut.
           </li>
         </ul>
 
         <h2 class="mt-8 text-lg font-bold text-gray-900 dark:text-gray-50">2. Google AdSense</h2>
         <p>
-          Situs ini menampilkan iklan melalui <strong>Google AdSense</strong>. Google dapat menggunakan
-          cookies untuk menayangkan iklan berdasarkan kunjungan Anda ke situs ini dan situs lain di internet.
-          Anda dapat menonaktifkan personalisasi iklan melalui
+          Situs ini menampilkan iklan melalui <strong>Google AdSense</strong>. Google dapat
+          menggunakan cookies untuk menayangkan iklan berdasarkan kunjungan Anda ke situs ini dan
+          situs lain di internet. Anda dapat menonaktifkan personalisasi iklan melalui
           <a
             href="https://adssettings.google.com/"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-blue-600 hover:underline dark:text-blue-400"
-          >Pengaturan Iklan Google</a>.
+            class="text-brand-600 hover:underline dark:text-brand-400">Pengaturan Iklan Google</a
+          >.
         </p>
 
-        <h2 class="mt-8 text-lg font-bold text-gray-900 dark:text-gray-50">3. Bagaimana Kami Menggunakan Informasi</h2>
+        <h2 class="mt-8 text-lg font-bold text-gray-900 dark:text-gray-50">
+          3. Bagaimana Kami Menggunakan Informasi
+        </h2>
         <p>Informasi analitik yang kami kumpulkan digunakan untuk:</p>
         <ul class="mt-2 list-disc space-y-1 pl-6">
           <li>Memahami kalkulator mana yang paling banyak digunakan</li>
           <li>Meningkatkan pengalaman pengguna dan performa situs</li>
           <li>Mengidentifikasi dan memperbaiki masalah teknis</li>
         </ul>
-        <p class="mt-2">Kami <strong>tidak</strong> menjual, menyewakan, atau membagikan data pengguna kepada pihak ketiga.</p>
+        <p class="mt-2">
+          Kami <strong>tidak</strong> menjual, menyewakan, atau membagikan data pengguna kepada pihak
+          ketiga.
+        </p>
 
         <h2 class="mt-8 text-lg font-bold text-gray-900 dark:text-gray-50">4. Hak Anda</h2>
         <p>Sebagai pengguna, Anda berhak untuk:</p>
         <ul class="mt-2 list-disc space-y-1 pl-6">
           <li>Menghapus cookies melalui pengaturan browser Anda</li>
-          <li>Menonaktifkan Google Analytics menggunakan
+          <li>
+            Menonaktifkan Google Analytics menggunakan
             <a
               href="https://tools.google.com/dlpage/gaoptout"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-blue-600 hover:underline dark:text-blue-400"
-            >Google Analytics Opt-out Browser Add-on</a>
+              class="text-brand-600 hover:underline dark:text-brand-400"
+              >Google Analytics Opt-out Browser Add-on</a
+            >
           </li>
           <li>Menonaktifkan personalisasi iklan melalui pengaturan iklan Google</li>
         </ul>
 
         <h2 class="mt-8 text-lg font-bold text-gray-900 dark:text-gray-50">5. Keamanan</h2>
         <p>
-          Situs ini dilayani melalui HTTPS untuk memastikan koneksi terenkripsi antara browser Anda dan
-          server kami. Karena semua kalkulasi dilakukan secara lokal di perangkat Anda, tidak ada data
-          sensitif yang ditransmisikan.
+          Situs ini dilayani melalui HTTPS untuk memastikan koneksi terenkripsi antara browser Anda
+          dan server kami. Karena semua kalkulasi dilakukan secara lokal di perangkat Anda, tidak
+          ada data sensitif yang ditransmisikan.
         </p>
 
         <h2 class="mt-8 text-lg font-bold text-gray-900 dark:text-gray-50">6. Tautan Eksternal</h2>
         <p>
           Situs kami mungkin berisi tautan ke situs pihak ketiga. Kami tidak bertanggung jawab atas
-          kebijakan privasi atau konten situs tersebut. Kami menyarankan Anda membaca kebijakan privasi
-          setiap situs yang Anda kunjungi.
+          kebijakan privasi atau konten situs tersebut. Kami menyarankan Anda membaca kebijakan
+          privasi setiap situs yang Anda kunjungi.
         </p>
 
-        <h2 class="mt-8 text-lg font-bold text-gray-900 dark:text-gray-50">7. Perubahan Kebijakan</h2>
+        <h2 class="mt-8 text-lg font-bold text-gray-900 dark:text-gray-50">
+          7. Perubahan Kebijakan
+        </h2>
         <p>
-          Kami dapat memperbarui kebijakan privasi ini dari waktu ke waktu. Perubahan akan diumumkan di
-          halaman ini dengan tanggal pembaruan terbaru. Penggunaan berkelanjutan atas situs ini setelah
-          perubahan dianggap sebagai persetujuan terhadap kebijakan yang diperbarui.
+          Kami dapat memperbarui kebijakan privasi ini dari waktu ke waktu. Perubahan akan diumumkan
+          di halaman ini dengan tanggal pembaruan terbaru. Penggunaan berkelanjutan atas situs ini
+          setelah perubahan dianggap sebagai persetujuan terhadap kebijakan yang diperbarui.
         </p>
 
         <h2 class="mt-8 text-lg font-bold text-gray-900 dark:text-gray-50">8. Kontak</h2>

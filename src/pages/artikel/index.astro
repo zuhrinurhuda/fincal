@@ -2,32 +2,48 @@
 import { getCollection } from 'astro:content';
 import PageLayout from '@/layouts/PageLayout.astro';
 import Container from '@/components/ui/Container.astro';
+import AdBanner from '@/components/ads/AdBanner.astro';
+import FAQSection from '@/components/seo/FAQSection.astro';
+import ArticleGrid from '@/components/article/ArticleGrid';
+import { adsConfig, adsEnabled } from '@/config/adsConfig';
 import {
-  generateArtikelIndexBreadcrumbSchema,
+  generateArticleIndexBreadcrumbSchema,
+  generateArticleItemListSchema,
+  generateArticleCollectionPageSchema,
   generateFAQSchema,
 } from '@/utils/schemaGenerators';
 import type { FAQItem } from '@/types/calculator';
+import type { ArticleListCard } from '@/types/article';
 
 const baseUrl = import.meta.env.SITE ?? 'https://fincal.id';
 const canonicalUrl = `${baseUrl}/artikel/`;
 
-const allArtikel = await getCollection('artikel');
-const sorted = allArtikel
-  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+const pageDescription =
+  'Panduan keuangan praktis untuk masyarakat Indonesia — KPR, kredit, pajak, investasi, dan zakat. Artikel informatif yang membantu Anda membuat keputusan finansial yang lebih baik.';
 
-const categories = ['Semua', 'Kredit', 'Investasi', 'Pajak & Zakat', 'Panduan Keuangan'] as const;
+const allArticle = await getCollection('article');
+console.log('allArticle', allArticle);
+const sorted = allArticle.sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
+);
 
-const CATEGORY_COLORS: Record<string, string> = {
-  'Kredit': 'bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300',
-  'Investasi': 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300',
-  'Pajak & Zakat': 'bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300',
-  'Panduan Keuangan': 'bg-purple-50 text-purple-700 dark:bg-purple-950/50 dark:text-purple-300',
-};
+const articleCards: ArticleListCard[] = sorted.map((post) => ({
+  id: post.id,
+  title: post.data.title,
+  metaDescription: post.data.metaDescription,
+  category: post.data.category,
+  tags: post.data.tags,
+  publishDate: post.data.publishDate.toISOString(),
+  featured: post.data.featured,
+}));
+
+const articleListForSchema = sorted.map((p) => ({ id: p.id, title: p.data.title }));
 
 const faqs: FAQItem[] = [
   {
     question: 'Apa topik yang dibahas di artikel FinCal?',
-    answer: 'Kami membahas panduan keuangan praktis untuk masyarakat Indonesia — mulai dari cara hitung cicilan KPR, perbedaan bunga flat dan efektif, panduan PPh 21, tips investasi, hingga kalkulator zakat.',
+    answer:
+      'Kami membahas panduan keuangan praktis untuk masyarakat Indonesia — mulai dari cara hitung cicilan KPR, perbedaan bunga flat dan efektif, panduan PPh 21, tips investasi, hingga kalkulator zakat.',
   },
   {
     question: 'Apakah artikel di FinCal gratis dibaca?',
@@ -35,147 +51,138 @@ const faqs: FAQItem[] = [
   },
   {
     question: 'Seberapa sering FinCal menerbitkan artikel baru?',
-    answer: 'Kami berusaha menerbitkan artikel baru secara rutin. Setiap artikel juga diperbarui bila ada perubahan regulasi yang relevan.',
+    answer:
+      'Kami berusaha menerbitkan artikel baru secara rutin. Setiap artikel juga diperbarui bila ada perubahan regulasi yang relevan.',
   },
 ];
 
-const breadcrumbSchema = generateArtikelIndexBreadcrumbSchema(baseUrl);
+const breadcrumbSchema = generateArticleIndexBreadcrumbSchema(baseUrl);
+const itemListSchema = generateArticleItemListSchema(articleListForSchema, baseUrl);
+const collectionPageSchema = generateArticleCollectionPageSchema(baseUrl, pageDescription);
 const faqSchema = generateFAQSchema(faqs);
 ---
 
 <PageLayout
   title="Artikel & Panduan Keuangan Indonesia | FinCal"
-  metaDescription="Panduan keuangan praktis untuk masyarakat Indonesia — KPR, kredit, pajak, investasi, dan zakat. Artikel informatif yang membantu Anda membuat keputusan finansial yang lebih baik."
+  metaDescription={pageDescription}
   canonicalUrl={canonicalUrl}
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={breadcrumbSchema} />
+    <script type="application/ld+json" set:html={collectionPageSchema} />
+    <script type="application/ld+json" set:html={itemListSchema} />
     <script type="application/ld+json" set:html={faqSchema} />
   </Fragment>
 
-  <!-- Top ad banner -->
   <div class="w-full border-b border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
-    <!-- TODO: uncomment when AdSense is ready -->
-    <!-- <AdBanner position="top" /> -->
+    <AdBanner position="top" />
   </div>
 
   <main id="main-content">
-    <Container class="py-8">
-      <!-- Breadcrumb -->
-      <nav aria-label="Breadcrumb" class="mb-5">
-        <ol class="flex flex-wrap items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
-          <li>
-            <a href="/" class="transition-colors hover:text-blue-600 dark:hover:text-blue-400">Beranda</a>
+    <Container class="py-6">
+      <nav aria-label="Breadcrumb" class="mb-4">
+        <ol
+          class="flex flex-wrap items-center gap-1 text-xs text-gray-500 dark:text-gray-400"
+          itemscope
+          itemtype="https://schema.org/BreadcrumbList"
+        >
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a
+              href="/"
+              itemprop="item"
+              class="transition-colors hover:text-brand-600 dark:hover:text-brand-400"
+            >
+              <span itemprop="name">Beranda</span>
+            </a>
+            <meta itemprop="position" content="1" />
           </li>
           <li aria-hidden="true" class="select-none">/</li>
-          <li>
-            <span class="font-medium text-gray-700 dark:text-gray-300" aria-current="page">Artikel</span>
+          <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <span
+              itemprop="name"
+              aria-current="page"
+              class="font-medium text-gray-700 dark:text-gray-300"
+            >
+              Artikel
+            </span>
+            <meta itemprop="position" content="2" />
           </li>
         </ol>
       </nav>
 
-      <h1 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-50">
+      <h1
+        class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-50"
+      >
         Artikel & Panduan Keuangan
       </h1>
-      <p class="mt-2 max-w-2xl text-base leading-relaxed text-gray-600 dark:text-gray-400">
-        Panduan praktis seputar KPR, kredit, pajak, investasi, dan zakat — ditulis khusus untuk masyarakat Indonesia.
+      <p class="mt-2 mb-6 max-w-2xl text-base leading-relaxed text-gray-600 dark:text-gray-400">
+        Panduan praktis seputar KPR, kredit, pajak, investasi, dan zakat — ditulis khusus untuk
+        pembaca Indonesia. Gunakan pencarian dan filter kategori untuk menemukan topik yang Anda
+        butuhkan.
       </p>
 
-      <!-- Category filter (static) -->
-      <div class="mt-5 flex flex-wrap gap-2">
-        {categories.map((cat) => (
-          <a
-            href={cat === 'Semua' ? '/artikel/' : `/artikel/?kategori=${encodeURIComponent(cat)}`}
-            class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-blue-600 hover:text-white dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-blue-600 dark:hover:text-white"
-          >
-            {cat}
-          </a>
-        ))}
-      </div>
-
-      <!-- Article grid + sidebar -->
-      <div class="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[1fr_280px]">
-
-        <!-- Article list -->
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_300px]">
         <div>
-          {sorted.length === 0 ? (
-            <p class="text-sm text-gray-500 dark:text-gray-400">Belum ada artikel. Segera hadir.</p>
-          ) : (
-            <div class="space-y-6">
-              {sorted.map((post) => (
-                <a
-                  href={`/artikel/${post.id}/`}
-                  class="group flex flex-col gap-2 rounded-xl border border-gray-200 bg-white p-5 transition-all hover:border-blue-400 hover:shadow-md dark:border-gray-800 dark:bg-gray-900 dark:hover:border-blue-600"
-                >
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${CATEGORY_COLORS[post.data.category] ?? ''}`}>
-                      {post.data.category}
-                    </span>
-                    <time
-                      datetime={post.data.publishDate.toISOString()}
-                      class="text-xs text-gray-500 dark:text-gray-400"
-                    >
-                      {post.data.publishDate.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
-                    </time>
-                  </div>
+          <ArticleGrid
+            posts={articleCards}
+            adClient={adsConfig.client}
+            adSlotInFeed={adsConfig.slots.inFeed}
+            adsEnabled={adsEnabled}
+            client:load
+          />
 
-                  <h2 class="text-base font-bold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400">
-                    {post.data.title}
-                  </h2>
-
-                  <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-400 line-clamp-2">
-                    {post.data.metaDescription}
-                  </p>
-
-                  <span class="mt-1 inline-flex items-center gap-1 text-xs font-medium text-blue-600 dark:text-blue-400">
-                    Baca selengkapnya
-                    <svg class="h-3 w-3 transition-transform group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-                    </svg>
-                  </span>
-                </a>
-              ))}
-            </div>
-          )}
+          <noscript>
+            <nav
+              aria-label="Daftar artikel"
+              class="mt-6 border-t border-gray-100 pt-6 dark:border-gray-800"
+            >
+              <p class="mb-3 text-sm font-medium text-gray-700 dark:text-gray-200">
+                Aktifkan JavaScript untuk filter dan urutan, atau buka artikel di bawah ini:
+              </p>
+              <ul class="space-y-2 text-sm">
+                {
+                  sorted.map((post) => (
+                    <li>
+                      <a
+                        href={`/artikel/${post.id}/`}
+                        class="text-brand-600 underline-offset-2 hover:underline dark:text-brand-400"
+                      >
+                        {post.data.title}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </nav>
+          </noscript>
         </div>
 
-        <!-- Sidebar -->
         <aside class="hidden lg:block">
           <div class="sticky top-20 space-y-6">
-            <!-- CTA card -->
-            <div class="rounded-xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-800 dark:bg-gray-900">
-              <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">Coba Kalkulator Gratis</p>
+            <div
+              class="rounded-xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-800 dark:bg-gray-900"
+            >
+              <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                Coba Kalkulator Gratis
+              </p>
               <p class="mt-1 text-xs leading-relaxed text-gray-600 dark:text-gray-400">
-                Simulasikan KPR, kredit kendaraan, pajak, zakat, dan investasi — akurat dan tanpa registrasi.
+                Simulasikan KPR, kredit kendaraan, pajak, zakat, dan investasi — akurat dan tanpa
+                registrasi.
               </p>
               <a
                 href="/kalkulator/"
-                class="mt-3 flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+                class="mt-3 flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-600"
               >
                 Lihat Semua Kalkulator
               </a>
             </div>
 
-            <!-- TODO: uncomment when AdSense is ready -->
-            <!-- <AdBanner position="sidebar" /> -->
+            <AdBanner position="sidebar" />
           </div>
         </aside>
-
       </div>
 
-      <!-- FAQ -->
-      <div class="mt-14 border-t border-gray-100 pt-10 dark:border-gray-800">
-        <h2 class="text-lg font-bold text-gray-900 dark:text-gray-50">Pertanyaan Umum</h2>
-        <dl class="mt-4 space-y-4">
-          {faqs.map((faq) => (
-            <div class="rounded-lg border border-gray-200 p-4 dark:border-gray-800">
-              <dt class="text-sm font-semibold text-gray-900 dark:text-gray-100">{faq.question}</dt>
-              <dd class="mt-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400">{faq.answer}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-
+      <FAQSection faqs={faqs} />
     </Container>
   </main>
 </PageLayout>

@@ -36,11 +36,11 @@ export default function ResultCard({
   return (
     <div ref={cardRef} className="p-5 sm:p-6">
       {/* Primary result — most prominent */}
-      <div className="mb-5 rounded-xl border border-blue-100 bg-blue-50 p-4 dark:border-blue-900/50 dark:bg-blue-950/40">
-        <p className="mb-1 text-xs font-medium tracking-wide text-blue-600 uppercase dark:text-blue-400">
+      <div className="mb-5 rounded-xl border border-brand-100 bg-brand-50 p-4 dark:border-brand-900/50 dark:bg-brand-950/40">
+        <p className="mb-1 text-xs font-medium tracking-wide text-brand-600 uppercase dark:text-brand-400">
           {result.primary.label}
         </p>
-        <p className="text-2xl font-bold tracking-tight text-blue-700 sm:text-3xl dark:text-blue-300">
+        <p className="text-2xl font-bold tracking-tight text-brand-700 sm:text-3xl dark:text-brand-300">
           {result.primary.value}
         </p>
       </div>

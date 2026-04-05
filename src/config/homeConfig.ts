@@ -30,15 +30,15 @@ export const homeConfig = {
     {
       icon: 'device',
       title: 'Akses di Semua Perangkat',
-      description:
-        'Responsif di desktop, tablet, dan handphone. Hitung kapan saja, di mana saja.',
+      description: 'Responsif di desktop, tablet, dan handphone. Hitung kapan saja, di mana saja.',
     },
   ],
 
   categories: [
     {
       name: 'Kredit & Pinjaman',
-      description: 'Simulasi cicilan KPR, kredit motor, kredit mobil, pinjol, KUR, dan pelunasan dipercepat.',
+      description:
+        'Simulasi cicilan KPR, kredit motor, kredit mobil, pinjol, KUR, dan pelunasan dipercepat.',
       color: 'blue',
       filter: 'Kredit' as const,
     },

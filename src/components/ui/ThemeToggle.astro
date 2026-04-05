@@ -1,0 +1,68 @@
+---
+// Static markup + tiny inline script — no React island, no flash on navigation.
+---
+
+<button
+  type="button"
+  id="theme-toggle"
+  class="inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-lg text-gray-500 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+  aria-label="Ubah tema"
+>
+  <span class="dark:hidden" aria-hidden="true">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </span>
+  <span class="hidden dark:inline" aria-hidden="true">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <circle cx="12" cy="12" r="4"></circle>
+      <path
+        d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+      ></path>
+    </svg>
+  </span>
+</button>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    function syncLabel() {
+      var dark = document.documentElement.classList.contains('dark');
+      btn.setAttribute('aria-label', dark ? 'Aktifkan tema terang' : 'Aktifkan tema gelap');
+      btn.setAttribute('title', dark ? 'Tema terang' : 'Tema gelap');
+    }
+    syncLabel();
+    btn.addEventListener('click', function () {
+      var dark = document.documentElement.classList.contains('dark');
+      var next = dark ? 'light' : 'dark';
+      localStorage.setItem('theme', next);
+      if (next === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      syncLabel();
+    });
+  })();
+</script>

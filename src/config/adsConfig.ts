@@ -1,5 +1,10 @@
 import type { AdsConfig } from '@/types/calculator';
 
+const envFlag = import.meta.env.PUBLIC_ADSENSE_ENABLED;
+
+/** Set `PUBLIC_ADSENSE_ENABLED=true` when units are live and approved. */
+export const adsEnabled = envFlag === true || envFlag === 'true' || envFlag === '1';
+
 export const adsConfig: AdsConfig = {
   client: import.meta.env.PUBLIC_ADSENSE_CLIENT ?? 'ca-pub-XXXXXXXXXXXXXXXX',
   slots: {

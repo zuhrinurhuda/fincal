@@ -27,6 +27,8 @@ export default defineConfig({
     plugins: [tailwindcss()],
     resolve: {
       alias: { '@': path.resolve(__dirname, 'src') },
+      // Single React instance for SSR + islands (avoids "Invalid hook call" / null useState).
+      dedupe: ['react', 'react-dom'],
     },
   },
 });

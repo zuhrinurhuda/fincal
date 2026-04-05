@@ -7,12 +7,7 @@ interface Props {
   calculatorSlug?: string;
 }
 
-export default function CTAButton({
-  href,
-  label,
-  disclaimer,
-  calculatorSlug,
-}: Readonly<Props>) {
+export default function CTAButton({ href, label, disclaimer, calculatorSlug }: Readonly<Props>) {
   return (
     <div className="mt-6">
       <a
@@ -20,7 +15,7 @@ export default function CTAButton({
         target="_blank"
         rel="noopener noreferrer nofollow"
         onClick={() => trackCtaClick(calculatorSlug ?? '', label, href)}
-        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-green-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none active:bg-green-800 sm:w-auto dark:focus:ring-offset-gray-900"
+        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-cta-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-cta-700 focus:ring-2 focus:ring-cta-500 focus:ring-offset-2 focus:outline-none active:bg-cta-800 sm:w-auto dark:focus:ring-offset-gray-900"
       >
         {label}
         <svg

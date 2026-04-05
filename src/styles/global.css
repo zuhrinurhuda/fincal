@@ -2,6 +2,51 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/**
+ * FinCal theme — single source for brand palettes.
+ * Adjust hex values here to rebrand; utilities are bg-brand-600, text-invest-500, ring-cta-500, etc.
+ */
+@theme {
+  /* Primary brand (was Tailwind blue) */
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e40af;
+  --color-brand-900: #1e3a8a;
+  --color-brand-950: #172554;
+
+  /* Investasi category accent (was emerald) */
+  --color-invest-50: #ecfdf5;
+  --color-invest-100: #d1fae5;
+  --color-invest-200: #a7f3d0;
+  --color-invest-300: #6ee7b7;
+  --color-invest-400: #34d399;
+  --color-invest-500: #10b981;
+  --color-invest-600: #059669;
+  --color-invest-700: #047857;
+  --color-invest-800: #065f46;
+  --color-invest-900: #064e3b;
+  --color-invest-950: #022c22;
+
+  /* CTA / outbound actions (was green) */
+  --color-cta-50: #f0fdf4;
+  --color-cta-100: #dcfce7;
+  --color-cta-200: #bbf7d0;
+  --color-cta-300: #86efac;
+  --color-cta-400: #4ade80;
+  --color-cta-500: #22c55e;
+  --color-cta-600: #16a34a;
+  --color-cta-700: #15803d;
+  --color-cta-800: #166534;
+  --color-cta-900: #14532d;
+  --color-cta-950: #052e16;
+}
+
 /* Prose content styles for HTML injected via `set:html` */
 .prose-content h2 {
   font-size: 1.25rem;

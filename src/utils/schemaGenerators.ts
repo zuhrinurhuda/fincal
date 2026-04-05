@@ -14,6 +14,10 @@ export type ArticleSchemaProps = {
   canonicalUrl: string;
   ogImage?: string;
   baseUrl: string;
+  /** Primary section / category label for BlogPosting */
+  articleSection?: string;
+  /** Tag labels; emitted as comma-separated keywords for structured data */
+  keywords?: string[];
 };
 
 export function generateArticleSchema(props: ArticleSchemaProps): string {
@@ -43,15 +47,17 @@ export function generateArticleSchema(props: ArticleSchemaProps): string {
       '@id': props.canonicalUrl,
     },
     ...(props.ogImage ? { image: props.ogImage } : {}),
+    ...(props.articleSection ? { articleSection: props.articleSection } : {}),
+    ...(props.keywords?.length ? { keywords: props.keywords.join(', ') } : {}),
   });
 }
 
 // ---------------------------------------------------------------------------
-// 0b. BreadcrumbList (artikel index)
+// 0b. BreadcrumbList (article index)
 //     Beranda > Artikel
 // ---------------------------------------------------------------------------
 
-export function generateArtikelIndexBreadcrumbSchema(baseUrl: string): string {
+export function generateArticleIndexBreadcrumbSchema(baseUrl: string): string {
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -73,11 +79,11 @@ export function generateArtikelIndexBreadcrumbSchema(baseUrl: string): string {
 }
 
 // ---------------------------------------------------------------------------
-// 0c. BreadcrumbList (artikel detail)
+// 0c. BreadcrumbList (article detail)
 //     Beranda > Artikel > {title}
 // ---------------------------------------------------------------------------
 
-export function generateArtikelBreadcrumbSchema(
+export function generateArticleBreadcrumbSchema(
   title: string,
   canonicalUrl: string,
   baseUrl: string
@@ -105,6 +111,45 @@ export function generateArtikelBreadcrumbSchema(
         item: canonicalUrl,
       },
     ],
+  });
+}
+
+export type ArticleIndexListItem = {
+  id: string;
+  title: string;
+};
+
+/** ItemList of all article URLs for the index page (complements CollectionPage). */
+export function generateArticleItemListSchema(
+  items: ArticleIndexListItem[],
+  baseUrl: string
+): string {
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Artikel & Panduan Keuangan FinCal',
+    numberOfItems: items.length,
+    itemListElement: items.map((post, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: post.title,
+      url: `${baseUrl}/artikel/${post.id}/`,
+    })),
+  });
+}
+
+export function generateArticleCollectionPageSchema(baseUrl: string, description: string): string {
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Artikel & Panduan Keuangan Indonesia | FinCal',
+    description,
+    url: `${baseUrl}/artikel/`,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'FinCal',
+      url: baseUrl,
+    },
   });
 }
 
@@ -145,7 +190,7 @@ export function generateBreadcrumbSchema(config: CalculatorConfig, baseUrl: stri
 //     Beranda > Kalkulator
 // ---------------------------------------------------------------------------
 
-export function generateKalkulatorIndexBreadcrumbSchema(baseUrl: string): string {
+export function generateCalculatorIndexBreadcrumbSchema(baseUrl: string): string {
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
