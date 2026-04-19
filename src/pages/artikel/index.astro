@@ -22,7 +22,6 @@ const pageDescription =
   'Panduan keuangan praktis untuk masyarakat Indonesia — KPR, kredit, pajak, investasi, dan zakat. Artikel informatif yang membantu Anda membuat keputusan finansial yang lebih baik.';
 
 const allArticle = await getCollection('article');
-console.log('allArticle', allArticle);
 const sorted = allArticle.sort(
   (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
 );

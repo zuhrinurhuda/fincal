@@ -1,0 +1,188 @@
+---
+title: "Take Home Pay setelah PPh 21: Rumus, Contoh & Cek Slip"
+metaDescription: "Take home pay setelah PPh 21: bruto, BPJS, JHT/JP, biaya jabatan, PTKP, dan tarif progresif. Estimasi cepat di Kalkulator PPh 21 FinCal."
+publishDate: 2026-04-16
+updatedDate: 2026-04-19
+author: "Tim FinCal"
+category: "Pajak & Zakat"
+tags: ["PPh 21", "take home pay", "gaji bersih", "pajak penghasilan", "PTKP"]
+relatedCalculators: ["pph21", "zakat"]
+relatedArticles:
+  ["panduan-pph-21-karyawan", "ptkp-2026-pengertian-besaran-dan-cara-memanfaatkannya"]
+featured: true
+---
+
+Gaji di kontrak jarang sama dengan yang masuk rekening. Ada **BPJS**, **JHT/JP**, lalu **PPh 21** — yang besarannya **tidak flat** karena mengikuti status **PTKP** dan lapisan tarif.
+
+Artikel ini menjelaskan **THP (take home pay)** dengan jalur **setahun–bagi 12** (berguna untuk cek konsistensi angka). Untuk pemotongan **TER** bulanan dan rekonsiliasi **Desember**, baca [panduan PPh 21 karyawan](/artikel/panduan-pph-21-karyawan/) dan [PTKP 2026](/artikel/ptkp-2026-pengertian-besaran-dan-cara-memanfaatkannya/). Estimasi cepat: [Kalkulator PPh 21 FinCal](/kalkulator/pph21/).
+
+## Apa itu take home pay?
+
+**THP** = uang yang benar-benar kamu terima setelah potongan wajib dan pajak.
+
+> **THP bulanan ≈ penghasilan bruto bulanan − iuran (BPJS/JHT/JP, dll.) − PPh 21 bulanan**
+
+Potongan yang sering muncul di slip (ilustrasi):
+
+- **BPJS Kesehatan** — bagian ditanggung karyawan (persentase mengikuti program; cek slip)
+- **JHT** — bagian ditanggung karyawan (sering **2%** dari dasar penggaji tertentu)
+- **JP** — bagian ditanggung karyawan (**1%** dengan **batas upah** yang bisa berubah — cek aturan terbaru)
+- Potongan internal perusahaan (koperasi, kasbon, dll.)
+
+{/* [UPDATE: cek persentase & batas upah JP/BPJS terbaru sebelum publish] */}
+
+**Penting:** di dunia nyata, **dasar hitung iuran** bisa **hanya gaji pokok** atau **bruto lain** — selisih itu yang bikin THP antar perusahaan beda meski angka kontrak mirip. Artikel ini memakai **satu asumsi sederhana**: persen iuran dihitung dari **penghasilan bruto bulan yang sama** agar contoh bisa direplikasi di spreadsheet.
+
+## Apa saja yang biasanya masuk penghasilan bruto (kena pajak)?
+
+**Umumnya ikut bruto**
+
+- Gaji pokok
+- Tunjangan uang (transport, jabatan, meal allowance cash)
+- Lembur, bonus, THR, komisi — sesuai saat diakui
+
+**Sering dikecualikan atau khusus aturan (cek HR & peraturan)**
+
+- Manfaat **natura** tertentu (makan di kantin, antar-jemput, dll.) sesuai ketentuan pemerintah
+- Pengobatan **reimburse** langsung ke penyedia jasa
+- Iuran yang **ditanggung perusahaan** (bukan potongan gaji)
+
+{/* [UPDATE: cek daftar objek pajak & natura terbaru sebelum publish] */}
+
+## Jalur hitung PPh (setahun, lalu dibagi 12)
+
+Langkah **edukasi** (bukan mengganti bukti potong resmi):
+
+1. **Bruto tahunan** = (gaji + tunjangan rutin) × 12 + bonus/THR tahun itu  
+2. **Kurangi biaya jabatan** — **5%** bruto tahunan, maksimal **Rp 6.000.000/tahun**  
+3. **Kurangi iuran** yang diakui sebagai pengurang (mis. **JHT/JP** karyawan sesuai aturan)  
+4. **Neto tahunan** = bruto − biaya jabatan − iuran yang memenuhi syarat  
+5. **PKP** = neto − **PTKP** (lihat [tabel PTKP](/artikel/ptkp-2026-pengertian-besaran-dan-cara-memanfaatkannya/))  
+6. **Pajak tahunan** = tarif **progresif** pada PKP  
+7. **PPh per bulan (estimasi merata)** = pajak tahunan ÷ 12  
+
+{/* [UPDATE: cek tarif progresif & batas biaya jabatan terbaru sebelum publish] */}
+
+| Lapisan PKP (per tahun) | Tarif |
+| ----------------------- | ----- |
+| s.d. Rp 60.000.000 | 5% |
+| Rp 60.000.001 – Rp 250.000.000 | 15% |
+| Rp 250.000.001 – Rp 500.000.000 | 25% |
+| Rp 500.000.001 – Rp 5.000.000.000 | 30% |
+| Di atas Rp 5.000.000.000 | 35% |
+
+Di **slip gaji Jan–Nov**, pemotongan sering mengikuti **TER** — angka per bulan **tidak harus sama** dengan “pajak tahunan ÷ 12” sampai ada **penyesuaian di akhir tahun**.
+
+## Simulasi 1: bruto Rp 8.000.000, TK/0
+
+**Asumsi:** bruto = gaji + tunjangan = **Rp 8.000.000**; **1%** BPJS Kes, **2%** JHT, **1%** JP dari bruto (JP memakai upah **s.d. batas** Rp 9.559.600/tahun — angka batas bisa berubah).
+
+| Komponen | Per bulan | Per tahun |
+| -------- | --------- | --------- |
+| Penghasilan bruto | Rp 8.000.000 | Rp 96.000.000 |
+| Biaya jabatan (5%, maks Rp 6 jt) | — | − Rp 6.000.000 |
+| JHT (2% × 12) | Rp 160.000 | − Rp 1.920.000 |
+| JP (1% × 12, dari bruto ≤ batas) | Rp 80.000 | − Rp 960.000 |
+| **Penghasilan neto** | — | **Rp 87.120.000** |
+| PTKP TK/0 | — | − Rp 54.000.000 |
+| **PKP** | — | **Rp 33.120.000** |
+| PPh 21 tahunan (5% × PKP) | — | **Rp 1.656.000** |
+| **PPh 21 per bulan** | **Rp 138.000** | — |
+
+**THP bulanan**
+
+| Komponen | Jumlah |
+| -------- | ------ |
+| Bruto | Rp 8.000.000 |
+| − BPJS Kesehatan (1%) | − Rp 80.000 |
+| − JHT (2%) | − Rp 160.000 |
+| − JP (1%) | − Rp 80.000 |
+| − PPh 21 | − Rp 138.000 |
+| **THP** | **Rp 7.542.000** |
+
+## Simulasi 2: bruto Rp 15.000.000, K/2
+
+| Komponen | Per tahun |
+| -------- | --------- |
+| Bruto | Rp 180.000.000 |
+| Biaya jabatan | − Rp 6.000.000 |
+| JHT 2% | − Rp 3.600.000 |
+| JP 1% (dari bruto, dibatasi aturan) | − Rp 1.147.152 |
+| **Neto** | **Rp 169.252.848** |
+| PTKP K/2 | − Rp 67.500.000 |
+| **PKP** | **Rp 101.752.848** |
+
+Pajak progresif: **5%** × Rp 60.000.000 + **15%** × (Rp 101.752.848 − Rp 60.000.000) ≈ **Rp 9.262.927/tahun** → **± Rp 771.911/bulan**.
+
+**THP** = Rp 15.000.000 − Rp 150.000 (Kes) − Rp 300.000 (JHT) − Rp 95.596 (JP, 1% dari batas upah) − Rp 771.911 ≈ **Rp 13.682.493**.
+
+{/* JP bulanan = 1% × min(15.000.000, 9.559.600) = 95.596 */}
+
+## Simulasi 3: bruto Rp 30.000.000, K/1
+
+Neto tahunan setelah biaya jabatan & JHT/JP (perhitungan sama pola di atas) → PKP besar → pajak memasuki lapisan **15%** dan **25%**. Hasil pembulatan yang konsisten dengan pola FinCal:
+
+- **PPh 21 per bulan** ≈ **Rp 3.305.268**  
+- **THP** ≈ **Rp 25.699.136** (30 juta − Kes 300 rb − JHT 600 rb − JP 95.596 − PPh)
+
+{/* [UPDATE: verifikasi angka simulasi 3 sebelum publish — sensitif ke pembulatan PKP] */}
+
+(Detail baris demi baris mengikuti spreadsheet yang sama dengan simulasi 1–2; kalau mau irit waktu, langsung isi [kalkulator](/kalkulator/pph21/).)
+
+## Ringkasan ilustratif (asumsi sama: iuran dari bruto)
+
+| Bruto/bulan | Status | PPh 21/bulan (kira-kira) | Total potongan (Kes+JHT+JP+PPh) | THP (kira-kira) | Efektif terpotong |
+| ----------- | ------ | ------------------------ | ------------------------------- | ---------------- | ----------------- |
+| Rp 5.000.000 | TK/0 | Rp 5.000 | Rp 205.000 | Rp 4.795.000 | 4,1% |
+| Rp 8.000.000 | TK/0 | Rp 138.000 | Rp 458.000 | Rp 7.542.000 | 5,8% |
+| Rp 10.000.000 | TK/0 | Rp 235.220 | Rp 630.816 | Rp 9.369.184 | 6,3% |
+| Rp 15.000.000 | K/2 | Rp 771.911 | Rp 1.317.507 | Rp 13.682.493 | 8,8% |
+| Rp 20.000.000 | K/1 | Rp 1.563.161 | Rp 2.258.757 | Rp 17.741.243 | 11,3% |
+| Rp 30.000.000 | K/1 | Rp 3.305.268 | Rp 4.300.864 | Rp 25.699.136 | 14,3% |
+| Rp 50.000.000 | K/3 | Rp 8.054.655 | Rp 9.650.251 | Rp 40.349.749 | 19,3% |
+
+{/* [UPDATE: cek angka terbaru sebelum publish] */}
+
+Tabel ini **bukan slip resmi** — hanya untuk melihat magnitudo. Bonus, THR, atau dasar iuran berbeda akan menggeser semua baris.
+
+## Kenapa PPh di Desember sering “aneh”?
+
+Sejak **PMK 168/2023**, pemotongan bulanan memakai **TER**, lalu di **Desember** (atau bulan terakhir) dilakukan **penyesuaian** ke pajak tahunan progresif. Bonus besar di satu bulan bisa membuat **TER** bulan itu melonjak, dan **Desember** jadi koreksi akhir tahun.
+
+## Cek slip gaji (5 menit)
+
+1. Cocokkan **komponen bruto** dengan kontrak & kebijakan tunjangan.  
+2. Pastikan **kode PTKP** di payroll = keadaan keluarga terbaru.  
+3. Bandingkan **PPh** dengan [Kalkulator PPh 21](/kalkulator/pph21/) — kalau selisih besar, tanya HR dengan bukti perhitungan.  
+4. Simpan slip untuk KPR, pinjaman, atau audit pribadi.
+
+## Yang legal untuk dicek (bukan “pagar pajak”)
+
+- **Update PTKP** lewat HR setelah nikah/anak/tanggungan.  
+- Pastikan **iuran pensiun** yang memenuhi syarat sudah masuk perhitungan pengurang.  
+- **Zakat** yang memenuhi ketentuan pengurang — simpan bukti resmi; estimasi zakat harta: [Kalkulator Zakat](/kalkulator/zakat/).  
+- Manfaat **natura** mengikuti aturan per jenis — negosiasi struktur kompensasi harus tetap patuh hukum pajak & ketenagakerjaan.
+
+## FAQ
+
+### Apakah THP dari artikel ini harus sama persis dengan slip?
+
+Belum tentu. Perusahaan punya **dasar penggaji** untuk BPJS/JP, **pembulatan**, bonus di bulan tertentu, dan **TER** — semua bisa menggeser angka.
+
+### Apakah iuran BPJS Kesehatan selalu mengurangi dasar PPh seperti di contoh?
+
+Tidak selalu diperlakukan identik di semua skenario pemotongan. Yang aman: **baca slip** dan tanya HR bagaimana sistem payroll memetakan komponen ke **penghitungan pajak**.
+
+### Bedanya metode artikel dengan TER di slip?
+
+Artikel ini menekankan **pajak tahunan progresif ÷ 12** untuk memahami “beban pajak setara bulanan”. **TER** adalah shortcut pemotongan **Jan–Nov** yang direkonsiliasi di akhir tahun.
+
+### Apakah zakat otomatis mengurangi PPh di slip?
+
+Hanya jika memenuhi syarat **pengurang** dan **dilaporkan/diproses** sesuai mekanisme yang ditentukan perpajakan — tidak otomatis hanya karena transfer ke lembaga amil.
+
+---
+
+**Siap hitung sendiri?** Coba langsung [Kalkulator PPh 21 FinCal](/kalkulator/pph21/) — gratis, tanpa registrasi, hasil instan.
+
+_Perhitungan ini edukasi berdasarkan PMK 168/2023 dan UU HPP. Kasus multi pemberi kerja, pegawai tidak tetap, atau skema insentif khusus butuh pendamping profesional atau kanal resmi [DJP](https://pajak.go.id)._

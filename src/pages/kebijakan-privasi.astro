@@ -47,8 +47,10 @@ const lastUpdated = '1 April 2026';
 
         <h3 class="mt-4 text-base font-semibold text-gray-900 dark:text-gray-100">Data Analitik</h3>
         <p>
-          Kami menggunakan <strong>Google Analytics 4 (GA4)</strong> untuk memahami bagaimana pengunjung
-          menggunakan situs kami. GA4 mengumpulkan informasi secara anonim, termasuk:
+          Jika pengukuran diaktifkan, kami menggunakan <strong>Google Analytics 4 (GA4)</strong> untuk
+          memahami bagaimana pengunjung menggunakan situs kami. GA4 mengumpulkan data penggunaan dan
+          perangkat dalam bentuk agregat; <strong>nilai yang Anda ketik di kalkulator tidak dikirim ke
+          GA4</strong>. Contoh data yang dapat tercatat meliputi:
         </p>
         <ul class="mt-2 list-disc space-y-1 pl-6">
           <li>Halaman yang dikunjungi dan durasi kunjungan</li>
@@ -57,8 +59,11 @@ const lastUpdated = '1 April 2026';
           <li>Sumber traffic (mesin pencari, media sosial, link langsung)</li>
         </ul>
         <p class="mt-2">
-          GA4 dijalankan melalui <strong>Partytown</strong> (web worker) sehingga tidak mempengaruhi performa
-          halaman.
+          GA4 dimuat melalui skrip resmi Google (<em>gtag.js</em>) dari domain Google, dengan pemuatan
+          asinkron sesuai dokumentasi Google Analytics. Kami juga mengirim <strong>peristiwa
+          penggunaan</strong> ke GA4 (misalnya kalkulator mana yang dibuka, filter pencarian singkat,
+          perluasan FAQ, metrik performa halaman seperti LCP/INP) — semuanya untuk statistik dan
+          perbaikan situs, bukan untuk menyimpan isi perhitungan finansial Anda.
         </p>
 
         <h3 class="mt-4 text-base font-semibold text-gray-900 dark:text-gray-100">
@@ -71,8 +76,9 @@ const lastUpdated = '1 April 2026';
             data pribadi.
           </li>
           <li>
-            <strong>Cookies pihak ketiga</strong> — Google Analytics dan Google AdSense dapat menempatkan
-            cookies untuk keperluan analitik dan penayangan iklan. Lihat
+            <strong>Cookies dan penyimpanan oleh Google</strong> — Google Analytics dan (jika aktif)
+            Google AdSense dapat menggunakan cookie <em>first-party</em> pada domain situs ini serta
+            teknologi di domain Google, untuk analitik dan penayangan iklan. Lihat
             <a
               href="https://policies.google.com/privacy"
               target="_blank"
@@ -84,9 +90,9 @@ const lastUpdated = '1 April 2026';
 
         <h2 class="mt-8 text-lg font-bold text-gray-900 dark:text-gray-50">2. Google AdSense</h2>
         <p>
-          Situs ini menampilkan iklan melalui <strong>Google AdSense</strong>. Google dapat
-          menggunakan cookies untuk menayangkan iklan berdasarkan kunjungan Anda ke situs ini dan
-          situs lain di internet. Anda dapat menonaktifkan personalisasi iklan melalui
+          Jika fitur iklan diaktifkan, situs dapat menampilkan iklan melalui <strong>Google AdSense</strong>.
+          Google dapat menggunakan cookies untuk menayangkan iklan berdasarkan kunjungan Anda ke situs ini
+          dan situs lain di internet. Anda dapat menonaktifkan personalisasi iklan melalui
           <a
             href="https://adssettings.google.com/"
             target="_blank"
@@ -105,8 +111,10 @@ const lastUpdated = '1 April 2026';
           <li>Mengidentifikasi dan memperbaiki masalah teknis</li>
         </ul>
         <p class="mt-2">
-          Kami <strong>tidak</strong> menjual, menyewakan, atau membagikan data pengguna kepada pihak
-          ketiga.
+          Kami <strong>tidak</strong> menjual atau menyewakan data pribadi Anda kepada pihak ketiga untuk
+          pemasaran independen. Data penggunaan situs diproses oleh <strong>penyedia layanan</strong> yang
+          kami gunakan (seperti Google untuk analitik dan iklan) sesuai konfigurasi situs dan kebijakan
+          masing-masing penyedia.
         </p>
 
         <h2 class="mt-8 text-lg font-bold text-gray-900 dark:text-gray-50">4. Hak Anda</h2>
@@ -129,8 +137,10 @@ const lastUpdated = '1 April 2026';
         <h2 class="mt-8 text-lg font-bold text-gray-900 dark:text-gray-50">5. Keamanan</h2>
         <p>
           Situs ini dilayani melalui HTTPS untuk memastikan koneksi terenkripsi antara browser Anda
-          dan server kami. Karena semua kalkulasi dilakukan secara lokal di perangkat Anda, tidak
-          ada data sensitif yang ditransmisikan.
+          dan infrastruktur kami. Nilai yang Anda masukkan ke kalkulator diproses di perangkat Anda dan
+          tidak kami simpan sebagai data perhitungan; yang tetap ada adalah komunikasi wajar saat Anda
+          memuat halaman (misalnya log teknis singkat di penyedia hosting/CDN) seperti pada situs web
+          pada umumnya.
         </p>
 
         <h2 class="mt-8 text-lg font-bold text-gray-900 dark:text-gray-50">6. Tautan Eksternal</h2>
@@ -151,9 +161,8 @@ const lastUpdated = '1 April 2026';
 
         <h2 class="mt-8 text-lg font-bold text-gray-900 dark:text-gray-50">8. Kontak</h2>
         <p>
-          Jika Anda memiliki pertanyaan tentang kebijakan privasi ini, silakan hubungi kami melalui
-          <!-- TODO: Replace with actual contact email -->
-          email di <strong>privacy@fincal.id</strong>.
+          Jika Anda memiliki pertanyaan tentang kebijakan privasi ini, silakan hubungi kami melalui email
+          di <strong>privacy@fincal.id</strong>.
         </p>
       </article>
     </Container>

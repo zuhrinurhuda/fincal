@@ -48,6 +48,7 @@ const baseUrl = import.meta.env.SITE ?? 'https://fincal.id';
 const resolvedOgImage = ogImage ?? `${baseUrl}/og/default.png`;
 const publishedISO = publishDate.toISOString();
 const updatedISO = (updatedDate ?? publishDate).toISOString();
+const showUpdatedDate = updatedDate && updatedDate.getTime() > publishDate.getTime();
 
 const articleSchema = generateArticleSchema({
   title,
@@ -311,9 +312,10 @@ const breadcrumbSchema = generateArticleBreadcrumbSchema(title, canonicalUrl, ba
                 </svg>
                 {publishDate.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
               </time>
-              {updatedDate && (
+              {showUpdatedDate && (
                 <span class="italic">
-                  Diperbarui: {updatedDate.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  Diperbarui:{' '}
+                  {updatedDate!.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
                 </span>
               )}
             </div>
