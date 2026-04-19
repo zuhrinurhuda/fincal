@@ -7,15 +7,14 @@ import {
   generateSoftwareAppSchema,
   generateHowToSchema,
 } from '@/utils/schemaGenerators';
-import { adsConfig } from '@/config/adsConfig';
+import { adsConfig, adsEnabled } from '@/config/adsConfig';
 import Header from '@/components/ui/Header.astro';
 import Footer from '@/components/ui/Footer.astro';
 import Analytics from '@/components/analytics/Analytics.astro';
 import WebVitals from '@/components/analytics/WebVitals.astro';
 import Container from '@/components/ui/Container.astro';
-// TODO: uncomment when AdSense is ready
-// import AdBanner from '@/components/ads/AdBanner.astro';
-// import AdInArticle from '@/components/ads/AdInArticle.astro';
+import AdBanner from '@/components/ads/AdBanner.astro';
+import AdInArticle from '@/components/ads/AdInArticle.astro';
 import Breadcrumb from '@/components/seo/Breadcrumb.astro';
 import FAQSection from '@/components/seo/FAQSection.astro';
 import MethodSection from '@/components/seo/MethodSection.astro';
@@ -84,28 +83,32 @@ const hasLongContent = calculatorConfig.seoContent.length > 600;
       })();
     </script>
 
-    <!-- GA4 via Partytown (off main thread) -->
+    <!-- GA4 -->
     <Analytics />
 
     <!-- AdSense: deferred until idle to protect LCP/INP -->
-    <script is:inline define:vars={{ adClient: adsConfig.client }}>
-      (function () {
-        function load() {
-          if (document.querySelector('script[src*="adsbygoogle"]')) return;
-          var s = document.createElement('script');
-          s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
-          s.async = true;
-          s.crossOrigin = 'anonymous';
-          s.setAttribute('data-ad-client', adClient);
-          document.head.appendChild(s);
-        }
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(load, { timeout: 3000 });
-        } else {
-          setTimeout(load, 2000);
-        }
-      })();
-    </script>
+    {
+      adsEnabled && (
+        <script is:inline define:vars={{ adClient: adsConfig.client }}>
+          (function () {
+            function load() {
+              if (document.querySelector('script[src*="adsbygoogle"]')) return;
+              var s = document.createElement('script');
+              s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+              s.async = true;
+              s.crossOrigin = 'anonymous';
+              s.setAttribute('data-ad-client', adClient);
+              document.head.appendChild(s);
+            }
+            if ('requestIdleCallback' in window) {
+              requestIdleCallback(load, { timeout: 3000 });
+            } else {
+              setTimeout(load, 2000);
+            }
+          })();
+        </script>
+      )
+    }
 
     <!-- Fonts: system stack (no web font request = faster LCP) -->
     <style>
@@ -119,15 +122,22 @@ const hasLongContent = calculatorConfig.seoContent.length > 600;
   <body class="min-h-screen bg-white text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100">
     <Header />
 
-    <!-- Top ad: fixed min-height reserves space before AdSense loads (prevents CLS) -->
-    <div class="w-full border-b border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
-      <!-- TODO: uncomment when AdSense is ready -->
-      <!-- <AdBanner position="top" /> -->
-    </div>
+    {
+      adsEnabled && (
+        <div class="w-full border-b border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
+          <AdBanner position="top" />
+        </div>
+      )
+    }
 
     <main id="main-content">
       <Container>
-        <div class="grid grid-cols-1 gap-8 py-8 lg:grid-cols-[1fr_300px]">
+        <div
+          class:list={[
+            'grid grid-cols-1 gap-8 py-8',
+            adsEnabled && hasLongContent && 'lg:grid-cols-[1fr_300px]',
+          ]}
+        >
           <!-- Main article column -->
           <article>
             <Breadcrumb config={calculatorConfig} />
@@ -141,16 +151,18 @@ const hasLongContent = calculatorConfig.seoContent.length > 600;
               {calculatorConfig.description}
             </p>
 
-            <!-- TODO: uncomment when AdSense is ready -->
-            <!-- <AdInArticle /> -->
+            {adsEnabled && <AdInArticle />}
 
             <!-- React calculator island: injected by the page via slot -->
             <slot />
 
-            <div class="mt-8">
-              <!-- TODO: uncomment when AdSense is ready -->
-              <!-- <AdInArticle /> -->
-            </div>
+            {
+              adsEnabled && (
+                <div class="mt-8">
+                  <AdInArticle />
+                </div>
+              )
+            }
 
             <!-- SEO content: fully server-rendered, zero hydration -->
             <section
@@ -158,25 +170,22 @@ const hasLongContent = calculatorConfig.seoContent.length > 600;
               set:html={calculatorConfig.seoContent}
             />
 
-            <!-- TODO: uncomment when AdSense is ready -->
-            <!-- {hasLongContent && <AdInArticle />} -->
+            {adsEnabled && hasLongContent && <AdInArticle />}
 
             <FAQSection faqs={calculatorConfig.faqs} />
             <MethodSection sources={calculatorConfig.methodSection} />
             <RelatedCalculators slugs={calculatorConfig.relatedCalculators} />
           </article>
 
-          <!-- Sidebar: desktop only, sticky ad -->
-          <aside class="hidden lg:block">
-            {
-              hasLongContent && (
+          {
+            adsEnabled && hasLongContent && (
+              <aside class="hidden lg:block">
                 <div class="sticky top-4">
-                  {/* TODO: uncomment when AdSense is ready */}
-                  {/* <AdBanner position="sidebar" /> */}
+                  <AdBanner position="sidebar" />
                 </div>
-              )
-            }
-          </aside>
+              </aside>
+            )
+          }
         </div>
       </Container>
     </main>

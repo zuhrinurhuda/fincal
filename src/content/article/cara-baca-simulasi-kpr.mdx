@@ -1,0 +1,222 @@
+---
+title: "Cara Baca Simulasi KPR Bank: Kolom, Bunga & Total Bayar"
+metaDescription: "Cara baca simulasi KPR bank: kolom amortisasi, peralihan bunga fixed-floating, biaya di luar tabel. Cocokkan angka di Kalkulator KPR FinCal sebelum akad."
+publishDate: 2026-04-16
+updatedDate: 2026-04-19
+author: "Tim FinCal"
+category: "Kredit"
+tags: ["KPR", "simulasi KPR", "tabel amortisasi", "kredit rumah", "tips KPR"]
+relatedCalculators: ["kpr", "pelunasan-kpr"]
+relatedArticles:
+  [
+    "cara-hitung-cicilan-kpr",
+    "biaya-tersembunyi-kpr",
+    "bunga-flat-vs-bunga-efektif",
+    "penghasilan-minimal-kpr-2026",
+  ]
+featured: false
+---
+
+Bank biasanya ngasih **simulasi KPR** sebelum akad: tabel cicilan, asumsi bunga, dan total bayar selama tenor. Banyak orang baru sadar isinya setelah cicilan naik atau ada pos biaya di luar ekspektasi — padahal sebagian besar “kejutan” itu bisa kebaca kalau tabelnya dipahami baris per baris.
+
+Artikel ini jadi panduan praktis: apa arti tiap kolom, di mana letak **peralihan bunga fixed → floating**, dan apa yang **sering tidak masuk** lembar simulasi. Untuk rumus dasar anuitas, lanjut ke [cara hitung cicilan KPR](/artikel/cara-hitung-cicilan-kpr/); untuk label bunga di produk lain, baca [bunga flat vs bunga efektif](/artikel/bunga-flat-vs-bunga-efektif/). Setelah punya angka dari bank, cocokkan dengan [Kalkulator KPR](/kalkulator/kpr/) FinCal supaya ada titik tolak independen.
+
+## Kenapa simulasi KPR penting dibaca sampai habis?
+
+Di lembar itu tersimpan gambaran:
+
+- **Total uang** yang keluar selama tenor (bukan cuma cicilan bulan pertama)
+- **Kapan cicilan bisa naik** saat masa fixed habis dan asumsi floating dipakai
+- **Porsi bunga vs pokok** — di awal tenor, bunga biasanya mendominasi
+- **Konsekuensi** telat bayar (denda, riwayat **SLIK** di bawah pengawasan **OJK**) atau rencana [pelunasan dipercepat](/kalkulator/pelunasan-kpr/)
+
+Contoh klasik: cicilan naik ratusan ribu per bulan setelah bulan ke-36 — itu bisa sudah tercermin di simulasi sebagai **angsuran float estimasi**, bukan “tiba-tiba bank iseng naikkan”.
+
+## Anatomi dokumen simulasi KPR
+
+### Bagian 1: Ringkasan kredit
+
+Biasanya halaman pertama berisi parameter utama:
+
+| Parameter           | Contoh ilustrasi        |
+| ------------------- | ----------------------- |
+| Plafon              | Rp 400.000.000          |
+| Tenor               | 240 bulan (20 tahun)    |
+| Suku bunga fixed    | 8,00% p.a. (36 bln)     |
+| Suku bunga floating | 11,50% p.a. (estimasi)  |
+| Angsuran fixed      | Rp 3.343.220/bulan      |
+| Angsuran float      | Rp 4.198.630/bulan (est.) |
+| Provisi             | Rp 4.000.000            |
+| Administrasi        | Rp 1.500.000            |
+
+{/* [UPDATE: cek angka terbaru sebelum publish] */}
+
+**Yang perlu kamu cermati:**
+
+- **Floating adalah estimasi** — bank mencantumkan asumsi suku bunga; realisasinya mengikuti **kebijakan internal + acuan pasar** (misalnya terkait suku bunga acuan Bank Indonesia dan spread). Tanyakan rumusnya dan apakah ada **cap** (batas atas) per periode review.
+- **Jarak fixed vs float** — di contoh di atas, cicilan estimasi naik kira-kira **Rp 855 ribu/bulan** setelah bulan ke-36. Tanya diri sendiri: buffer kas bulanan masih aman?
+- **Tenor dalam bulan** — pastikan sama dengan yang kamu pilih (240 ≠ “20 tahun” kalau ada pembulan jadwal).
+
+### Bagian 2: Tabel amortisasi
+
+Ini intinya: cicilan per bulan, pembagian **pokok / bunga**, dan **sisa pokok**.
+
+| Bulan | Angsuran   | Pokok      | Bunga      | Sisa pokok   |
+| ----- | ---------- | ---------- | ---------- | ------------ |
+| 1     | Rp 3.343.220 | Rp 676.553 | Rp 2.666.667 | Rp 399.323.447 |
+| 2     | Rp 3.343.220 | Rp 681.059 | Rp 2.662.156 | Rp 398.642.388 |
+| …     | …          | …          | …          | …            |
+| 36    | Rp 3.343.220 | Rp 810.244 | Rp 2.532.970 | Rp 378.637.512 |
+| 37    | Rp 4.198.630 | Rp 563.205 | Rp 3.635.421 | Rp 378.074.307 |
+| …     | …          | …          | …          | …            |
+| 240   | Rp 4.198.630 | Rp 4.158.469 | Rp 40.161  | Rp 0         |
+
+{/* [UPDATE: cek angka terbaru sebelum publish] */}
+
+**Kolom angsuran** — total debit rekening per bulan (selama skema bunga itu berlaku). Di fase fixed, angsuran sering **tetap** (anuitas); saat pindah ke asumsi floating, bank memuat **angsuran baru** berdasarkan sisa pokok dan suku bunga baru.
+
+**Kolom pokok** — bagian yang benar-benar menurunkan utang. Di bulan pertama contoh di atas, dari Rp 3.343.220 hanya sekitar **Rp 676 ribu** yang memotong pokok; sisanya bunga. Itu normal di awal tenor.
+
+**Kolom bunga** — biaya atas saldo pokok sebelum pembayaran bulan itu. Turun seiring saldo (pola menurun pada suku bunga tetap per periode).
+
+**Kolom sisa pokok** — utang setelah cicilan bulan tersebut. Di contoh, setelah **36 bulan** total pokok yang terlunasi baru sekitar **Rp 21,4 juta** dari Rp 400 juta — jadi mayoritas pembayaran 3 tahun pertama pergi ke **bunga**, bukan pelunasan pokok.
+
+### Bagian 3: Baris peralihan fixed → floating
+
+Cari baris di mana **angsuran dan/atau suku bunga** berubah — di contoh antara bulan **36** dan **37**.
+
+- Bulan 36 → angsuran **Rp 3.343.220** (fixed)
+- Bulan 37 → angsuran **Rp 4.198.630** (asumsi floating)
+- Lonjakan ≈ **+Rp 855.410/bulan** (ilustrasi)
+
+**Pertanyaan yang layak diajukan ke bank:**
+
+1. Bunga floating di simulasi dihitung dari apa (spread + acuan apa)?
+2. Seberapa sering direview (per 3 / 6 / 12 bulan)?
+3. Ada **notifikasi** sebelum suku bunga cicilan berubah?
+4. Ada **batas atas** kenaikan per tahap?
+
+### Bagian 4: Ringkasan total pembayaran
+
+Contoh ringkasan di lembar terakhir (ilustrasi):
+
+| Komponen               | Jumlah ilustrasi |
+| ---------------------- | ---------------- |
+| Total angsuran         | Rp 932.567.040   |
+| Total pokok            | Rp 400.000.000   |
+| Total bunga            | Rp 532.567.040   |
+| Provisi + admin (contoh) | Rp 5.500.000   |
+| **Perkiraan total**    | **± Rp 938.067.040** |
+
+{/* [UPDATE: cek angka terbaru sebelum publish] */}
+
+Total bunga sebesar itu artinya **biaya waktu & risiko kredit** atas tenor panjang — bukan “salah hitung”, tapi memang pola anuitas. Yang penting: kamu **sadar** sebelum tanda tangan.
+
+Angka di simulasi juga **belum** mencakup pajak dan biaya akad seperti BPHTB, notaris, asuransi single premium, dan lainnya — rangkum di [biaya tersembunyi KPR](/artikel/biaya-tersembunyi-kpr/).
+
+## Yang sering terlewat
+
+### 1. Floating hanyalah proyeksi
+
+Catatan kecil di kaki tabel biasanya menyebut bahwa suku bunga mengambang **bisa berubah**. Kalau suku bunga acuan naik, cicilan setelah review bisa **lebih tinggi** dari baris “estimasi” di kertas hari ini.
+
+### 2. Premi asuransi belum tentu ada di tabel
+
+Kalau premi jiwa/kebakaran **dibundling** ke cicilan, angka di amortisasi bisa sudah include — atau belum. **Tanya eksplisit:** “Angsuran di tabel ini sudah termasuk premi asuransi atau belum?”
+
+### 3. Sisa pokok untuk take over / pindah bank
+
+Kolom sisa pokok di akhir masa fixed berguna kalau kamu berencana **take over** ke bank lain: itu titik awal negosiasi bank baru (plus appraisal ulang, biaya, dll.).
+
+### 4. Hari dalam setahun & cicilan pertama
+
+Beberapa bank memakai basis **actual/360** atau sejenisnya; cicilan pertama bisa **sedikit beda** dari baris 1 tabel karena sisa hari sejak akad. Ini hal teknis yang wajar ditanyakan ke officer.
+
+### 5. Tanggal akad vs jatuh tempo
+
+Cicilan pertama sering sebulan setelah akad; bisa ada **bunga berjalan** atau penyesuaian kalender — minta penjelasan jika ada baris di luar tabel reguler.
+
+## Verifikasi mandiri sebelum tanda tangan
+
+Rumus anuitas klasik (ringkas):
+
+> **Cicilan = P × r × (1+r)ⁿ ÷ ((1+r)ⁿ − 1)**
+
+dengan **P** = pokok, **r** = bunga tahunan ÷ 12, **n** = jumlah bulan — selengkapnya di artikel [cara hitung cicilan KPR](/artikel/cara-hitung-cicilan-kpr/).
+
+Atau langsung isi parameter yang sama di [Kalkulator KPR FinCal](/kalkulator/kpr/). Kalau selisih besar dengan lembar bank, minta penjelasan: metode pembulatan, tanggal angsuran, produk asuransi, atau asumsi suku bunga.
+
+Rencana melunasi lebih awal? Cek juga [Kalkulator pelunasan KPR dipercepat](/kalkulator/pelunasan-kpr/) dan klausul penalti di draft PK.
+
+## Checklist pertanyaan ke bank
+
+**Suku bunga**
+
+- [ ] Rumus bunga floating (acuan + spread) hari ini dan contoh jika acuan naik/turun 1%
+- [ ] Frekuensi review dan mekanisme pemberitahuan
+- [ ] Ada atau tidaknya **cap** kenaikan per periode
+
+**Cicilan**
+
+- [ ] Sudah termasuk premi asuransi atau belum
+- [ ] Tanggal jatuh tempo pertama dan pembulatan hari
+
+**Pelunasan & pindah bank**
+
+- [ ] Penalti pelunasan dipercepat (besaran & masa berlaku)
+- [ ] Prosedur take over keluar/masuk bank
+
+**Telat bayar**
+
+- [ ] Denda dan **grace period** (jumlah hari)
+- [ ] Dampak ke SLIK / kolektibilitas
+
+{/* [UPDATE: cek angka terbaru sebelum publish] */}
+
+## Simulasi tenor: cicilan lebih ringan ≠ total murah
+
+Ilustrasi pembulatan — **bukan** penawaran bank:
+
+**KPR Rp 400.000.000, bunga tetap 10% p.a. (contoh sederhana)**
+
+|                    | 15 tahun   | 20 tahun   | 25 tahun   |
+| ------------------ | ---------- | ---------- | ---------- |
+| Cicilan/bulan (kira-kira) | Rp 4.300.000 | Rp 3.860.000 | Rp 3.636.000 |
+| Total bunga (kira-kira)   | Rp 374 jt | Rp 526 jt | Rp 691 jt |
+
+{/* [UPDATE: cek angka terbaru sebelum publish] */}
+
+Memanjangkan tenor menurunkan cicilan bulanan, tapi **menambah total bunga** — trade-off ini sebaiknya disadari, bukan cuma “pilih yang paling ringan per bulan”. Untuk kapasitas bayar setelah cicilan naik (fase float), baca juga [penghasilan minimal untuk KPR](/artikel/penghasilan-minimal-kpr-2026/) sebagai referensi arah.
+
+Produk **syariah** punya penyajian dokumen lain (margin/jual beli, dll.) — bandingkan kerangka aturan di [KPR syariah vs konvensional](/artikel/kpr-syariah-vs-konvensional/).
+
+## Setelah baca simulasi
+
+1. Minta simulasi dari **minimal 2–3 bank** dengan parameter **identik** (plafon, tenor, asumsi mulai) supaya apple-to-apple.
+2. Uji skenario: tambahkan misalnya **1–2%** pada asumsi floating — masih nyaman?
+3. Tambahkan **biaya akad** dari artikel biaya KPR ke perhitungan kas keluar.
+4. Baca **PK/perjanjian kredit**, bukan cuma lembar simulasi — yang mengikat di meja hukum adalah perjanjian.
+
+## FAQ
+
+### Apa bedanya lembar simulasi dengan perjanjian kredit (PK)?
+
+Simulasi adalah **ilustrasi** berdasarkan asumsi tanggal dan suku bunga pada saat dicetak. **PK** adalah kontrak yang mengikat syarat hukum, penalti, denda, dan mekanisme perubahan suku bunga. Kalau ada beda interpretasi, yang mengacu biasanya teks PK + lampiran.
+
+### Kenapa cicilan pertama di rekening bisa sedikit beda dari baris pertama tabel?
+
+Bisa karena **pembulatan**, basis hari (30/360 vs actual), atau jeda antara tanggal akad dan tanggal pemotongan pertama. Minta penjelasan satu baris “cicilan efektif” dari officer jika selisihnya membingungkan.
+
+### Apakah angka bunga floating di simulasi “dijamin” sampai akhir tenor?
+
+Tidak. Itu proyeksi. Yang perlu kamu pahami adalah **cara review** dan **faktor apa** yang menggerakkan suku bunga pinjamanmu setelah masa fixed.
+
+### Apakah total di halaman akhir simulasi sudah termasuk BPHTB dan notaris?
+
+Biasanya **belum**. Itu biaya transaksi dan pajak di luar kredit — detailnya di [biaya tersembunyi KPR](/artikel/biaya-tersembunyi-kpr/).
+
+---
+
+**Siap hitung sendiri?** Coba langsung [Kalkulator KPR FinCal](/kalkulator/kpr/) — gratis, tanpa registrasi, hasil instan. Untuk skenario lunas lebih cepat, buka juga [Kalkulator pelunasan KPR dipercepat](/kalkulator/pelunasan-kpr/).
+
+_Angka dalam artikel ini ilustrasi edukasi. Simulasi aktual mengikuti bank, produk, tanggal akad, dan kebijakan yang berlaku pada saat kamu mengajukan._

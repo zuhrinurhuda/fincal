@@ -1,103 +1,146 @@
 ---
-title: 'Cara Hitung Cicilan KPR Sendiri: Rumus, Contoh, dan Simulasi'
-metaDescription: 'Pelajari cara menghitung cicilan KPR sendiri dengan rumus anuitas, contoh perhitungan lengkap, dan faktor-faktor yang memengaruhi besaran cicilan KPR Anda.'
+title: "Cara Hitung Cicilan KPR: Rumus Anuitas & Contoh"
+metaDescription: "Cara hitung cicilan KPR (anuitas): rumus, contoh, dan faktor suku bunga & tenor. Verifikasi angka bank pakai Kalkulator KPR FinCal sebelum akad."
 publishDate: 2026-04-01
-author: 'Tim FinCal'
-category: 'Kredit'
-tags: ['KPR', 'cicilan rumah', 'simulasi KPR', 'kredit pemilikan rumah', 'anuitas']
-relatedCalculators: ['kpr', 'pelunasan-kpr']
-relatedArticles: ['bunga-flat-vs-bunga-efektif']
+updatedDate: 2026-04-19
+author: "Tim FinCal"
+category: "Kredit"
+tags: ["KPR", "cicilan rumah", "simulasi KPR", "kredit pemilikan rumah", "anuitas"]
+relatedCalculators: ["kpr", "pelunasan-kpr"]
+relatedArticles:
+  [
+    "cara-baca-simulasi-kpr",
+    "bunga-flat-vs-bunga-efektif",
+    "biaya-tersembunyi-kpr",
+    "penghasilan-minimal-kpr-2026",
+  ]
 featured: true
 ---
 
-Membeli rumah dengan KPR adalah keputusan finansial jangka panjang. Sebelum mengajukan ke bank, penting untuk memahami bagaimana cicilan KPR dihitung agar Anda tidak kaget dengan angka yang tertera di perjanjian kredit.
+KPR itu utang panjang. Kalau kamu paham **cara bank menghitung cicilan** (biasanya **anuitas**), angka di lembar simulasi jadi lebih kebaca — dan bisa dicek ulang pakai [Kalkulator KPR](/kalkulator/kpr/) FinCal sebelum tanda tangan.
 
-## Komponen Cicilan KPR
+Artikel ini fokus ke **satu skenario klasik**: suku bunga tetap per periode, cicilan bulanan **sama**, komposisi pokok–bunga berubah tiap bulan. Untuk membaca lembar bank yang berisi **fixed lalu floating**, lanjut ke [cara baca simulasi KPR](/artikel/cara-baca-simulasi-kpr/). Untuk label bunga di brosur kendaraan vs KPR, baca [bunga flat vs bunga efektif](/artikel/bunga-flat-vs-bunga-efektif/).
 
-Setiap cicilan KPR terdiri dari dua komponen utama:
+## Komponen cicilan KPR
 
-1. **Angsuran pokok** — bagian yang melunasi utang Anda
-2. **Bunga** — biaya yang dibebankan bank atas saldo utang yang belum lunas
+Tiap cicilan umumnya punya dua bagian:
 
-Metode yang paling umum digunakan bank di Indonesia adalah **metode anuitas**, di mana cicilan bulanan tetap sama sepanjang tenor, tetapi komposisi pokok dan bunga berubah setiap bulannya.
+1. **Angsuran pokok** — yang menurunkan saldo utang
+2. **Bunga** — biaya atas saldo pokok yang belum lunas
 
-## Rumus Cicilan KPR (Anuitas)
+Di **metode anuitas** (yang umum di KPR konvensional Indonesia), **total cicilan per bulan tetap** selama suku bunga periode itu tidak berubah; yang naik-turun proporsinya adalah **pokok vs bunga**.
+
+## Rumus cicilan KPR (anuitas)
 
 > **M** = **P** × (**r**(1 + **r**)ⁿ) ÷ ((1 + **r**)ⁿ − 1)
 
-(_Dalam notasi matematika: M = P × [r(1+r)^n] / [(1+r)^n − 1]._)
+(_Notasi lain: M = P × [r(1+r)ⁿ] / [(1+r)ⁿ − 1]._)
 
 Keterangan:
 
 - **M** = cicilan per bulan
-- **P** = pokok pinjaman
-- **r** = suku bunga per bulan (suku bunga tahunan ÷ 12)
-- **n** = jumlah bulan (tenor dalam tahun × 12)
+- **P** = pokok pinjaman setelah DP
+- **r** = suku bunga **per bulan** = suku bunga tahunan ÷ 12
+- **n** = jumlah bulan = tenor (tahun) × 12
 
-## Contoh Perhitungan
+{/* [UPDATE: cek angka terbaru sebelum publish] */}
 
-**Skenario:** Harga rumah Rp 500.000.000, uang muka 20% (Rp 100.000.000), bunga 10% per tahun, tenor 20 tahun.
+**Catatan:** rumus ini mengasumsikan **bunga efektif tahunan** dibagi rata per bulan, tanpa biaya tambahan di dalam cicilan (misalnya premi asuransi yang dibundling). Bank bisa memakai basis hari (30/360, actual/365) sehingga ada **selisih kecil** pembulatan.
 
-- Pokok pinjaman (P) = Rp 400.000.000
-- Suku bunga bulanan (r) = 10% ÷ 12 = 0,00833
-- Jumlah bulan (n) = 20 × 12 = 240
+## Contoh perhitungan
 
-**Langkah perhitungan:**
+**Skenario:** harga rumah Rp 500.000.000, uang muka 20% (**Rp 100.000.000**), suku bunga **10% per tahun**, tenor **20 tahun**.
 
-1. Hitung (1 + r)ⁿ = (1,00833)²⁴⁰ ≈ 7,328
-2. Pembilang: r × (1+r)ⁿ = 0,00833 × 7,328 = 0,06104
-3. Penyebut: (1+r)ⁿ - 1 = 7,328 - 1 = 6,328
-4. Faktor anuitas = 0,06104 ÷ 6,328 = 0,00965
-5. **M = Rp 400.000.000 × 0,00965 = Rp 3.860.000/bulan**
+- **P** = Rp 400.000.000  
+- **r** = 10% ÷ 12 = **1/120** ≈ 0,008333… (lebih presisi dari membulatkan ke 0,00833 saja)  
+- **n** = 20 × 12 = **240**
 
-## Tabel Amortisasi (5 Bulan Pertama)
+Dengan kalkulator (disarankan untuk menghindari error pembulatan tangan):
 
-| Bulan | Cicilan      | Pokok      | Bunga        | Sisa Utang     |
-| ----- | ------------ | ---------- | ------------ | -------------- |
-| 1     | Rp 3.860.000 | Rp 526.667 | Rp 3.333.333 | Rp 399.473.333 |
-| 2     | Rp 3.860.000 | Rp 531.057 | Rp 3.328.944 | Rp 398.942.276 |
-| 3     | Rp 3.860.000 | Rp 535.484 | Rp 3.324.519 | Rp 398.406.792 |
-| 4     | Rp 3.860.000 | Rp 539.947 | Rp 3.320.057 | Rp 397.866.845 |
-| 5     | Rp 3.860.000 | Rp 544.447 | Rp 3.315.557 | Rp 397.322.398 |
+1. Hitung (1 + r)ⁿ = (1 + 1/120)²⁴⁰ ≈ **7,328**
+2. **M** = 400.000.000 × (r × 7,328) ÷ (7,328 − 1) ≈ **Rp 3.860.087/bulan**
 
-Perhatikan bahwa di bulan-bulan awal, sebagian besar cicilan adalah **bunga**, bukan pokok. Baru di pertengahan hingga akhir tenor proporsi pokok mulai mendominasi.
+{/* [UPDATE: cek angka terbaru sebelum publish] */}
 
-## Faktor yang Memengaruhi Cicilan KPR
+Angka **Rp 3.860.000** yang sering dipakai sebagai pembulan “kasar” ke ribuan terdekat — untuk rekonsiliasi dengan bank, pakai angka lebih presisi atau langsung [Kalkulator KPR](/kalkulator/kpr/).
 
-### 1. Besar Pinjaman
+## Tabel amortisasi (lima bulan pertama)
 
-Semakin besar pokok pinjaman, semakin besar cicilan. Menaikkan uang muka adalah cara paling langsung untuk menurunkan cicilan.
+Contoh dengan **M = Rp 3.860.087** (pembulatan dari rumus anuitas), **r = 10%/12**, **P awal = Rp 400.000.000**. Bunga per bulan dibulatkan ke rupiah terdekat — pola yang mirip praktik bank (detail pembulatan bisa beda):
 
-### 2. Suku Bunga
+| Bulan | Cicilan      | Pokok      | Bunga      | Sisa utang     |
+| ----- | ------------ | ---------- | ---------- | -------------- |
+| 1     | Rp 3.860.087 | Rp 526.754 | Rp 3.333.333 | Rp 399.473.246 |
+| 2     | Rp 3.860.087 | Rp 531.143 | Rp 3.328.944 | Rp 398.942.103 |
+| 3     | Rp 3.860.087 | Rp 535.569 | Rp 3.324.518 | Rp 398.406.534 |
+| 4     | Rp 3.860.087 | Rp 540.033 | Rp 3.320.054 | Rp 397.866.501 |
+| 5     | Rp 3.860.087 | Rp 544.533 | Rp 3.315.554 | Rp 397.321.968 |
 
-Setiap kenaikan 1% suku bunga bisa menaikkan cicilan secara signifikan untuk tenor panjang. Selalu bandingkan suku bunga dari beberapa bank sebelum memutuskan.
+{/* [UPDATE: cek angka terbaru sebelum publish] */}
+
+Di awal tenor, **bunga** jauh lebih besar dari **pokok**; menjelang akhir, pola berbalik. Itu sebabnya “extra payment” di awal tenor sangat memotong total bunga — bisa kamu eksplorasi di [Kalkulator pelunasan KPR dipercepat](/kalkulator/pelunasan-kpr/).
+
+## Faktor yang memengaruhi besar cicilan
+
+### 1. Pokok pinjaman
+
+Semakin besar **P** setelah DP, semakin besar **M**. Naikkan DP = turunkan cicilan (dan total bunga).
+
+### 2. Suku bunga
+
+Kenaikan suku bunga tahunan sedikit saja bisa mengangkat **M** lumayan terutama di tenor panjang. Bandingkan penawaran beberapa bank; ingat perbedaan **fixed vs floating** di [simulasi KPR](/artikel/cara-baca-simulasi-kpr/).
 
 ### 3. Tenor
 
-Tenor lebih panjang → cicilan lebih kecil per bulan, tapi **total bunga yang dibayar jauh lebih besar**.
+Tenor lebih panjang → **cicilan bulanan** lebih kecil, tapi **total bunga** lebih besar.
 
-| Tenor    | Cicilan/bulan | Total Bunga    |
-| -------- | ------------- | -------------- |
-| 10 tahun | Rp 5.290.000  | Rp 234.800.000 |
-| 15 tahun | Rp 4.300.000  | Rp 374.000.000 |
-| 20 tahun | Rp 3.860.000  | Rp 526.400.000 |
-| 25 tahun | Rp 3.636.000  | Rp 690.800.000 |
+Ilustrasi dengan **P = Rp 400 juta**, bunga **10% per tahun** (skenario sama seperti contoh utama):
 
-_Asumsi: pinjaman Rp 400 juta, bunga 10% per tahun._
+| Tenor    | Cicilan/bulan (kira-kira) | Total bunga (kira-kira) |
+| -------- | ------------------------- | ----------------------- |
+| 10 tahun | Rp 5.286.029              | Rp 234.323.537          |
+| 15 tahun | Rp 4.298.420              | Rp 373.715.685          |
+| 20 tahun | Rp 3.860.087              | Rp 526.420.779          |
+| 25 tahun | Rp 3.634.803              | Rp 690.440.895          |
 
-### 4. Suku Bunga Tetap vs Floating
+{/* [UPDATE: cek angka terbaru sebelum publish] */}
 
-- **Fixed rate**: cicilan terjamin sama selama periode fixed (biasanya 1–5 tahun pertama)
-- **Floating rate**: cicilan bisa naik atau turun mengikuti suku bunga acuan (BI Rate)
+### 4. Fixed vs floating
 
-Setelah periode fixed berakhir, banyak nasabah terkejut karena cicilan mereka naik signifikan. Pastikan Anda menghitung kemampuan bayar dengan skenario suku bunga floating.
+- **Fixed:** **M** stabil selama periode fixed (selama suku bunga periode itu dianggap konstan sesuai PK).
+- **Floating:** setelah review, bank menetapkan suku bunga baru → **M** berubah mengikuti rumus yang sama dengan **P** = sisa pokok saat itu.
 
-## Batas Kemampuan Cicilan
+Acuan pasar sering dikaitkan dengan **suku bunga acuan Bank Indonesia** + spread bank — detailnya tanya ke officer, bukan ditebak dari artikel.
 
-Bank umumnya menerapkan aturan bahwa **total cicilan tidak boleh melebihi 30–40% dari penghasilan bersih**. Jika gaji Rp 10.000.000/bulan, maksimal cicilan yang direkomendasikan adalah Rp 3.000.000–4.000.000.
+## Cicilan vs biaya lain & “kemampuan bayar”
 
-Untuk menghitung lebih akurat termasuk tabel amortisasi lengkap, gunakan kalkulator KPR FinCal.
+Rumus di atas hanya **pokok + bunga**. Di dunia nyata, ada **provisi, admin, asuransi**, dan biaya akad seperti di [biaya tersembunyi KPR](/artikel/biaya-tersembunyi-kpr/).
+
+Bank sering memakai aturan kasar: **angsuran tidak jauh di atas 30–40%** penghasilan bersih (kebijakan tiap bank berbeda).
+{/* [UPDATE: cek angka terbaru sebelum publish] */}
+
+Itu **bukan** saran FinCal untuk persentase pasti — hanya kerangka yang sering dipakai di industri. Untuk gambaran penghasilan vs plafon, baca juga [penghasilan minimal untuk KPR](/artikel/penghasilan-minimal-kpr-2026/).
+
+## FAQ
+
+### Apakah rumus ini pasti sama persis dengan angka bank?
+
+Belum tentu. Bank bisa memakai **pembulatan**, basis hari, tanggal akad vs tanggal angsuran pertama, atau menambahkan **premi** ke dalam debit bulanan. Rumus di sini untuk **memahami pola** dan **order of magnitude**; angka final mengikuti simulasi resmi bank.
+
+### Kalau suku bunga saya fixed 3 tahun lalu floating, apakah satu rumus cukup?
+
+Tidak. Kamu hitung **per fase**: selama fixed, gunakan suku bunga fixed; saat pindah floating, bank akan set **suku baru** atas sisa pokok → **M** baru. Itulah kenapa lembar simulasi punya **baris peralihan** — lihat [cara baca simulasi KPR](/artikel/cara-baca-simulasi-kpr/).
+
+### Apakah KPR syariah memakai rumus anuitas yang sama?
+
+Tidak selalu. Produk syariah memakai **struktur akad** lain (margin, jual beli, dll.); angka “cicilan” mungkin mirip secara cashflow tapi **landasan hukum dan rumus** beda. Lihat [KPR syariah vs konvensional](/artikel/kpr-syariah-vs-konvensional/).
+
+### Kenapa bulan pertama bunga saya “tebal” sekali?
+
+Karena bunga proporsional ke **saldo awal** yang masih besar. Itu fitur sistem anuitas, bukan kesalahan — makanya strategi pelunasan lebih awal impactful.
 
 ---
 
-_Angka di atas adalah ilustrasi. Suku bunga riil berbeda di setiap bank dan dapat berubah sewaktu-waktu._
+**Siap hitung sendiri?** Coba langsung [Kalkulator KPR FinCal](/kalkulator/kpr/) — gratis, tanpa registrasi, hasil instan. Untuk skenario melunasi lebih cepat, pakai [Kalkulator pelunasan KPR dipercepat](/kalkulator/pelunasan-kpr/).
+
+_Angka di artikel ini untuk edukasi. Suku bunga, pembulatan, dan biaya aktual mengikuti bank dan perjanjian kredit kamu._
