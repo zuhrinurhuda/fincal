@@ -1,0 +1,110 @@
+---
+title: "Bunga Fixed vs Floating: Cara Kerja & Dampak ke Cicilan KPR"
+metaDescription: "Bunga fixed vs floating di KPR: kenapa bank pakai dua fase, cara kerja floating, dan dampaknya ke cicilan bulanan. Simulasikan di Kalkulator KPR FinCal."
+publishDate: 2026-04-21
+author: "Tim FinCal"
+category: "Kredit"
+intent: "informasional"
+tags: ["kpr", "bunga-kpr", "bunga-fixed", "bunga-floating", "kredit-rumah"]
+relatedCalculators: ["kpr", "pelunasan-kpr"]
+relatedArticles: [
+	"bunga-flat-vs-efektif",
+	"cara-hitung-cicilan-kpr",
+	"cara-baca-simulasi-kpr",
+	"biaya-tersembunyi-kpr"
+]
+featured: false
+---
+
+Kalau kamu pernah lihat simulasi KPR, pasti ketemu dua istilah: **bunga fixed** dan **bunga floating**. Di brosur angkanya sering cuma satu kalimat kecil ("fixed 3 tahun, floating 11%"), tapi dampaknya ke cicilan bisa lumayan. Dan biasanya baru terasa di bulan ke-37, saat cicilanmu tiba-tiba naik ratusan ribu.
+
+Artikel ini bakal jelasin apa itu bunga fixed dan floating, kenapa KPR Indonesia hampir selalu pakai kombinasi keduanya, dan bagaimana menghitung dampaknya ke cicilan bulananmu biar kamu bisa antisipasi, bukan kaget.
+
+## Bunga fixed dan floating dalam satu napas
+
+Sebelum jauh, satu klarifikasi dulu: **bunga fixed vs floating bukan konsep yang sama dengan bunga flat vs efektif**. Bunga flat dan efektif bicara tentang *cara menghitung bunga* (dari pokok awal vs dari sisa utang). Sedangkan bunga fixed dan floating bicara tentang *apakah angka bunganya berubah selama tenor*. Dua sumbu beda yang sering dikira satu. Kalau belum paham, baca [bunga flat vs efektif](/artikel/bunga-flat-vs-efektif/) sebelum lanjut di artikel ini.
+
+**Bunga fixed** artinya angkanya dikunci untuk periode tertentu. Kalau bank bilang "fixed 8% selama 3 tahun," maka selama 36 bulan pertama cicilanmu dihitung pakai bunga 8%. Apapun yang terjadi di pasar, angka itu nggak berubah.
+
+**Bunga floating** artinya angkanya menyesuaikan kondisi pasar. Biasanya bank punya formula semacam "suku bunga dasar kredit bank + margin tertentu" atau acuan ke suku bunga Bank Indonesia. Kalau acuan pasar naik, bunga-mu ikut naik. Kalau turun, secara teori ikut turun juga, walau dalam praktiknya bank sering lebih responsif ke kenaikan dibanding penurunan.
+
+Di KPR Indonesia, kamu hampir selalu dapat **kombinasi keduanya**: fixed di awal (umumnya 1-5 tahun), lalu floating sampai akhir tenor. Produk KPR murni fixed sepanjang 20 tahun jarang sekali ditemukan di pasar konvensional.
+
+## Kenapa KPR Indonesia pakai struktur dua fase
+
+Bank nggak iseng pilih struktur ini. Ada dua alasan utama.
+
+**Dari sisi marketing.** Angka fixed rendah di depan bikin cicilan bulan pertama terlihat nyaman. "KPR bunga 6,5% fixed 3 tahun" lebih mudah dijual dibanding "KPR floating 10,5% dari awal." Pembeli rumah cenderung fokus ke cicilan awal saat membandingkan penawaran, jadi bank yang punya fixed rendah unggul narik calon nasabah.
+
+**Dari sisi manajemen risiko.** Bank mendanai KPR pakai dana yang biayanya juga berubah (deposito, obligasi, pinjaman antar-bank). Kalau bunga pasar naik tajam di tahun ke-10 tapi KPR kamu masih terkunci di 7%, bank yang nombok. Dengan floating, risiko suku bunga jangka panjang dibagi ke nasabah. Bukan ditanggung sendiri oleh bank.
+
+Itu sebabnya fixed 20 tahun hampir nggak ada. Secara matematis bank bisa saja menawarkannya, tapi harganya bakal tinggi karena "premi" risiko bunga jangka panjang dibebankan ke depan. Fixed pendek + floating panjang lebih masuk akal untuk kedua belah pihak, asal nasabahnya ngerti apa yang ditandatangani.
+
+## Cara kerja floating di lapangan
+
+Floating bukan artinya bank bebas naikkan bunga sesuka hati. Ada mekanisme yang harusnya tertulis di perjanjian kredit.
+
+**Formula dasar: acuan + spread.** Bank ambil satu angka referensi, umumnya Suku Bunga Dasar Kredit (SBDK) bank sendiri atau suku bunga acuan Bank Indonesia, lalu tambahkan *margin* yang besarnya bervariasi antar bank. Contoh: "SBDK KPR + 2,5%." Kalau SBDK KPR bank 8%, bunga floating-nya jadi 10,5%.
+
+{/* [UPDATE: cek BI rate dan SBDK terkini sebelum publish] */}
+
+**Frekuensi review.** Tiap bank punya periode berbeda untuk menyesuaikan floating rate. Ada yang 3 bulan sekali, ada yang per semester, ada yang tahunan. Biasanya tertulis di perjanjian kredit, tapi jarang dikomunikasikan di brosur.
+
+**Ada batas atas, ada yang nggak.** Beberapa bank kasih batas atas (*cap*) kenaikan floating per periode (misalnya "tidak naik lebih dari 2% per review"). Bank lain nggak kasih batas atas sama sekali. Ini yang bikin floating dari dua bank dengan angka awal sama bisa berbeda drastis setelah 10 tahun.
+
+**Kenapa estimasi di simulasi sering meleset.** Saat akad, bank kasih estimasi floating berdasarkan kondisi pasar saat itu. Kalau akad di 2022 saat suku bunga rendah, estimasi mungkin 9,5%. Tapi di 2026 kondisi sudah beda, jadi realisasi bisa 11% atau 12%. Ini bukan "bank bohong", ini risiko pasar yang memang dibagi ke nasabah sejak awal.
+
+Yang sering nggak dibaca detail: lembar simulasi biasanya sudah memuat kolom "angsuran float estimasi" terpisah dari "angsuran fixed." Cara baca-nya dibahas di [cara baca simulasi KPR](/artikel/cara-baca-simulasi-kpr/).
+
+## Dampak ke cicilan bulananmu
+
+Supaya konkret, ambil skenario ini: plafon Rp400 juta, tenor 20 tahun (240 bulan), fixed 8% selama 3 tahun, lalu floating dengan beberapa skenario.
+
+| Fase                        | Bunga | Cicilan/bulan (kira-kira) |
+| --------------------------- | ----- | ------------------------- |
+| Fixed (bulan 1-36)          | 8%    | Rp3.345.000               |
+| Floating skenario ringan    | 10%   | Rp3.690.000               |
+| Floating skenario sedang    | 11%   | Rp3.880.000               |
+| Floating skenario berat     | 12%   | Rp4.070.000               |
+
+{/* [UPDATE: angka ilustrasi anuitas — verifikasi pakai kalkulator resmi sebelum publish] */}
+
+Selisih dari fase fixed ke skenario sedang sekitar Rp535 ribu per bulan, atau sekitar Rp6,4 juta per tahun. Kalau pengeluaran rumah tangga kamu pas-pasan di fase fixed, kenaikan ini bisa berarti.
+
+Rumus yang dipakai untuk hitung angka di atas adalah anuitas standar. Detailnya dibahas di [cara hitung cicilan KPR](/artikel/cara-hitung-cicilan-kpr/), atau kamu bisa langsung coba skenario sendiri di [Kalkulator KPR](/kalkulator/kpr/).
+
+Yang bisa kamu lakukan untuk antisipasi fase floating:
+
+- **Pelunasan dipercepat di fase fixed.** Saat bunga masih dikunci rendah, tambahan pembayaran ke pokok langsung menggerus sisa utang. Efeknya dobel: total bunga turun sepanjang tenor, dan saat masuk floating, basis pokoknya sudah lebih kecil. Simulasinya bisa kamu eksplor di [Kalkulator Pelunasan KPR Dipercepat](/kalkulator/pelunasan-kpr/).
+
+- **Take over ke bank lain.** Kalau floating di bank lama terasa kemahalan dibanding penawaran bank lain, kamu bisa pindah (take over atau refinancing). Ada biaya di depan (provisi bank baru, penalti bank lama kalau ada, biaya notaris), tapi kalau selisih bunganya lumayan dan sisa tenor masih panjang, bisa worth it.
+
+- **Negosiasi ulang dengan bank lama.** Bank nggak mau kehilangan nasabah yang lancar bayar ke kompetitor. Kalau track record cicilanmu bagus, minta review bunga. Hasilnya nggak dijamin, tapi sering kali bank mau kasih diskon kecil dibanding kehilangan debitur.
+
+- **Baca simulasi sampai habis di awal.** Banyak "kejutan" floating sebenarnya sudah tergambar di lembar simulasi yang dikasih bank. Tinggal kebaca atau nggak.
+
+Intinya, fase floating bukan sesuatu yang menimpa tiba-tiba. Struktur dan rentang angkanya sudah disampaikan di depan. Yang perlu kamu lakukan adalah memperlakukannya sebagai bagian dari total biaya KPR, bukan "nanti aja dipikir belakangan".
+
+## FAQ
+
+### Bisa nggak ambil KPR fixed sepanjang tenor?
+
+Secara teori bisa, dan beberapa bank atau produk syariah menawarkan fixed sampai 10 tahun. Tapi fixed 20-30 tahun hampir nggak ada di pasar Indonesia konvensional. Semakin panjang periode fixed, bunganya semakin tinggi karena bank harus *price in* risiko pasar jangka panjang. Dalam banyak kasus, fixed panjang dengan bunga tinggi belum tentu lebih murah dibanding fixed pendek + floating, kalau dihitung total bayar sepanjang tenor.
+
+### Kenapa bunga floating di simulasi sering meleset dari kenyataan?
+
+Karena estimasi floating pakai asumsi pasar saat akad, bukan prediksi masa depan. Bank nggak bisa (dan nggak mau) menjanjikan angka spesifik untuk 15-20 tahun ke depan. Cara cek apakah estimasinya masuk akal: lihat suku bunga acuan dan SBDK bank saat akad, lalu bandingkan dengan produk KPR sejenis di pasar. Kalau jauh di bawah rata-rata, kemungkinan estimasinya optimistis.
+
+### Ada batas atas (*cap*) untuk kenaikan floating?
+
+Tergantung bank dan produknya. Beberapa bank menawarkan batas atas kenaikan per periode review (misalnya maksimal naik 2% per review), beberapa tidak. Ini termasuk pertanyaan penting saat akad. Minta penjelasan tertulis di perjanjian kredit, bukan cuma lisan dari officer.
+
+### Kalau sudah masuk fase floating dan naik terus, bisa pindah bank?
+
+Bisa, lewat proses take over atau refinancing. Bank baru melunasi KPR kamu di bank lama, lalu kamu lanjut cicil di bank baru dengan skema baru. Ada biaya yang harus diperhitungkan (provisi bank baru, penalti bank lama, biaya notaris), jadi hitung *break-even*-nya dulu sebelum eksekusi. Kalau selisih bunga cuma 0,5% dan sisa tenor tinggal 3 tahun, biasanya biaya pindah lebih besar dari penghematan.
+
+---
+
+*Artikel ini bersifat edukatif, bukan saran finansial. Keputusan keuangan adalah tanggung jawab pribadi. Untuk produk spesifik, konsultasikan dengan penyedia jasa keuangan terdaftar OJK.*
+
+**Mau lihat berapa cicilanmu kalau floating naik 2%?** Coba [Kalkulator KPR FinCal](/kalkulator/kpr/). Gratis, tanpa registrasi, tinggal ganti angka bunga dan lihat efeknya langsung.
